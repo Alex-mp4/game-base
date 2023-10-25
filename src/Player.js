@@ -4,7 +4,7 @@ export default class Player {
   constructor(game) {
     this.game = game
     this.width = 32
-    this.height = 64
+    this.height = 32
     this.x = this.game.width / 2 - this.width / 2
     this.y = this.game.height / 2 - this.height / 2
 
@@ -46,13 +46,6 @@ export default class Player {
 
     this.y += this.speedY
     this.x += this.speedX
-
-    if (this.ammoTimer > this.ammoInterval && this.ammo < this.maxAmmo) {
-      this.ammoTimer = 0
-      this.ammo++
-    } else {
-      this.ammoTimer += deltaTime
-    }
 
     // projectiles
     this.projectiles.forEach((projectile) => {
