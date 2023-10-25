@@ -14,11 +14,6 @@ export default class Player {
     this.speedY = 0
     this.maxSpeed = 6
 
-    this.maxAmmo = 20
-    this.ammo = 20
-    this.ammoTimer = 0
-    this.ammoInterval = 500
-
     this.lives = 10
   }
 
@@ -98,19 +93,12 @@ export default class Player {
       mouseY - (this.y + this.height / 2),
       mouseX - (this.x + this.width / 2)
     )
-
-    if (this.ammo > 0) {
-      this.ammo--
-      this.projectiles.push(
-        new Projectile(
-          this.game,
-          this.x + this.width / 2,
-          this.y + this.height / 2,
-          angle
-        )
-      )
-    } else {
-      console.log('out of ammo')
-    }
+    this.projectiles.push(
+      new Projectile(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        angle
+      ))
   }
 }

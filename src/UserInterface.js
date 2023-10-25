@@ -16,8 +16,7 @@ export default class UserInterface {
     context.textAlign = 'left'
     context.font = `${this.fontSize}px ${this.fontFamily}`
     context.fillText(`Lives: ${this.game.player.lives}`, 20, 30)
-    context.fillText(`Ammo: ${this.game.player.ammo}`, 20, 60)
-    context.fillText(`Time: ${(this.game.gameTime * 0.001).toFixed(1)}`, 20, 90)
+    context.fillText(`Time: ${(this.game.gameTime * 0.001).toFixed(1)}`, 20, 60)
 
     if (this.game.gameOver) {
       context.textAlign = 'center'

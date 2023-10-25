@@ -18,6 +18,7 @@ export default class Game {
     this.gameTime = 0
     this.enemies = []
     this.enemyTimer = 0
+    this.weaponTimer = 0
     this.enemyInterval = 1000
 
     this.player = new Player(this)
@@ -72,6 +73,14 @@ export default class Game {
       })
     })
     this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
+
+    if (this.weaponTimer > 1000) {
+      this.player.shoot(this.input.mouseX, this.input.mouseY)
+      this.weaponTimer = 0
+    }
+    else {
+      this.weaponTimer += deltaTime
+    }
   }
 
   draw(context) {

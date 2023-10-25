@@ -38,9 +38,5 @@ export default class InputHandler {
       this.mouseX = event.clientX - this.game.canvasPosition.left
       this.mouseY = event.clientY - this.game.canvasPosition.top
     })
-
-    window.addEventListener('mousedown', (event) => {
-      this.game.player.shoot(this.mouseX, this.mouseY)
-    })
   }
 }
