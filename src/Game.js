@@ -3,6 +3,8 @@ import Player from './Player.js'
 import UserInterface from './UserInterface.js'
 import Pumpkin from './Pumpkin.js'
 import Drop from './Drop.js'
+import Shoot from './Shoot.js'
+import Slash from './Slash.js'
 export default class Game {
   constructor(width, height, canvasPosition) {
     this.width = width
@@ -11,15 +13,25 @@ export default class Game {
     this.input = new InputHandler(this)
     this.ui = new UserInterface(this)
     this.keys = []
-    this.enemies = []
     this.gameOver = false
     this.gravity = 1
     this.debug = false
     this.gameTime = 0
+
+    this.damageTimer = 0
+    this.damageInterval = 400
+
     this.enemies = []
     this.enemyTimer = 0
-    this.weaponTimer = 0
-    this.enemyInterval = 1000
+    this.enemyInterval = 2000
+
+    this.projectiles = []
+
+    this.gunTimer = 0
+    this.gunInterval = 1000
+
+    this.slashTimer = 0
+    this.slashInterval = 2500
 
     this.player = new Player(this)
   }
@@ -53,10 +65,16 @@ export default class Game {
       enemy.update(this.player)
       if (this.checkCollision(this.player, enemy)) {
         if (enemy.type === 'enemy') {
-          this.player.lives--
-          enemy.markedForDeletion = true
+          if (this.damageTimer > this.damageInterval) {
+            this.player.lives--
+            this.damageTimer = 0
+          }
+          else {
+            this.damageTimer += deltaTime
+          }
         }
         if (enemy.type === 'drop') {
+          this.gunInterval -= 10
           enemy.markedForDeletion = true
         }
       }
@@ -66,27 +84,40 @@ export default class Game {
             console.log("Drop hit")
           }
           else {
-            if (enemy.lives > 1) {
-              enemy.lives -= projectile.damage
-            } else {
-              if (Math.random() < 100) {
+            if (enemy.lives < 1) {
+              if (Math.random() < 0.2) {
                 this.enemies.push(new Drop(this, enemy.x, enemy.y))
               }
               enemy.markedForDeletion = true
+            } else {
+              enemy.lives -= projectile.damage
             }
-            projectile.markedForDeletion = true
+            if (projectile.type === 'slash') {
+              console.log('Slash hit')
+            }
+            else {
+              projectile.markedForDeletion = true
+            }
           }
         }
       })
     })
     this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
 
-    if (this.weaponTimer > 1000) {
+    if (this.gunTimer > this.gunInterval) {
       this.player.shoot(this.input.mouseX, this.input.mouseY)
-      this.weaponTimer = 0
+      this.gunTimer = 0
     }
     else {
-      this.weaponTimer += deltaTime
+      this.gunTimer += deltaTime
+    }
+
+    if (this.slashTimer > this.slashInterval) {
+      this.player.slash(this.input.mouseX, this.input.mouseY)
+      this.slashTimer = 0
+    }
+    else {
+      this.slashTimer += deltaTime
     }
   }
 

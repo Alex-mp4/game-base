@@ -17,3 +17,9 @@ Enemy.js {
 }
 
 Player.js(weapon[0,1, etc])
+
+Drop rates for weapons/upgrades
+Activate them over time
+Create more weapons
+Border on game
+Graphics

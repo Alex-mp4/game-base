@@ -1,4 +1,6 @@
 import Projectile from './Projectile.js'
+import Shoot from './Shoot.js'
+import Slash from './Slash.js'
 
 export default class Player {
   constructor(game) {
@@ -86,12 +88,31 @@ export default class Player {
       mouseY - (this.y + this.height / 2),
       mouseX - (this.x + this.width / 2)
     )
+
     this.projectiles.push(
-      new Projectile(
+      new Shoot(
         this.game,
         this.x + this.width / 2,
         this.y + this.height / 2,
         angle
       ))
+
+  }
+
+  slash(mouseX, mouseY) {
+    // get angle between player and mouse
+    const angle = Math.atan2(
+      mouseY - (this.y + this.height / 2),
+      mouseX - (this.x + this.width / 2)
+    )
+
+    this.projectiles.push(
+      new Slash(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        angle
+      ))
+
   }
 }

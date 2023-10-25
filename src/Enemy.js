@@ -13,10 +13,10 @@ export default class Enemy {
   update() {
     this.y += this.speedY
     this.x += this.speedX
-    if (this.x < 0 || this.x > this.game.width) {
+    if (this.x < 0 || this.x > this.game.x) {
       this.markedForDeletion = true
     }
-    if (this.y < 0 || this.y > this.game.height) {
+    if (this.y < 0 || this.y > this.game.y) {
       this.markedForDeletion = true
     }
   }
