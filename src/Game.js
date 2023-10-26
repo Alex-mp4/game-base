@@ -5,6 +5,7 @@ import Pumpkin from './Pumpkin.js'
 import Drop from './Drop.js'
 import Shoot from './Shoot.js'
 import Slash from './Slash.js'
+
 export default class Game {
   constructor(width, height, canvasPosition) {
     this.width = width
@@ -25,15 +26,17 @@ export default class Game {
     this.enemyTimer = 0
     this.enemyInterval = 2000
 
-    this.projectiles = []
-
+    this.gunUpgradeAmount = 0
     this.gunTimer = 0
     this.gunInterval = 1000
 
+    this.slashUpgradeAmount = 0
     this.slashTimer = 0
-    this.slashInterval = 2500
+    this.slashInterval = Infinity
 
     this.player = new Player(this)
+    this.shoot = new Shoot(this)
+    this.slash = new Slash(this)
   }
 
   update(deltaTime) {
@@ -74,7 +77,25 @@ export default class Game {
           }
         }
         if (enemy.type === 'drop') {
-          this.gunInterval -= 10
+          let rollAffectedWeapon = Math.floor(Math.random() * 2)
+          let rollStatUpgrade = Math.floor(Math.random() * 3)
+          console.log(rollAffectedWeapon)
+          console.log(rollStatUpgrade)
+          if (rollAffectedWeapon == 0) {
+            if (rollStatUpgrade == 0) { this.gunInterval -= 10 }
+            else if (rollStatUpgrade == 1) { this.shoot.damage += 100 }
+            else if (rollStatUpgrade == 2) { this.shoot.speed += 100 }
+            this.gunUpgradeAmount++
+          }
+          else if (rollAffectedWeapon == 1) {
+            if (this.slashUpgradeAmount = 0) { this.slashInterval = 2500 }
+            else {
+              if (rollStatUpgrade == 0) { this.slashInterval -= 20 }
+              else if (rollStatUpgrade == 1) { this.slash.damage += 100 }
+              else if (rollStatUpgrade == 2) { this.slash.speed += 100 }
+            }
+            this.slashUpgradeAmount++
+          }
           enemy.markedForDeletion = true
         }
       }
@@ -85,7 +106,7 @@ export default class Game {
           }
           else {
             if (enemy.lives < 1) {
-              if (Math.random() < 0.2) {
+              if (Math.random() < 1) {
                 this.enemies.push(new Drop(this, enemy.x, enemy.y))
               }
               enemy.markedForDeletion = true
