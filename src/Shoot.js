@@ -12,6 +12,10 @@ export default class Shoot extends Projectile {
         this.speed = 400
         this.damage = 10
 
+        this.upgradeAmount = 0
+        this.timer = 0
+        this.interval = 1000
+
         this.color = 'yellow'
         this.type = 'shoot'
     }

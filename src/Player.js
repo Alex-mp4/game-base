@@ -1,6 +1,6 @@
-import Projectile from './Projectile.js'
 import Shoot from './Shoot.js'
 import Slash from './Slash.js'
+import Radius from './Radius.js'
 
 export default class Player {
   constructor(game) {
@@ -112,6 +112,16 @@ export default class Player {
         this.x + this.width / 2,
         this.y + this.height / 2,
         angle
+      ))
+
+  }
+
+  radius() {
+    this.projectiles.push(
+      new Radius(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2
       ))
 
   }

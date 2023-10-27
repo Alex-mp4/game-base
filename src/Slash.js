@@ -12,8 +12,12 @@ export default class Slash extends Projectile {
         this.speed = 300
         this.damage = 20
 
+        this.upgradeAmount = 0
         this.timer = 0
-        this.interval = 400
+        this.interval = Infinity
+
+        this.disTimer = 0
+        this.disInterval = 400
 
         this.color = 'yellow'
         this.type = 'slash'
@@ -32,12 +36,12 @@ export default class Slash extends Projectile {
             this.markedForDeletion = true
         }
 
-        if (this.timer > this.interval) {
+        if (this.disTimer > this.disInterval) {
             this.markedForDeletion = true
-            this.timer = 0
+            this.disTimer = 0
         }
         else {
-            this.timer += deltaTime
+            this.disTimer += deltaTime
         }
     }
 }

@@ -3,8 +3,10 @@ import Player from './Player.js'
 import UserInterface from './UserInterface.js'
 import Pumpkin from './Pumpkin.js'
 import Drop from './Drop.js'
+import Projectile from './Projectile.js'
 import Shoot from './Shoot.js'
 import Slash from './Slash.js'
+import Radius from './Radius.js'
 
 export default class Game {
   constructor(width, height, canvasPosition) {
@@ -26,20 +28,17 @@ export default class Game {
     this.enemyTimer = 0
     this.enemyInterval = 2000
 
-    this.gunUpgradeAmount = 0
-    this.gunTimer = 0
-    this.gunInterval = 1000
-
-    this.slashUpgradeAmount = 0
-    this.slashTimer = 0
-    this.slashInterval = Infinity
+    this.projectiles = []
 
     this.player = new Player(this)
+    this.projectile = new Projectile(this)
     this.shoot = new Shoot(this)
     this.slash = new Slash(this)
+    this.radius = new Radius(this)
   }
 
   update(deltaTime) {
+    //console.log("Shoot: " + this.shoot.upgradeAmount, this.shoot.interval, this.shoot.damage, this.shoot.speed + " Slash: " + this.slash.upgradeAmount, this.slash.interval, this.slash.damage, this.slash.speed)
     if (!this.gameOver) {
       this.gameTime += deltaTime
     }
@@ -77,33 +76,37 @@ export default class Game {
           }
         }
         if (enemy.type === 'drop') {
-          let rollAffectedWeapon = Math.floor(Math.random() * 2)
-          let rollStatUpgrade = Math.floor(Math.random() * 3)
-          console.log(rollAffectedWeapon)
-          console.log(rollStatUpgrade)
+          let rollAffectedWeapon = Math.floor(Math.random() * 3)
+          let rollStatUpgrade = Math.floor(Math.random() * 2)
+          console.log("Affect weapon: " + rollAffectedWeapon)
+          console.log("Affect upgrade: " + rollStatUpgrade)
           if (rollAffectedWeapon == 0) {
-            if (rollStatUpgrade == 0) { this.gunInterval -= 10 }
+            if (rollStatUpgrade == 0) { this.shoot.interval -= 50 }
             else if (rollStatUpgrade == 1) { this.shoot.damage += 100 }
-            else if (rollStatUpgrade == 2) { this.shoot.speed += 100 }
-            this.gunUpgradeAmount++
+            this.shoot.upgradeAmount++
           }
           else if (rollAffectedWeapon == 1) {
-            if (this.slashUpgradeAmount = 0) { this.slashInterval = 2500 }
+            if (this.slash.upgradeAmount == 0) { this.slash.interval = 2500 }
             else {
-              if (rollStatUpgrade == 0) { this.slashInterval -= 20 }
+              if (rollStatUpgrade == 0) { this.slash.interval -= 100 }
               else if (rollStatUpgrade == 1) { this.slash.damage += 100 }
-              else if (rollStatUpgrade == 2) { this.slash.speed += 100 }
             }
-            this.slashUpgradeAmount++
+            this.slash.upgradeAmount++
+          }
+          else if (rollAffectedWeapon == 2) {
+            if (this.radius.upgradeAmount == 0) { this.radius.interval = 500 }
+            else {
+              if (rollStatUpgrade == 0) { this.radius.interval -= 100 }
+              else if (rollStatUpgrade == 1) { this.radius.damage += 100 }
+            }
+            this.radius.upgradeAmount++
           }
           enemy.markedForDeletion = true
         }
       }
       this.player.projectiles.forEach((projectile) => {
         if (this.checkCollision(projectile, enemy)) {
-          if (enemy.type === 'drop') {
-            console.log("Drop hit")
-          }
+          if (enemy.type === 'drop') { }
           else {
             if (enemy.lives < 1) {
               if (Math.random() < 1) {
@@ -111,13 +114,12 @@ export default class Game {
               }
               enemy.markedForDeletion = true
             } else {
-              enemy.lives -= projectile.damage
-            }
-            if (projectile.type === 'slash') {
-              console.log('Slash hit')
-            }
-            else {
-              projectile.markedForDeletion = true
+              if (projectile.type === 'shoot') {
+                enemy.lives -= this.shoot.damage
+                projectile.markedForDeletion = true
+              }
+              else if (projectile.type === 'slash') { enemy.lives -= this.slash.damage }
+              else if (projectile.type === 'radius') { enemy.lives -= this.radius.damage }
             }
           }
         }
@@ -125,20 +127,28 @@ export default class Game {
     })
     this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
 
-    if (this.gunTimer > this.gunInterval) {
+    if (this.shoot.timer > this.shoot.interval) {
       this.player.shoot(this.input.mouseX, this.input.mouseY)
-      this.gunTimer = 0
+      this.shoot.timer = 0
     }
     else {
-      this.gunTimer += deltaTime
+      this.shoot.timer += deltaTime
     }
 
-    if (this.slashTimer > this.slashInterval) {
+    if (this.slash.timer > this.slash.interval) {
       this.player.slash(this.input.mouseX, this.input.mouseY)
-      this.slashTimer = 0
+      this.slash.timer = 0
     }
     else {
-      this.slashTimer += deltaTime
+      this.slash.timer += deltaTime
+    }
+
+    if (this.radius.timer > this.radius.interval) {
+      this.player.radius(this.input.mouseX, this.input.mouseY)
+      this.radius.timer = 0
+    }
+    else {
+      this.radius.timer += deltaTime
     }
   }
 
