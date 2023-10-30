@@ -28,3 +28,11 @@ Enemy timer is a exponential function that increases and then begins to increase
 Pause game
 When drop get popup and pick between three choices (pause here)
 Fix bounce from enemy
+
+S-tier Rain
+A-tier Slash
+B-tier Bomba, Bounce
+C-tier Shoot, Plus
+D-tier
+E-tier Boomerang
+F-tier Homing

@@ -20,13 +20,13 @@ export default class Homing extends Projectile {
         this.type = 'homing'
     }
 
-    update(Pumpkin) {
+    update(enemy) {
         if (this.x > this.game.width) {
             this.markedForDeletion = true
         }
 
-        const dx = Pumpkin.x - this.x // calculate the x distance to the player
-        const dy = Pumpkin.y - this.y // calculate the y distance to the player
+        const dx = enemy.x - this.x // calculate the x distance to the player
+        const dy = enemy.y - this.y // calculate the y distance to the player
         const distance = Math.sqrt(dx * dx + dy * dy) // calculate the total distance to the player
         const speedX = (dx / distance) * this.speed // calculate the x speed towards the player
         const speedY = (dy / distance) * this.speed // calculate the y speed towards the player
