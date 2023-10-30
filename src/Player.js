@@ -5,6 +5,7 @@ import Boomerang from './Boomerang.js'
 import Bounce from './Bounce.js'
 import Plus from './Plus.js'
 import Rain from './Rain.js'
+import Homing from './Homing.js'
 
 export default class Player {
   constructor(game) {
@@ -147,22 +148,35 @@ export default class Player {
 
   }
 
-  bounce(mouseX, mouseY) {
+  bounce(mouseX, mouseY, x, y) {
     // get angle between player and mouse
-    const angle = Math.atan2(
+    let angle = Math.atan2(
       mouseY - (this.y + this.height / 2),
       mouseX - (this.x + this.width / 2)
     )
-    console.log("Player: " + angle)
 
-    this.projectiles.push(
-      new Bounce(
-        this.game,
-        this.x + this.width / 2,
-        this.y + this.height / 2,
-        angle
-      ))
-
+    if (x === undefined || y === undefined) {
+      this.projectiles.push(
+        new Bounce(
+          this.game,
+          this.x + this.width / 2,
+          this.y + this.height / 2,
+          angle
+        ))
+    }
+    else {
+      angle = Math.atan2(
+        Math.floor(Math.random() * 1000) - (this.y + this.height / 2),
+        Math.floor(Math.random() * 1000) - (this.x + this.width / 2)
+      )
+      this.projectiles.push(
+        new Bounce(
+          this.game,
+          x + 50,
+          y + 50,
+          angle
+        ))
+    }
   }
 
   plus() {
@@ -203,6 +217,23 @@ export default class Player {
         this.game,
         this.x + this.width / 2,
         this.y + this.height / 2,
+      ))
+
+  }
+
+  homing(mouseX, mouseY) {
+    // get angle between player and mouse
+    const angle = Math.atan2(
+      mouseY - (this.y + this.height / 2),
+      mouseX - (this.x + this.width / 2)
+    )
+
+    this.projectiles.push(
+      new Homing(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        angle
       ))
 
   }

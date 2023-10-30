@@ -11,6 +11,7 @@ import Boomerang from './Boomerang.js'
 import Bounce from './Bounce.js'
 import Plus from './Plus.js'
 import Rain from './Rain.js'
+import Homing from './Homing.js'
 
 export default class Game {
   constructor(width, height, canvasPosition) {
@@ -43,6 +44,7 @@ export default class Game {
     this.bounce = new Bounce(this)
     this.plus = new Plus(this)
     this.rain = new Rain(this)
+    this.homing = new Homing(this)
   }
 
   update(deltaTime) {
@@ -84,7 +86,7 @@ export default class Game {
           }
         }
         if (enemy.type === 'drop') {
-          let rollAffectedWeapon = Math.floor(Math.random() * 7)
+          let rollAffectedWeapon = Math.floor(Math.random() * 8)
           let rollStatUpgrade = Math.floor(Math.random() * 2)
           console.log("Affect weapon: " + rollAffectedWeapon)
           console.log("Affect upgrade: " + rollStatUpgrade)
@@ -94,7 +96,7 @@ export default class Game {
             this.shoot.upgradeAmount++
           }
           else if (rollAffectedWeapon == 1) {
-            if (this.slash.upgradeAmount == 0) { this.slash.interval = 2500 }
+            if (this.slash.upgradeAmount == 0) { this.slash.interval = 3500 }
             else {
               if (rollStatUpgrade == 0) { this.slash.interval -= 75 }
               else if (rollStatUpgrade == 1) { this.slash.damage += 10 }
@@ -102,7 +104,7 @@ export default class Game {
             this.slash.upgradeAmount++
           }
           else if (rollAffectedWeapon == 2) {
-            if (this.radius.upgradeAmount == 0) { this.radius.interval = 2000 }
+            if (this.radius.upgradeAmount == 0) { this.radius.interval = 2500 }
             else {
               if (rollStatUpgrade == 0) { this.radius.interval -= 50 }
               else if (rollStatUpgrade == 1) { this.radius.damage += 1 }
@@ -110,7 +112,7 @@ export default class Game {
             this.radius.upgradeAmount++
           }
           else if (rollAffectedWeapon == 3) {
-            if (this.boomerang.upgradeAmount == 0) { this.boomerang.interval = 1500 }
+            if (this.boomerang.upgradeAmount == 0) { this.boomerang.interval = 2000 }
             else {
               if (rollStatUpgrade == 0) { this.boomerang.interval -= 30 }
               else if (rollStatUpgrade == 1) { this.boomerang.damage += 8 }
@@ -118,7 +120,7 @@ export default class Game {
             this.boomerang.upgradeAmount++
           }
           else if (rollAffectedWeapon == 4) {
-            if (this.bounce.upgradeAmount == 0) { this.bounce.interval = 1750 }
+            if (this.bounce.upgradeAmount == 0) { this.bounce.interval = 2250 }
             else {
               if (rollStatUpgrade == 0) { this.bounce.interval -= 40 }
               else if (rollStatUpgrade == 1) { this.bounce.damage += 8 }
@@ -126,7 +128,7 @@ export default class Game {
             this.bounce.upgradeAmount++
           }
           else if (rollAffectedWeapon == 5) {
-            if (this.plus.upgradeAmount == 0) { this.plus.interval = 900 }
+            if (this.plus.upgradeAmount == 0) { this.plus.interval = 2500 }
             else {
               if (rollStatUpgrade == 0) { this.plus.interval -= 30 }
               else if (rollStatUpgrade == 1) { this.plus.damage += 8 }
@@ -134,12 +136,20 @@ export default class Game {
             this.plus.upgradeAmount++
           }
           else if (rollAffectedWeapon == 6) {
-            if (this.rain.upgradeAmount == 0) { this.rain.interval = 20 }
+            if (this.rain.upgradeAmount == 0) { this.rain.interval = 70 }
             else {
               if (rollStatUpgrade == 0) { this.rain.interval -= 1 }
               else if (rollStatUpgrade == 1) { this.rain.damage += 1 }
             }
             this.rain.upgradeAmount++
+          }
+          else if (rollAffectedWeapon == 7) {
+            if (this.homing.upgradeAmount == 0) { this.homing.interval = 2000 }
+            else {
+              if (rollStatUpgrade == 0) { this.homing.interval -= 1 }
+              else if (rollStatUpgrade == 1) { this.homing.damage += 1 }
+            }
+            this.homing.upgradeAmount++
           }
           enemy.markedForDeletion = true
         }
@@ -165,7 +175,7 @@ export default class Game {
                 projectile.markedForDeletion = true
               }
               else if (projectile.type === 'bounce') {
-                enemy.bounce()
+                this.player.bounce(this.input.mouseX, this.input.mouseY, enemy.x, enemy.y)
                 enemy.lives -= this.bounce.damage
                 projectile.markedForDeletion = true
               }
@@ -175,6 +185,10 @@ export default class Game {
               }
               else if (projectile.type === 'rain') {
                 enemy.lives -= this.rain.damage
+                projectile.markedForDeletion = true
+              }
+              else if (projectile.type === 'homing') {
+                enemy.lives -= this.homing.damage
                 projectile.markedForDeletion = true
               }
             }
@@ -238,6 +252,14 @@ export default class Game {
     }
     else {
       this.rain.timer += deltaTime
+    }
+
+    if (this.homing.timer > this.homing.interval) {
+      this.player.homing()
+      this.homing.timer = 0
+    }
+    else {
+      this.homing.timer += deltaTime
     }
   }
 

@@ -19,7 +19,7 @@ export default class Slash extends Projectile {
         this.disTimer = 0
         this.disInterval = 400
 
-        this.color = 'grey'
+        this.color = 'white'
         this.type = 'slash'
     }
 

@@ -13,23 +13,16 @@ export default class Enemy {
     this.projectiles = []
   }
 
-  update(deltaTime) {
+  update() {
+    console.log("Updated enemy")
     this.y += this.speedY
     this.x += this.speedX
-    if (this.x < 0 || this.x > this.game.x) {
+    if (this.x < 0 || this.x > this.game.width) {
       this.markedForDeletion = true
     }
-    if (this.y < 0 || this.y > this.game.y) {
+    if (this.y < 0 || this.y > this.game.height) {
       this.markedForDeletion = true
     }
-
-    // projectiles
-    this.projectiles.forEach((projectile) => {
-      projectile.update(deltaTime)
-    })
-    this.projectiles = this.projectiles.filter(
-      (projectile) => !projectile.markedForDeletion
-    )
   }
 
   draw(context) {
@@ -46,24 +39,5 @@ export default class Enemy {
       context.fillText(`y: ${this.y.toFixed()}`, this.x + 20, this.y - 20)
     }
 
-    this.projectiles.forEach((projectile) => {
-      projectile.draw(context)
-    })
-  }
-
-  bounce() {
-    const angle = Math.atan2(
-      (this.y + this.height / 2),
-      (this.x + this.width / 2)
-    )
-    console.log("Enemy: " + angle)
-
-    this.projectiles.push(
-      new Bounce(
-        this.game,
-        this.x + this.width / 2,
-        this.y + this.height / 2,
-        angle
-      ))
   }
 }
