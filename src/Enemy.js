@@ -1,5 +1,3 @@
-import Bounce from "./Bounce"
-
 export default class Enemy {
   constructor(game, color) {
     this.game = game
@@ -14,7 +12,6 @@ export default class Enemy {
   }
 
   update() {
-    console.log("Updated enemy")
     this.y += this.speedY
     this.x += this.speedX
     if (this.x < 0 || this.x > this.game.width) {
