@@ -7,6 +7,7 @@ import Projectile from './Projectile.js'
 import Shoot from './Shoot.js'
 import Slash from './Slash.js'
 import Radius from './Radius.js'
+import Boomerang from './Boomerang.js'
 
 export default class Game {
   constructor(width, height, canvasPosition) {
@@ -35,6 +36,7 @@ export default class Game {
     this.shoot = new Shoot(this)
     this.slash = new Slash(this)
     this.radius = new Radius(this)
+    this.boomerang = new Boomerang(this)
   }
 
   update(deltaTime) {
@@ -76,30 +78,38 @@ export default class Game {
           }
         }
         if (enemy.type === 'drop') {
-          let rollAffectedWeapon = Math.floor(Math.random() * 3)
+          let rollAffectedWeapon = Math.floor(Math.random() * 4)
           let rollStatUpgrade = Math.floor(Math.random() * 2)
           console.log("Affect weapon: " + rollAffectedWeapon)
           console.log("Affect upgrade: " + rollStatUpgrade)
           if (rollAffectedWeapon == 0) {
-            if (rollStatUpgrade == 0) { this.shoot.interval -= 50 }
-            else if (rollStatUpgrade == 1) { this.shoot.damage += 100 }
+            if (rollStatUpgrade == 0) { this.shoot.interval -= 25 }
+            else if (rollStatUpgrade == 1) { this.shoot.damage += 5 }
             this.shoot.upgradeAmount++
           }
           else if (rollAffectedWeapon == 1) {
             if (this.slash.upgradeAmount == 0) { this.slash.interval = 2500 }
             else {
-              if (rollStatUpgrade == 0) { this.slash.interval -= 100 }
-              else if (rollStatUpgrade == 1) { this.slash.damage += 100 }
+              if (rollStatUpgrade == 0) { this.slash.interval -= 75 }
+              else if (rollStatUpgrade == 1) { this.slash.damage += 10 }
             }
             this.slash.upgradeAmount++
           }
           else if (rollAffectedWeapon == 2) {
-            if (this.radius.upgradeAmount == 0) { this.radius.interval = 500 }
+            if (this.radius.upgradeAmount == 0) { this.radius.interval = 2000 }
             else {
-              if (rollStatUpgrade == 0) { this.radius.interval -= 100 }
-              else if (rollStatUpgrade == 1) { this.radius.damage += 100 }
+              if (rollStatUpgrade == 0) { this.radius.interval -= 50 }
+              else if (rollStatUpgrade == 1) { this.radius.damage += 1 }
             }
             this.radius.upgradeAmount++
+          }
+          else if (rollAffectedWeapon == 3) {
+            if (this.boomerang.upgradeAmount == 0) { this.boomerang.interval = 1500 }
+            else {
+              if (rollStatUpgrade == 0) { this.boomerang.interval -= 40 }
+              else if (rollStatUpgrade == 1) { this.boomerang.damage += 8 }
+            }
+            this.boomerang.upgradeAmount++
           }
           enemy.markedForDeletion = true
         }
@@ -120,6 +130,10 @@ export default class Game {
               }
               else if (projectile.type === 'slash') { enemy.lives -= this.slash.damage }
               else if (projectile.type === 'radius') { enemy.lives -= this.radius.damage }
+              else if (projectile.type === 'boomerang') {
+                enemy.lives -= this.boomerang.damage
+                projectile.markedForDeletion = true
+              }
             }
           }
         }
@@ -149,6 +163,14 @@ export default class Game {
     }
     else {
       this.radius.timer += deltaTime
+    }
+
+    if (this.boomerang.timer > this.boomerang.interval) {
+      this.player.boomerang(this.input.mouseX, this.input.mouseY)
+      this.boomerang.timer = 0
+    }
+    else {
+      this.boomerang.timer += deltaTime
     }
   }
 

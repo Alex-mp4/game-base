@@ -1,6 +1,7 @@
 import Shoot from './Shoot.js'
 import Slash from './Slash.js'
 import Radius from './Radius.js'
+import Boomerang from './Boomerang.js'
 
 export default class Player {
   constructor(game) {
@@ -122,6 +123,23 @@ export default class Player {
         this.game,
         this.x + this.width / 2,
         this.y + this.height / 2
+      ))
+
+  }
+
+  boomerang(mouseX, mouseY) {
+    // get angle between player and mouse
+    const angle = Math.atan2(
+      mouseY - (this.y + this.height / 2),
+      mouseX - (this.x + this.width / 2)
+    )
+
+    this.projectiles.push(
+      new Boomerang(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        angle
       ))
 
   }

@@ -1,26 +1,26 @@
 import Projectile from "./Projectile"
 
-export default class Slash extends Projectile {
+export default class Boomerang extends Projectile {
     constructor(game, x, y, angle) {
         super(game)
         this.width = 4
-        this.height = 0
+        this.height = 40
         this.x = x
         this.y = y
         this.angle = angle
 
-        this.speed = 150
-        this.damage = 20
+        this.speed = 250
+        this.damage = 12
 
         this.upgradeAmount = 0
         this.timer = 0
         this.interval = Infinity
 
-        this.disTimer = 0
-        this.disInterval = 400
+        this.turnTimer = 0
+        this.turnInterval = 300
 
-        this.color = 'grey'
-        this.type = 'slash'
+        this.color = '#0f0'
+        this.type = 'boomerang'
     }
 
     update(deltaTime) {
@@ -36,17 +36,14 @@ export default class Slash extends Projectile {
             this.markedForDeletion = true
         }
 
-        if (this.height > 80) {
-            this.markedForDeletion = true
-        }
-
-        if (this.disTimer > this.disInterval) {
-            this.markedForDeletion = true
-            this.disTimer = 0
+        if (this.turnTimer > this.turnInterval) {
+            this.speed *= (-1)
+            velocity.x *= (-1)
+            velocity.y *= (-1)
+            this.turnTimer = -Infinity
         }
         else {
-            this.disTimer += deltaTime / 10
-            this.height = this.disTimer
+            this.turnTimer += deltaTime
         }
     }
 }
