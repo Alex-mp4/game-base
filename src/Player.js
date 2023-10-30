@@ -2,6 +2,8 @@ import Shoot from './Shoot.js'
 import Slash from './Slash.js'
 import Radius from './Radius.js'
 import Boomerang from './Boomerang.js'
+import Bounce from './Bounce.js'
+import Plus from './Plus.js'
 
 export default class Player {
   constructor(game) {
@@ -140,6 +142,56 @@ export default class Player {
         this.x + this.width / 2,
         this.y + this.height / 2,
         angle
+      ))
+
+  }
+
+  bounce(mouseX, mouseY) {
+    // get angle between player and mouse
+    const angle = Math.atan2(
+      mouseY - (this.y + this.height / 2),
+      mouseX - (this.x + this.width / 2)
+    )
+    console.log("Player: " + angle)
+
+    this.projectiles.push(
+      new Bounce(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        angle
+      ))
+
+  }
+
+  plus() {
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        0
+      ))
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        1.575
+      ))
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        3.15
+      ))
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        -1.575
       ))
 
   }

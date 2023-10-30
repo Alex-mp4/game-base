@@ -9,14 +9,14 @@ export default class Bounce extends Projectile {
         this.y = y
         this.angle = angle
 
-        this.speed = 400
-        this.damage = 10
+        this.speed = 500
+        this.damage = 5
 
         this.upgradeAmount = 0
         this.timer = 0
-        this.interval = 1000
+        this.interval = Infinity
 
-        this.color = 'yellow'
+        this.color = 'green'
         this.type = 'bounce'
     }
 

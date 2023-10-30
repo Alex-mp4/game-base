@@ -8,6 +8,8 @@ import Shoot from './Shoot.js'
 import Slash from './Slash.js'
 import Radius from './Radius.js'
 import Boomerang from './Boomerang.js'
+import Bounce from './Bounce.js'
+import Plus from './Plus.js'
 
 export default class Game {
   constructor(width, height, canvasPosition) {
@@ -37,6 +39,8 @@ export default class Game {
     this.slash = new Slash(this)
     this.radius = new Radius(this)
     this.boomerang = new Boomerang(this)
+    this.bounce = new Bounce(this)
+    this.plus = new Plus(this)
   }
 
   update(deltaTime) {
@@ -78,7 +82,7 @@ export default class Game {
           }
         }
         if (enemy.type === 'drop') {
-          let rollAffectedWeapon = Math.floor(Math.random() * 4)
+          let rollAffectedWeapon = Math.floor(Math.random() * 6)
           let rollStatUpgrade = Math.floor(Math.random() * 2)
           console.log("Affect weapon: " + rollAffectedWeapon)
           console.log("Affect upgrade: " + rollStatUpgrade)
@@ -111,6 +115,22 @@ export default class Game {
             }
             this.boomerang.upgradeAmount++
           }
+          else if (rollAffectedWeapon == 4) {
+            if (this.bounce.upgradeAmount == 0) { this.bounce.interval = 1750 }
+            else {
+              if (rollStatUpgrade == 0) { this.bounce.interval -= 40 }
+              else if (rollStatUpgrade == 1) { this.bounce.damage += 8 }
+            }
+            this.bounce.upgradeAmount++
+          }
+          else if (rollAffectedWeapon == 5) {
+            if (this.plus.upgradeAmount == 0) { this.plus.interval = 900 }
+            else {
+              if (rollStatUpgrade == 0) { this.plus.interval -= 40 }
+              else if (rollStatUpgrade == 1) { this.plus.damage += 8 }
+            }
+            this.plus.upgradeAmount++
+          }
           enemy.markedForDeletion = true
         }
       }
@@ -132,6 +152,15 @@ export default class Game {
               else if (projectile.type === 'radius') { enemy.lives -= this.radius.damage }
               else if (projectile.type === 'boomerang') {
                 enemy.lives -= this.boomerang.damage
+                projectile.markedForDeletion = true
+              }
+              else if (projectile.type === 'bounce') {
+                enemy.bounce()
+                enemy.lives -= this.bounce.damage
+                projectile.markedForDeletion = true
+              }
+              else if (projectile.type === 'plus') {
+                enemy.lives -= this.plus.damage
                 projectile.markedForDeletion = true
               }
             }
@@ -171,6 +200,22 @@ export default class Game {
     }
     else {
       this.boomerang.timer += deltaTime
+    }
+
+    if (this.bounce.timer > this.bounce.interval) {
+      this.player.bounce(this.input.mouseX, this.input.mouseY)
+      this.bounce.timer = 0
+    }
+    else {
+      this.bounce.timer += deltaTime
+    }
+
+    if (this.plus.timer > this.plus.interval) {
+      this.player.plus(this.input.mouseX, this.input.mouseY)
+      this.plus.timer = 0
+    }
+    else {
+      this.plus.timer += deltaTime
     }
   }
 

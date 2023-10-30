@@ -1,3 +1,5 @@
+import Bounce from "./Bounce"
+
 export default class Enemy {
   constructor(game, color) {
     this.game = game
@@ -8,9 +10,10 @@ export default class Enemy {
     this.markedForDeletion = false
     this.color = color
     this.type = 'enemy'
+    this.projectiles = []
   }
 
-  update() {
+  update(deltaTime) {
     this.y += this.speedY
     this.x += this.speedX
     if (this.x < 0 || this.x > this.game.x) {
@@ -19,6 +22,14 @@ export default class Enemy {
     if (this.y < 0 || this.y > this.game.y) {
       this.markedForDeletion = true
     }
+
+    // projectiles
+    this.projectiles.forEach((projectile) => {
+      projectile.update(deltaTime)
+    })
+    this.projectiles = this.projectiles.filter(
+      (projectile) => !projectile.markedForDeletion
+    )
   }
 
   draw(context) {
@@ -34,5 +45,25 @@ export default class Enemy {
       context.fillText(`x: ${this.x.toFixed()}`, this.x + 20, this.y - 5)
       context.fillText(`y: ${this.y.toFixed()}`, this.x + 20, this.y - 20)
     }
+
+    this.projectiles.forEach((projectile) => {
+      projectile.draw(context)
+    })
+  }
+
+  bounce() {
+    const angle = Math.atan2(
+      (this.y + this.height / 2),
+      (this.x + this.width / 2)
+    )
+    console.log("Enemy: " + angle)
+
+    this.projectiles.push(
+      new Bounce(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        angle
+      ))
   }
 }
