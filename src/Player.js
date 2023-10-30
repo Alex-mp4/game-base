@@ -4,6 +4,7 @@ import Radius from './Radius.js'
 import Boomerang from './Boomerang.js'
 import Bounce from './Bounce.js'
 import Plus from './Plus.js'
+import Rain from './Rain.js'
 
 export default class Player {
   constructor(game) {
@@ -192,6 +193,16 @@ export default class Player {
         this.x + this.width / 2,
         this.y + this.height / 2,
         -1.575
+      ))
+
+  }
+
+  rain() {
+    this.projectiles.push(
+      new Rain(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
       ))
 
   }

@@ -10,6 +10,7 @@ import Radius from './Radius.js'
 import Boomerang from './Boomerang.js'
 import Bounce from './Bounce.js'
 import Plus from './Plus.js'
+import Rain from './Rain.js'
 
 export default class Game {
   constructor(width, height, canvasPosition) {
@@ -41,6 +42,7 @@ export default class Game {
     this.boomerang = new Boomerang(this)
     this.bounce = new Bounce(this)
     this.plus = new Plus(this)
+    this.rain = new Rain(this)
   }
 
   update(deltaTime) {
@@ -82,7 +84,7 @@ export default class Game {
           }
         }
         if (enemy.type === 'drop') {
-          let rollAffectedWeapon = Math.floor(Math.random() * 6)
+          let rollAffectedWeapon = Math.floor(Math.random() * 7)
           let rollStatUpgrade = Math.floor(Math.random() * 2)
           console.log("Affect weapon: " + rollAffectedWeapon)
           console.log("Affect upgrade: " + rollStatUpgrade)
@@ -110,7 +112,7 @@ export default class Game {
           else if (rollAffectedWeapon == 3) {
             if (this.boomerang.upgradeAmount == 0) { this.boomerang.interval = 1500 }
             else {
-              if (rollStatUpgrade == 0) { this.boomerang.interval -= 40 }
+              if (rollStatUpgrade == 0) { this.boomerang.interval -= 30 }
               else if (rollStatUpgrade == 1) { this.boomerang.damage += 8 }
             }
             this.boomerang.upgradeAmount++
@@ -126,10 +128,18 @@ export default class Game {
           else if (rollAffectedWeapon == 5) {
             if (this.plus.upgradeAmount == 0) { this.plus.interval = 900 }
             else {
-              if (rollStatUpgrade == 0) { this.plus.interval -= 40 }
+              if (rollStatUpgrade == 0) { this.plus.interval -= 30 }
               else if (rollStatUpgrade == 1) { this.plus.damage += 8 }
             }
             this.plus.upgradeAmount++
+          }
+          else if (rollAffectedWeapon == 6) {
+            if (this.rain.upgradeAmount == 0) { this.rain.interval = 20 }
+            else {
+              if (rollStatUpgrade == 0) { this.rain.interval -= 1 }
+              else if (rollStatUpgrade == 1) { this.rain.damage += 1 }
+            }
+            this.rain.upgradeAmount++
           }
           enemy.markedForDeletion = true
         }
@@ -161,6 +171,10 @@ export default class Game {
               }
               else if (projectile.type === 'plus') {
                 enemy.lives -= this.plus.damage
+                projectile.markedForDeletion = true
+              }
+              else if (projectile.type === 'rain') {
+                enemy.lives -= this.rain.damage
                 projectile.markedForDeletion = true
               }
             }
@@ -216,6 +230,14 @@ export default class Game {
     }
     else {
       this.plus.timer += deltaTime
+    }
+
+    if (this.rain.timer > this.rain.interval) {
+      this.player.rain()
+      this.rain.timer = 0
+    }
+    else {
+      this.rain.timer += deltaTime
     }
   }
 
