@@ -29,24 +29,41 @@ export default class Player {
       this.game.gameOver = true
     }
 
+    // if (this.x > (this.game.width - this.width) || this.x < 0 || this.y > (this.game.height - this.height) || this.y < 0) {
+    //   this.speedX = 0
+    // }
+
+
     if (this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a')) {
       this.speedX = -this.maxSpeed
+      if (this.x < 0) {
+        this.speedX += this.maxSpeed
+      }
     } else if (
       this.game.keys.includes('ArrowRight') ||
       this.game.keys.includes('d')
     ) {
       this.speedX = this.maxSpeed
+      if (this.x > (this.game.width - this.width)) {
+        this.speedX -= this.maxSpeed
+      }
     } else {
       this.speedX = 0
     }
 
     if (this.game.keys.includes('ArrowUp') || this.game.keys.includes('w')) {
       this.speedY = -this.maxSpeed
+      if (this.y < 0) {
+        this.speedY += this.maxSpeed
+      }
     } else if (
       this.game.keys.includes('ArrowDown') ||
       this.game.keys.includes('s')
     ) {
       this.speedY = this.maxSpeed
+      if (this.y > (this.game.height - this.height)) {
+        this.speedY -= this.maxSpeed
+      }
     } else {
       this.speedY = 0
     }

@@ -26,18 +26,21 @@ export default class InputHandler {
         this.game.pause = !this.game.pause
       }
 
-      if (this.game.choices === true) {
+      if (this.game.choices) {
         if (event.key === '1') {
           this.game.choice = 0
-          this.game.choices = false
+          this.choices = false
+          clearTimeout(this.game.timeout)
         }
         if (event.key === '2') {
           this.game.choice = 1
-          this.game.choices = false
+          this.choices = false
+          clearTimeout(this.game.timeout)
         }
         if (event.key === '3') {
           this.game.choice = 2
-          this.game.choices = false
+          this.choices = false
+          clearTimeout(this.game.timeout)
         }
       }
 

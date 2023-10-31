@@ -26,6 +26,7 @@ export default class Game {
     this.debug = false
     this.pause = false
     this.gameTime = 0
+    this.timeout
 
     this.choices = false
     this.choice
@@ -101,7 +102,6 @@ export default class Game {
           }
         }
         if (enemy.type === 'drop') {
-          let choiceTimer = 3000
           enemy.markedForDeletion = true
           this.pause = true
           this.choices = true
@@ -114,7 +114,12 @@ export default class Game {
           this.choiceU2 = Math.floor(Math.random() * 3)
           this.choiceU3 = Math.floor(Math.random() * 3)
 
-          //this.choice = Math.floor(Math.random() * 3)
+          this.timeout = setTimeout(tooSlow, 4999)
+          function tooSlow() {
+            return Math.floor(Math.random() * 3)
+          }
+          this.choice = tooSlow()
+
           setTimeout(() => {
             if (this.choice === 0) {
               rollAffectedWeapon = this.choiceW1
@@ -125,8 +130,8 @@ export default class Game {
               rollStatUpgrade = this.choiceU2
             }
             if (this.choice === 2) {
-              rollAffectedWeapon = this.choiceW2
-              rollStatUpgrade = this.choiceU2
+              rollAffectedWeapon = this.choiceW3
+              rollStatUpgrade = this.choiceU3
             }
 
             console.log("Affect weapon: " + rollAffectedWeapon)
@@ -193,7 +198,8 @@ export default class Game {
             //   this.homing.upgradeAmount++
             // }
             this.pause = false
-          }, choiceTimer)
+            this.choices = false
+          }, 5000)
         }
       }
       this.player.projectiles.forEach((projectile) => {
