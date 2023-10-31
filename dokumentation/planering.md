@@ -34,6 +34,7 @@ If I can avoid all of the ifs then do so (have projectile have all of the statis
 Better UI
 Enemies die when below 0 (not after being shot at below 0)
 Pity system for drops (make odds increase with deltaTime)
+Balancing (weapon damage on first pickup)
 
 
 S-tier Rain
