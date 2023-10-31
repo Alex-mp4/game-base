@@ -14,7 +14,7 @@ export default class Homing extends Projectile {
 
         this.upgradeAmount = 0
         this.timer = 0
-        this.interval = 500
+        this.interval = Infinity
 
         this.color = 'red'
         this.type = 'homing'

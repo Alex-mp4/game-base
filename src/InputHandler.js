@@ -19,9 +19,13 @@ export default class InputHandler {
         this.game.keys.push(event.key)
       }
 
-      if (event.key === 'p') {
+      if (event.key === 'o') {
         this.game.debug = !this.game.debug
       }
+      if (event.key === 'p') {
+        this.game.pause = !this.game.pause
+      }
+
     })
 
     window.addEventListener('keyup', (event) => {

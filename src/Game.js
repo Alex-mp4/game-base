@@ -24,6 +24,7 @@ export default class Game {
     this.gameOver = false
     this.gravity = 1
     this.debug = false
+    this.pause = false
     this.gameTime = 0
 
     this.damageTimer = 0
@@ -51,6 +52,9 @@ export default class Game {
     //console.log("Shoot: " + this.shoot.upgradeAmount, this.shoot.interval, this.shoot.damage, this.shoot.speed + " Slash: " + this.slash.upgradeAmount, this.slash.interval, this.slash.damage, this.slash.speed)
     if (!this.gameOver) {
       this.gameTime += deltaTime
+    }
+    if (this.gameOver) {
+      return
     }
 
     let x = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
@@ -143,14 +147,14 @@ export default class Game {
             }
             this.rain.upgradeAmount++
           }
-          else if (rollAffectedWeapon == 7) {
-            if (this.homing.upgradeAmount == 0) { this.homing.interval = 2000 }
-            else {
-              if (rollStatUpgrade == 0) { this.homing.interval -= 1 }
-              else if (rollStatUpgrade == 1) { this.homing.damage += 1 }
-            }
-            this.homing.upgradeAmount++
-          }
+          // else if (rollAffectedWeapon == 7) {
+          //   if (this.homing.upgradeAmount == 0) { this.homing.interval = 2000 }
+          //   else {
+          //     if (rollStatUpgrade == 0) { this.homing.interval -= 1 }
+          //     else if (rollStatUpgrade == 1) { this.homing.damage += 1 }
+          //   }
+          //   this.homing.upgradeAmount++
+          // }
           enemy.markedForDeletion = true
         }
       }
@@ -254,13 +258,13 @@ export default class Game {
       this.rain.timer += deltaTime
     }
 
-    if (this.homing.timer > this.homing.interval) {
-      this.player.homing()
-      this.homing.timer = 0
-    }
-    else {
-      this.homing.timer += deltaTime
-    }
+    // if (this.homing.timer > this.homing.interval) {
+    //   this.player.homing()
+    //   this.homing.timer = 0
+    // }
+    // else {
+    //   this.homing.timer += deltaTime
+    // }
   }
 
   draw(context) {
