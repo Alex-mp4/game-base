@@ -33,6 +33,7 @@ Confirmation on choice
 If I can avoid all of the ifs then do so (have projectile have all of the statistics (this.interval, for example) and give them names to take data from)
 Better UI
 Enemies die when below 0 (not after being shot at below 0)
+Pity system for drops (make odds increase with deltaTime)
 
 
 S-tier Rain
