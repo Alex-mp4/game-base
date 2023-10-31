@@ -30,7 +30,7 @@ When drop get popup and pick between three choices (pause here) (yup)
 Fix bounce from enemy (yup)
 Countdown on pickup
 Confirmation on choice
-If I can avoid all of the ifs then do so
+If I can avoid all of the ifs then do so (have projectile have all of the statistics (this.interval, for example) and give them names to take data from)
 Better UI
 
 
