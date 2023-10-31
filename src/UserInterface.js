@@ -52,6 +52,15 @@ export default class UserInterface {
       context.fillText(`keys: ${this.game.keys}`, this.game.width - 20, 150)
     }
 
+    if (this.game.choices) {
+      context.fillText(`${this.game.choiceW1}`, 300, 300)
+      context.fillText(`${this.game.choiceU1}`, 300, 400)
+      context.fillText(`${this.game.choiceW2}`, 400, 300)
+      context.fillText(`${this.game.choiceU2}`, 400, 400)
+      context.fillText(`${this.game.choiceW3}`, 500, 300)
+      context.fillText(`${this.game.choiceU3}`, 500, 400)
+    }
+
     context.restore()
   }
 }
