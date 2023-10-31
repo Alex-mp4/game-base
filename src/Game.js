@@ -106,13 +106,13 @@ export default class Game {
           this.pause = true
           this.choices = true
           let rollAffectedWeapon
-          this.choiceW1 = Math.floor(Math.random() * 8)
-          this.choiceW2 = Math.floor(Math.random() * 8)
-          this.choiceW3 = Math.floor(Math.random() * 8)
+          this.choiceW1 = Math.floor(Math.random() * 7)
+          this.choiceW2 = Math.floor(Math.random() * 7)
+          this.choiceW3 = Math.floor(Math.random() * 7)
           let rollStatUpgrade
-          this.choiceU1 = Math.floor(Math.random() * 3)
-          this.choiceU2 = Math.floor(Math.random() * 3)
-          this.choiceU3 = Math.floor(Math.random() * 3)
+          this.choiceU1 = Math.floor(Math.random() * 2)
+          this.choiceU2 = Math.floor(Math.random() * 2)
+          this.choiceU3 = Math.floor(Math.random() * 2)
 
           this.timeout = setTimeout(tooSlow, 4999)
           function tooSlow() {
@@ -207,7 +207,7 @@ export default class Game {
           if (enemy.type === 'drop') { }
           else {
             if (enemy.lives < 1) {
-              if (Math.random() < 1) {
+              if (Math.random() < 0.1) {
                 this.enemies.push(new Drop(this, enemy.x, enemy.y))
               }
               enemy.markedForDeletion = true
@@ -235,10 +235,10 @@ export default class Game {
                 enemy.lives -= this.rain.damage
                 projectile.markedForDeletion = true
               }
-              else if (projectile.type === 'homing') {
-                enemy.lives -= this.homing.damage
-                projectile.markedForDeletion = true
-              }
+              // else if (projectile.type === 'homing') {
+              //   enemy.lives -= this.homing.damage
+              //   projectile.markedForDeletion = true
+              // }
             }
           }
         }

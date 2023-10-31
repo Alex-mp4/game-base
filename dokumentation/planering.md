@@ -18,16 +18,20 @@ Enemy.js {
 
 Player.js(weapon[0,1, etc])
 
-Drop rates for weapons/upgrades
-Activate them over time
-Create more weapons
-Border on game
+Drop rates for weapons/upgrades (yup)
+Activate them over time (yup)
+Create more weapons (yup)
+Border on game (yup)
 Graphics
 More enemies
 Enemy timer is a exponential function that increases and then begins to increase, simultaneously a new one begins
-Pause game
-When drop get popup and pick between three choices (pause here)
-Fix bounce from enemy
+Pause game (yup)
+When drop get popup and pick between three choices (pause here) (yup)
+Fix bounce from enemy (yup)
+Countdown on pickup
+Confirmation on choice
+If I can avoid all of the ifs then do so
+
 
 S-tier Rain
 A-tier Slash

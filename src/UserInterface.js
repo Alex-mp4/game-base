@@ -53,12 +53,106 @@ export default class UserInterface {
     }
 
     if (this.game.choices) {
-      context.fillText(`${this.game.choiceW1}`, 300, 300)
-      context.fillText(`${this.game.choiceU1}`, 300, 400)
-      context.fillText(`${this.game.choiceW2}`, 400, 300)
-      context.fillText(`${this.game.choiceU2}`, 400, 400)
-      context.fillText(`${this.game.choiceW3}`, 500, 300)
-      context.fillText(`${this.game.choiceU3}`, 500, 400)
+      let weapon1Text
+      let weapon2Text
+      let weapon3Text
+      let upgrade1Text
+      let upgrade2Text
+      let upgrade3Text
+
+      if (this.game.choiceW1 === 0) {
+        weapon1Text = "Pistol"
+      }
+      if (this.game.choiceW1 === 1) {
+        weapon1Text = "Sword"
+      }
+      if (this.game.choiceW1 === 2) {
+        weapon1Text = "Bomb"
+      }
+      if (this.game.choiceW1 === 3) {
+        weapon1Text = "Boomerang"
+      }
+      if (this.game.choiceW1 === 4) {
+        weapon1Text = "Bouncer"
+      }
+      if (this.game.choiceW1 === 5) {
+        weapon1Text = "Turret"
+      }
+      if (this.game.choiceW1 === 6) {
+        weapon1Text = "Rain"
+      }
+
+      if (this.game.choiceW2 === 0) {
+        weapon2Text = "Pistol"
+      }
+      if (this.game.choiceW2 === 1) {
+        weapon2Text = "Sword"
+      }
+      if (this.game.choiceW2 === 2) {
+        weapon2Text = "Bomb"
+      }
+      if (this.game.choiceW2 === 3) {
+        weapon2Text = "Boomerang"
+      }
+      if (this.game.choiceW2 === 4) {
+        weapon2Text = "Bouncer"
+      }
+      if (this.game.choiceW2 === 5) {
+        weapon2Text = "Turret"
+      }
+      if (this.game.choiceW2 === 6) {
+        weapon2Text = "Rain"
+      }
+
+      if (this.game.choiceW3 === 0) {
+        weapon3Text = "Pistol"
+      }
+      if (this.game.choiceW3 === 1) {
+        weapon3Text = "Sword"
+      }
+      if (this.game.choiceW3 === 2) {
+        weapon3Text = "Bomb"
+      }
+      if (this.game.choiceW3 === 3) {
+        weapon3Text = "Boomerang"
+      }
+      if (this.game.choiceW3 === 4) {
+        weapon3Text = "Bouncer"
+      }
+      if (this.game.choiceW3 === 5) {
+        weapon3Text = "Turret"
+      }
+      if (this.game.choiceW3 === 6) {
+        weapon3Text = "Rain"
+      }
+
+      if (this.game.choiceU1 === 0) {
+        upgrade1Text = "Attack speed"
+      }
+      if (this.game.choiceU1 === 1) {
+        upgrade1Text = "Damage"
+      }
+
+      if (this.game.choiceU2 === 0) {
+        upgrade2Text = "Attack speed"
+      }
+      if (this.game.choiceU2 === 1) {
+        upgrade2Text = "Damage"
+      }
+
+      if (this.game.choiceU3 === 0) {
+        upgrade3Text = "Attack speed"
+      }
+      if (this.game.choiceU3 === 1) {
+        upgrade3Text = "Damage"
+      }
+
+      context.fillText(`${weapon1Text}`, 100, 300)
+      context.fillText(`${upgrade1Text}`, 100, 400)
+      context.fillText(`${weapon2Text}`, 350, 300)
+      context.fillText(`${upgrade2Text}`, 350, 400)
+      context.fillText(`${weapon3Text}`, 600, 300)
+      context.fillText(`${upgrade3Text}`, 600, 400)
     }
 
     context.restore()
