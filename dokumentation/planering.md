@@ -31,6 +31,7 @@ Fix bounce from enemy (yup)
 Countdown on pickup
 Confirmation on choice
 If I can avoid all of the ifs then do so
+Better UI
 
 
 S-tier Rain
