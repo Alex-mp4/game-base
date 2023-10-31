@@ -53,7 +53,9 @@ export default class Game {
     if (!this.gameOver) {
       this.gameTime += deltaTime
     }
-    if (this.gameOver) {
+    if (this.gameOver) { return }
+    if (this.pause) {
+      this.gameTime -= deltaTime
       return
     }
 
