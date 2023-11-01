@@ -31,6 +31,10 @@ Pity system for drops (make odds increase with deltaTime) (yup)
 When enough time has passed (after gremlin something) go hogwild with spawn rate (yup)
 Improve weapon greatly at certain levels (yup)
 
+Check if 10+ upgrades work
+- Bounce yup
+- Plus yup
+
 Graphics
 Countdown on pickup
 Confirmation on choice
