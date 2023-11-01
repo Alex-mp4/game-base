@@ -27,6 +27,7 @@ export default class Game {
     this.pause = false
     this.gameTime = 0
     this.timeout
+    this.pity = 0
 
     this.choices = false
     this.choice
@@ -41,8 +42,8 @@ export default class Game {
     this.damageInterval = 400
 
     this.enemies = []
-    this.enemyTimer = 0
-    this.enemyInterval = 2000
+    this.pumpkinTimer = 0
+    this.pumpkinInterval = 2000
 
     this.projectiles = []
 
@@ -69,10 +70,12 @@ export default class Game {
       return
     }
 
+    this.pumpkinInterval = (Math.pow((0.00005 * this.gameTime) - 6, 2) + 3) * 80
+
     let x = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
     let y = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
 
-    if (this.enemyTimer > this.enemyInterval) {
+    if (this.pumpkinTimer > this.pumpkinInterval) {
       if (x === 0) {
         y = Math.random() * this.height // if on left edge, randomize y position
       } else if (x === this.width) {
@@ -83,9 +86,9 @@ export default class Game {
         x = Math.random() * this.width // if on bottom edge, randomize x position
       }
       this.enemies.push(new Pumpkin(this, x, y))
-      this.enemyTimer = 0
+      this.pumpkinTimer = 0
     } else {
-      this.enemyTimer += deltaTime
+      this.pumpkinTimer += deltaTime
     }
     this.player.update(deltaTime)
 
@@ -207,10 +210,11 @@ export default class Game {
           if (enemy.type === 'drop') { }
           else {
             if (enemy.lives < 1) {
-              if (Math.random() < 0.1) {
+              if (Math.random() < 0.1 || this.pity === 1) {
                 this.enemies.push(new Drop(this, enemy.x, enemy.y))
               }
               enemy.markedForDeletion = true
+              this.pity++
             } else {
               if (projectile.type === 'shoot') {
                 enemy.lives -= this.shoot.damage
