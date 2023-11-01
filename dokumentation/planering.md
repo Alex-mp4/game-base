@@ -28,6 +28,7 @@ Pause game (yup)
 When drop get popup and pick between three choices (pause here) (yup)
 Fix bounce from enemy (yup)
 Pity system for drops (make odds increase with deltaTime) (yup)
+When enough time has passed (after gremlin something) go hogwild with spawn rate (yup)
 
 Graphics
 Improve weapon greatly at certain levels
@@ -38,7 +39,6 @@ Better UI
 Enemies die when below 0 (not after being shot at below 0)
 Balancing (weapon damage on first pickup)
 Boss with unique patterns (for example, shows it going back and then it boosts forward or having a distinct path/covering part of the screen)
-When enough time has passed (after gremlin something) go hogwild with spawn rate
 
 
 S-tier Rain

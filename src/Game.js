@@ -83,6 +83,18 @@ export default class Game {
     }
 
     this.pumpkinInterval = (Math.pow((0.00003 * this.gameTime) - 6, 2) + 3) * 120
+    this.vampireInterval = (Math.pow((0.00003 * this.gameTime) - 12, 2) + 3) * 80
+    this.warewolfInterval = (Math.pow((0.00003 * this.gameTime) - 18, 2) + 3) * 80
+    this.zombieInterval = (Math.pow((0.00003 * this.gameTime) - 24, 2) + 3) * 40
+    this.gremlinInterval = (Math.pow((0.00003 * this.gameTime) - 30, 2) + 3) * 60
+
+    if (this.gameTime > 1000000) {
+      this.pumpkinInterval = 200 / (0.0000006 * this.gameTime)
+      this.vampireInterval = 300 / (0.0000006 * this.gameTime)
+      this.warewolfInterval = 400 / (0.0000006 * this.gameTime)
+      this.zombieInterval = 500 / (0.0000006 * this.gameTime)
+      this.gremlinInterval = 600 / (0.0000006 * this.gameTime)
+    }
 
     let pumpkinx = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
     let pumpkiny = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
@@ -103,8 +115,6 @@ export default class Game {
       this.pumpkinTimer += deltaTime
     }
 
-    this.vampireInterval = (Math.pow((0.00003 * this.gameTime) - 12, 2) + 3) * 80
-
     let vampirex = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
     let vampirey = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
 
@@ -123,8 +133,6 @@ export default class Game {
     } else {
       this.vampireTimer += deltaTime
     }
-
-    this.warewolfInterval = (Math.pow((0.00003 * this.gameTime) - 18, 2) + 3) * 80
 
     let warewolfx = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
     let warewolfy = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
@@ -145,8 +153,6 @@ export default class Game {
       this.warewolfTimer += deltaTime
     }
 
-    this.zombieInterval = (Math.pow((0.00003 * this.gameTime) - 24, 2) + 3) * 40
-
     let zombiex = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
     let zombiey = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
 
@@ -165,8 +171,6 @@ export default class Game {
     } else {
       this.zombieTimer += deltaTime
     }
-
-    this.gremlinInterval = (Math.pow((0.00003 * this.gameTime) - 30, 2) + 3) * 60
 
     let gremlinx = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
     let gremliny = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
@@ -203,103 +207,108 @@ export default class Game {
         }
         if (enemy.type === 'drop') {
           enemy.markedForDeletion = true
-          this.pause = true
-          this.choices = true
-          let rollAffectedWeapon
-          this.choiceW1 = Math.floor(Math.random() * 7)
-          this.choiceW2 = Math.floor(Math.random() * 7)
-          this.choiceW3 = Math.floor(Math.random() * 7)
-          let rollStatUpgrade
-          this.choiceU1 = Math.floor(Math.random() * 2)
-          this.choiceU2 = Math.floor(Math.random() * 2)
-          this.choiceU3 = Math.floor(Math.random() * 2)
-
-          this.timeout = setTimeout(tooSlow, 4999)
-          function tooSlow() {
-            return Math.floor(Math.random() * 3)
+          if (Math.random() < 0.2) {
+            this.player.lives++
           }
-          this.choice = tooSlow()
+          else {
+            this.pause = true
+            this.choices = true
+            let rollAffectedWeapon
+            this.choiceW1 = Math.floor(Math.random() * 7)
+            this.choiceW2 = Math.floor(Math.random() * 7)
+            this.choiceW3 = Math.floor(Math.random() * 7)
+            let rollStatUpgrade
+            this.choiceU1 = Math.floor(Math.random() * 2)
+            this.choiceU2 = Math.floor(Math.random() * 2)
+            this.choiceU3 = Math.floor(Math.random() * 2)
 
-          setTimeout(() => {
-            if (this.choice === 0) {
-              rollAffectedWeapon = this.choiceW1
-              rollStatUpgrade = this.choiceU1
+            this.timeout = setTimeout(tooSlow, 4999)
+            function tooSlow() {
+              return Math.floor(Math.random() * 3)
             }
-            if (this.choice === 1) {
-              rollAffectedWeapon = this.choiceW2
-              rollStatUpgrade = this.choiceU2
-            }
-            if (this.choice === 2) {
-              rollAffectedWeapon = this.choiceW3
-              rollStatUpgrade = this.choiceU3
-            }
+            this.choice = tooSlow()
 
-            console.log("Affect weapon: " + rollAffectedWeapon)
-            console.log("Affect upgrade: " + rollStatUpgrade)
-            if (rollAffectedWeapon == 0) {
-              if (rollStatUpgrade == 0) { this.shoot.interval -= 25 }
-              else if (rollStatUpgrade == 1) { this.shoot.damage += 5 }
-              this.shoot.upgradeAmount++
-            }
-            else if (rollAffectedWeapon == 1) {
-              if (this.slash.upgradeAmount == 0) { this.slash.interval = 3500 }
-              else {
-                if (rollStatUpgrade == 0) { this.slash.interval -= 75 }
-                else if (rollStatUpgrade == 1) { this.slash.damage += 10 }
+            setTimeout(() => {
+              if (this.choice === 0) {
+                rollAffectedWeapon = this.choiceW1
+                rollStatUpgrade = this.choiceU1
               }
-              this.slash.upgradeAmount++
-            }
-            else if (rollAffectedWeapon == 2) {
-              if (this.radius.upgradeAmount == 0) { this.radius.interval = 2500 }
-              else {
-                if (rollStatUpgrade == 0) { this.radius.interval -= 50 }
-                else if (rollStatUpgrade == 1) { this.radius.damage += 1 }
+              if (this.choice === 1) {
+                rollAffectedWeapon = this.choiceW2
+                rollStatUpgrade = this.choiceU2
               }
-              this.radius.upgradeAmount++
-            }
-            else if (rollAffectedWeapon == 3) {
-              if (this.boomerang.upgradeAmount == 0) { this.boomerang.interval = 2000 }
-              else {
-                if (rollStatUpgrade == 0) { this.boomerang.interval -= 30 }
-                else if (rollStatUpgrade == 1) { this.boomerang.damage += 8 }
+              if (this.choice === 2) {
+                rollAffectedWeapon = this.choiceW3
+                rollStatUpgrade = this.choiceU3
               }
-              this.boomerang.upgradeAmount++
-            }
-            else if (rollAffectedWeapon == 4) {
-              if (this.bounce.upgradeAmount == 0) { this.bounce.interval = 2250 }
-              else {
-                if (rollStatUpgrade == 0) { this.bounce.interval -= 40 }
-                else if (rollStatUpgrade == 1) { this.bounce.damage += 8 }
+
+              console.log("Affect weapon: " + rollAffectedWeapon)
+              console.log("Affect upgrade: " + rollStatUpgrade)
+              if (rollAffectedWeapon == 0) {
+                if (rollStatUpgrade == 0) { this.shoot.interval -= 25 }
+                else if (rollStatUpgrade == 1) { this.shoot.damage += 5 }
+                this.shoot.upgradeAmount++
               }
-              this.bounce.upgradeAmount++
-            }
-            else if (rollAffectedWeapon == 5) {
-              if (this.plus.upgradeAmount == 0) { this.plus.interval = 2500 }
-              else {
-                if (rollStatUpgrade == 0) { this.plus.interval -= 30 }
-                else if (rollStatUpgrade == 1) { this.plus.damage += 8 }
+              else if (rollAffectedWeapon == 1) {
+                if (this.slash.upgradeAmount == 0) { this.slash.interval = 3500 }
+                else {
+                  if (rollStatUpgrade == 0) { this.slash.interval -= 75 }
+                  else if (rollStatUpgrade == 1) { this.slash.damage += 10 }
+                }
+                this.slash.upgradeAmount++
               }
-              this.plus.upgradeAmount++
-            }
-            else if (rollAffectedWeapon == 6) {
-              if (this.rain.upgradeAmount == 0) { this.rain.interval = 70 }
-              else {
-                if (rollStatUpgrade == 0) { this.rain.interval -= 1 }
-                else if (rollStatUpgrade == 1) { this.rain.damage += 1 }
+              else if (rollAffectedWeapon == 2) {
+                if (this.radius.upgradeAmount == 0) { this.radius.interval = 2500 }
+                else {
+                  if (rollStatUpgrade == 0) { this.radius.interval -= 50 }
+                  else if (rollStatUpgrade == 1) { this.radius.damage += 1 }
+                }
+                this.radius.upgradeAmount++
               }
-              this.rain.upgradeAmount++
-            }
-            // else if (rollAffectedWeapon == 7) {
-            //   if (this.homing.upgradeAmount == 0) { this.homing.interval = 2000 }
-            //   else {
-            //     if (rollStatUpgrade == 0) { this.homing.interval -= 1 }
-            //     else if (rollStatUpgrade == 1) { this.homing.damage += 1 }
-            //   }
-            //   this.homing.upgradeAmount++
-            // }
-            this.pause = false
-            this.choices = false
-          }, 5000)
+              else if (rollAffectedWeapon == 3) {
+                if (this.boomerang.upgradeAmount == 0) { this.boomerang.interval = 2000 }
+                else {
+                  if (rollStatUpgrade == 0) { this.boomerang.interval -= 30 }
+                  else if (rollStatUpgrade == 1) { this.boomerang.damage += 8 }
+                }
+                this.boomerang.upgradeAmount++
+              }
+              else if (rollAffectedWeapon == 4) {
+                if (this.bounce.upgradeAmount == 0) { this.bounce.interval = 2250 }
+                else {
+                  if (rollStatUpgrade == 0) { this.bounce.interval -= 40 }
+                  else if (rollStatUpgrade == 1) { this.bounce.damage += 8 }
+                }
+                this.bounce.upgradeAmount++
+              }
+              else if (rollAffectedWeapon == 5) {
+                if (this.plus.upgradeAmount == 0) { this.plus.interval = 2500 }
+                else {
+                  if (rollStatUpgrade == 0) { this.plus.interval -= 30 }
+                  else if (rollStatUpgrade == 1) { this.plus.damage += 8 }
+                }
+                this.plus.upgradeAmount++
+              }
+              else if (rollAffectedWeapon == 6) {
+                if (this.rain.upgradeAmount == 0) { this.rain.interval = 70 }
+                else {
+                  if (rollStatUpgrade == 0) { this.rain.interval -= 1 }
+                  else if (rollStatUpgrade == 1) { this.rain.damage += 1 }
+                }
+                this.rain.upgradeAmount++
+              }
+              // else if (rollAffectedWeapon == 7) {
+              //   if (this.homing.upgradeAmount == 0) { this.homing.interval = 2000 }
+              //   else {
+              //     if (rollStatUpgrade == 0) { this.homing.interval -= 1 }
+              //     else if (rollStatUpgrade == 1) { this.homing.damage += 1 }
+              //   }
+              //   this.homing.upgradeAmount++
+              // }
+              this.pause = false
+              this.choices = false
+            }, 5000)
+          }
         }
       }
       this.player.projectiles.forEach((projectile) => {
