@@ -3,6 +3,9 @@ import Player from './Player.js'
 import UserInterface from './UserInterface.js'
 import Pumpkin from './Pumpkin.js'
 import Vampire from './Vampire.js'
+import Warewolf from './Warewolf.js'
+import Zombie from './Zombie.js'
+import Gremlin from './Gremlin.js'
 import Drop from './Drop.js'
 import Projectile from './Projectile.js'
 import Shoot from './Shoot.js'
@@ -47,6 +50,12 @@ export default class Game {
     this.pumpkinInterval
     this.vampireTimer = 0
     this.vampireInterval
+    this.warewolfTimer = 0
+    this.warewolfInterval
+    this.zombieTimer = 0
+    this.zombieInterval
+    this.gremlinTimer = 0
+    this.gremlinInterval
 
     this.projectiles = []
 
@@ -73,7 +82,7 @@ export default class Game {
       return
     }
 
-    this.pumpkinInterval = (Math.pow((0.00005 * this.gameTime) - 6, 2) + 3) * 80
+    this.pumpkinInterval = (Math.pow((0.00003 * this.gameTime) - 6, 2) + 3) * 120
 
     let pumpkinx = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
     let pumpkiny = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
@@ -94,8 +103,7 @@ export default class Game {
       this.pumpkinTimer += deltaTime
     }
 
-    this.vampireInterval = (Math.pow((0.00005 * this.gameTime) - 20, 2) + 3) * 80
-    console.log(this.vampireInterval)
+    this.vampireInterval = (Math.pow((0.00003 * this.gameTime) - 12, 2) + 3) * 80
 
     let vampirex = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
     let vampirey = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
@@ -116,12 +124,75 @@ export default class Game {
       this.vampireTimer += deltaTime
     }
 
+    this.warewolfInterval = (Math.pow((0.00003 * this.gameTime) - 18, 2) + 3) * 80
+
+    let warewolfx = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
+    let warewolfy = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
+
+    if (this.warewolfTimer > this.warewolfInterval) {
+      if (warewolfx === 0) {
+        warewolfy = Math.random() * this.height // if on left edge, randomize y position
+      } else if (warewolfx === this.width) {
+        warewolfy = Math.random() * this.height // if on right edge, randomize y position
+      } else if (warewolfy === 0) {
+        warewolfx = Math.random() * this.width // if on top edge, randomize x position
+      } else {
+        warewolfx = Math.random() * this.width // if on bottom edge, randomize x position
+      }
+      this.enemies.push(new Warewolf(this, warewolfx, warewolfy))
+      this.warewolfTimer = 0
+    } else {
+      this.warewolfTimer += deltaTime
+    }
+
+    this.zombieInterval = (Math.pow((0.00003 * this.gameTime) - 24, 2) + 3) * 40
+
+    let zombiex = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
+    let zombiey = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
+
+    if (this.zombieTimer > this.zombieInterval) {
+      if (zombiex === 0) {
+        zombiey = Math.random() * this.height // if on left edge, randomize y position
+      } else if (zombiex === this.width) {
+        zombiey = Math.random() * this.height // if on right edge, randomize y position
+      } else if (zombiey === 0) {
+        zombiex = Math.random() * this.width // if on top edge, randomize x position
+      } else {
+        zombiex = Math.random() * this.width // if on bottom edge, randomize x position
+      }
+      this.enemies.push(new Zombie(this, zombiex, zombiey))
+      this.zombieTimer = 0
+    } else {
+      this.zombieTimer += deltaTime
+    }
+
+    this.gremlinInterval = (Math.pow((0.00003 * this.gameTime) - 30, 2) + 3) * 60
+
+    let gremlinx = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
+    let gremliny = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
+
+    if (this.gremlinTimer > this.gremlinInterval) {
+      if (gremlinx === 0) {
+        gremliny = Math.random() * this.height // if on left edge, randomize y position
+      } else if (gremlinx === this.width) {
+        gremliny = Math.random() * this.height // if on right edge, randomize y position
+      } else if (gremliny === 0) {
+        gremlinx = Math.random() * this.width // if on top edge, randomize x position
+      } else {
+        gremlinx = Math.random() * this.width // if on bottom edge, randomize x position
+      }
+      this.enemies.push(new Gremlin(this, gremlinx, gremliny))
+      this.gremlinTimer = 0
+    } else {
+      this.gremlinTimer += deltaTime
+    }
+
     this.player.update(deltaTime)
 
     this.enemies.forEach((enemy) => {
       enemy.update(this.player)
       if (this.checkCollision(this.player, enemy)) {
-        if (enemy.type === 'enemy') {
+        if (enemy.type !== 'drop') {
           if (this.damageTimer > this.damageInterval) {
             this.player.lives--
             this.damageTimer = 0

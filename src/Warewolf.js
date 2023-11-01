@@ -1,16 +1,16 @@
 import Enemy from './Enemy.js'
 
-export default class Vampire extends Enemy {
+export default class Warewolf extends Enemy {
     constructor(game, x, y) {
         super(game)
-        this.width = 42
-        this.height = 42
+        this.width = 36
+        this.height = 36
         this.x = x
         this.y = y
-        this.speed = 1.5
-        this.lives = Math.floor(Math.random() * 60) + 40
-        this.color = 'red'
-        this.type = 'vampire'
+        this.speed = 4.5
+        this.lives = Math.floor(Math.random() * 90) + 60
+        this.color = 'brown'
+        this.type = 'warewolf'
     }
 
     update(player) {

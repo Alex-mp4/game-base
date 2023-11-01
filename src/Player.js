@@ -19,9 +19,9 @@ export default class Player {
 
     this.speedX = 0
     this.speedY = 0
-    this.maxSpeed = 6
+    this.maxSpeed = 5
 
-    this.lives = 20
+    this.lives = 10
   }
 
   update(deltaTime) {
