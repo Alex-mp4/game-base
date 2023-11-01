@@ -2,6 +2,7 @@ import InputHandler from './InputHandler.js'
 import Player from './Player.js'
 import UserInterface from './UserInterface.js'
 import Pumpkin from './Pumpkin.js'
+import Vampire from './Vampire.js'
 import Drop from './Drop.js'
 import Projectile from './Projectile.js'
 import Shoot from './Shoot.js'
@@ -43,7 +44,9 @@ export default class Game {
 
     this.enemies = []
     this.pumpkinTimer = 0
-    this.pumpkinInterval = 2000
+    this.pumpkinInterval
+    this.vampireTimer = 0
+    this.vampireInterval
 
     this.projectiles = []
 
@@ -72,24 +75,47 @@ export default class Game {
 
     this.pumpkinInterval = (Math.pow((0.00005 * this.gameTime) - 6, 2) + 3) * 80
 
-    let x = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
-    let y = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
+    let pumpkinx = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
+    let pumpkiny = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
 
     if (this.pumpkinTimer > this.pumpkinInterval) {
-      if (x === 0) {
-        y = Math.random() * this.height // if on left edge, randomize y position
-      } else if (x === this.width) {
-        y = Math.random() * this.height // if on right edge, randomize y position
-      } else if (y === 0) {
-        x = Math.random() * this.width // if on top edge, randomize x position
+      if (pumpkinx === 0) {
+        pumpkiny = Math.random() * this.height // if on left edge, randomize y position
+      } else if (pumpkinx === this.width) {
+        pumpkiny = Math.random() * this.height // if on right edge, randomize y position
+      } else if (pumpkiny === 0) {
+        pumpkinx = Math.random() * this.width // if on top edge, randomize x position
       } else {
-        x = Math.random() * this.width // if on bottom edge, randomize x position
+        pumpkinx = Math.random() * this.width // if on bottom edge, randomize x position
       }
-      this.enemies.push(new Pumpkin(this, x, y))
+      this.enemies.push(new Pumpkin(this, pumpkinx, pumpkiny))
       this.pumpkinTimer = 0
     } else {
       this.pumpkinTimer += deltaTime
     }
+
+    this.vampireInterval = (Math.pow((0.00005 * this.gameTime) - 20, 2) + 3) * 80
+    console.log(this.vampireInterval)
+
+    let vampirex = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
+    let vampirey = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
+
+    if (this.vampireTimer > this.vampireInterval) {
+      if (vampirex === 0) {
+        vampirey = Math.random() * this.height // if on left edge, randomize y position
+      } else if (vampirex === this.width) {
+        vampirey = Math.random() * this.height // if on right edge, randomize y position
+      } else if (vampirey === 0) {
+        vampirex = Math.random() * this.width // if on top edge, randomize x position
+      } else {
+        vampirex = Math.random() * this.width // if on bottom edge, randomize x position
+      }
+      this.enemies.push(new Vampire(this, vampirex, vampirey))
+      this.vampireTimer = 0
+    } else {
+      this.vampireTimer += deltaTime
+    }
+
     this.player.update(deltaTime)
 
     this.enemies.forEach((enemy) => {
