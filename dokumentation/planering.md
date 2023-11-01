@@ -23,8 +23,8 @@ Activate them over time (yup)
 Create more weapons (yup)
 Border on game (yup)
 Graphics
-More enemies
-Enemy timer is a exponential function that increases and then begins to increase, simultaneously a new one begins
+More enemies (yup)
+Enemy timer is a exponential function that increases and then begins to increase, simultaneously a new one begins (yup)
 Pause game (yup)
 When drop get popup and pick between three choices (pause here) (yup)
 Fix bounce from enemy (yup)
@@ -35,6 +35,8 @@ Better UI
 Enemies die when below 0 (not after being shot at below 0)
 Pity system for drops (make odds increase with deltaTime)
 Balancing (weapon damage on first pickup)
+Boss with unique patterns (for example, shows it going back and then it boosts forward or having a distinct path/covering part of the screen)
+When enough time has passed (after gremlin something) go hogwild with spawn rate
 
 
 S-tier Rain
