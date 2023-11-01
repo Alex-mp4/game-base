@@ -9,7 +9,6 @@ export default class Slash extends Projectile {
         this.y = y
         this.angle = angle
 
-        this.speed = 150
         this.damage = 20
 
         this.upgradeAmount = 0
@@ -18,6 +17,13 @@ export default class Slash extends Projectile {
 
         this.disTimer = 0
         this.disInterval = 400
+
+        if (this.upgradeAmount >= 10) {
+            this.speed = 800
+        }
+        else {
+            this.speed = 150
+        }
 
         this.color = 'white'
         this.type = 'slash'

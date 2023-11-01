@@ -15,7 +15,12 @@ export default class Radius extends Projectile {
         this.interval = Infinity
 
         this.disTimer = 0
-        this.disInterval = 50
+        if (this.upgradeAmount >= 10) {
+            this.disInterval = 100
+        }
+        else {
+            this.disInterval = 50
+        }
 
         this.color = 'red'
         this.type = 'radius'

@@ -3,8 +3,15 @@ import Projectile from "./Projectile"
 export default class Shoot extends Projectile {
     constructor(game, x, y, angle) {
         super(game)
-        this.width = 10
-        this.height = 4
+        this.upgradeAmount = 0
+        if (this.upgradeAmount >= 10) {
+            this.width = 50
+            this.height = 20
+        }
+        else {
+            this.width = 10
+            this.height = 4
+        }
         this.x = x
         this.y = y
         this.angle = angle
@@ -12,7 +19,6 @@ export default class Shoot extends Projectile {
         this.speed = 400
         this.damage = 10
 
-        this.upgradeAmount = 0
         this.timer = 0
         this.interval = 1000
 

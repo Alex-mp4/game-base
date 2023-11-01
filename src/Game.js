@@ -6,6 +6,7 @@ import Vampire from './Vampire.js'
 import Warewolf from './Warewolf.js'
 import Zombie from './Zombie.js'
 import Gremlin from './Gremlin.js'
+import Boss1 from './Boss1.js'
 import Drop from './Drop.js'
 import Projectile from './Projectile.js'
 import Shoot from './Shoot.js'
@@ -56,6 +57,8 @@ export default class Game {
     this.zombieInterval
     this.gremlinTimer = 0
     this.gremlinInterval
+    this.boss1Timer = 0
+    this.boss1Interval = 1000
 
     this.projectiles = []
 
@@ -82,13 +85,33 @@ export default class Game {
       return
     }
 
-    this.pumpkinInterval = (Math.pow((0.00003 * this.gameTime) - 6, 2) + 3) * 120
-    this.vampireInterval = (Math.pow((0.00003 * this.gameTime) - 12, 2) + 3) * 80
-    this.warewolfInterval = (Math.pow((0.00003 * this.gameTime) - 18, 2) + 3) * 80
-    this.zombieInterval = (Math.pow((0.00003 * this.gameTime) - 24, 2) + 3) * 40
-    this.gremlinInterval = (Math.pow((0.00003 * this.gameTime) - 30, 2) + 3) * 60
+    // let boss1x = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
+    // let boss1y = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
 
-    if (this.gameTime > 1000000) {
+    // if (this.boss1Timer > this.boss1Interval) {
+    //   if (boss1x === 0) {
+    //     boss1y = Math.random() * this.height // if on left edge, randomize y position
+    //   } else if (boss1x === this.width) {
+    //     boss1y = Math.random() * this.height // if on right edge, randomize y position
+    //   } else if (boss1y === 0) {
+    //     boss1x = Math.random() * this.width // if on top edge, randomize x position
+    //   } else {
+    //     boss1x = Math.random() * this.width // if on bottom edge, randomize x position
+    //   }
+    //   this.enemies.push(new Boss1(this, boss1x, boss1y))
+    //   this.boss1Interval = Infinity
+    // }
+    // else {
+    //   this.boss1Timer += deltaTime
+    // }
+
+    this.pumpkinInterval = (Math.pow((0.00003 * this.gameTime) - 2, 2) + 3) * 140
+    this.vampireInterval = (Math.pow((0.00003 * this.gameTime) - 10, 2) + 3) * 80
+    this.warewolfInterval = (Math.pow((0.00003 * this.gameTime) - 16, 2) + 3) * 80
+    this.zombieInterval = (Math.pow((0.00003 * this.gameTime) - 20, 2) + 3) * 40
+    this.gremlinInterval = (Math.pow((0.00003 * this.gameTime) - 22, 2) + 3) * 60
+
+    if (this.gameTime > 800000) {
       this.pumpkinInterval = 200 / (0.0000006 * this.gameTime)
       this.vampireInterval = 300 / (0.0000006 * this.gameTime)
       this.warewolfInterval = 400 / (0.0000006 * this.gameTime)
@@ -207,108 +230,103 @@ export default class Game {
         }
         if (enemy.type === 'drop') {
           enemy.markedForDeletion = true
-          if (Math.random() < 0.2) {
-            this.player.lives++
-          }
-          else {
-            this.pause = true
-            this.choices = true
-            let rollAffectedWeapon
-            this.choiceW1 = Math.floor(Math.random() * 7)
-            this.choiceW2 = Math.floor(Math.random() * 7)
-            this.choiceW3 = Math.floor(Math.random() * 7)
-            let rollStatUpgrade
-            this.choiceU1 = Math.floor(Math.random() * 2)
-            this.choiceU2 = Math.floor(Math.random() * 2)
-            this.choiceU3 = Math.floor(Math.random() * 2)
+          this.pause = true
+          this.choices = true
+          let rollAffectedWeapon
+          this.choiceW1 = Math.floor(Math.random() * 7)
+          this.choiceW2 = Math.floor(Math.random() * 7)
+          this.choiceW3 = Math.floor(Math.random() * 7)
+          let rollStatUpgrade
+          this.choiceU1 = Math.floor(Math.random() * 2)
+          this.choiceU2 = Math.floor(Math.random() * 2)
+          this.choiceU3 = Math.floor(Math.random() * 2)
 
-            this.timeout = setTimeout(tooSlow, 4999)
-            function tooSlow() {
-              return Math.floor(Math.random() * 3)
+          this.timeout = setTimeout(tooSlow, 4999)
+          function tooSlow() {
+            return Math.floor(Math.random() * 3)
+          }
+          this.choice = tooSlow()
+
+          setTimeout(() => {
+            if (this.choice === 0) {
+              rollAffectedWeapon = this.choiceW1
+              rollStatUpgrade = this.choiceU1
             }
-            this.choice = tooSlow()
+            if (this.choice === 1) {
+              rollAffectedWeapon = this.choiceW2
+              rollStatUpgrade = this.choiceU2
+            }
+            if (this.choice === 2) {
+              rollAffectedWeapon = this.choiceW3
+              rollStatUpgrade = this.choiceU3
+            }
 
-            setTimeout(() => {
-              if (this.choice === 0) {
-                rollAffectedWeapon = this.choiceW1
-                rollStatUpgrade = this.choiceU1
+            console.log("Affect weapon: " + rollAffectedWeapon)
+            console.log("Affect upgrade: " + rollStatUpgrade)
+            if (rollAffectedWeapon == 0) {
+              if (rollStatUpgrade == 0) { this.shoot.interval -= 25 }
+              else if (rollStatUpgrade == 1) { this.shoot.damage += 5 }
+              this.shoot.upgradeAmount++
+            }
+            else if (rollAffectedWeapon == 1) {
+              if (this.slash.upgradeAmount == 0) { this.slash.interval = 3500 }
+              else {
+                if (rollStatUpgrade == 0) { this.slash.interval -= 75 }
+                else if (rollStatUpgrade == 1) { this.slash.damage += 10 }
               }
-              if (this.choice === 1) {
-                rollAffectedWeapon = this.choiceW2
-                rollStatUpgrade = this.choiceU2
+              this.slash.upgradeAmount++
+            }
+            else if (rollAffectedWeapon == 2) {
+              if (this.radius.upgradeAmount == 0) { this.radius.interval = 2500 }
+              else {
+                if (rollStatUpgrade == 0) { this.radius.interval -= 50 }
+                else if (rollStatUpgrade == 1) { this.radius.damage += 1 }
               }
-              if (this.choice === 2) {
-                rollAffectedWeapon = this.choiceW3
-                rollStatUpgrade = this.choiceU3
+              this.radius.upgradeAmount++
+            }
+            else if (rollAffectedWeapon == 3) {
+              if (this.boomerang.upgradeAmount == 0) { this.boomerang.interval = 2000 }
+              else {
+                if (rollStatUpgrade == 0) { this.boomerang.interval -= 30 }
+                else if (rollStatUpgrade == 1) { this.boomerang.damage += 8 }
               }
-
-              console.log("Affect weapon: " + rollAffectedWeapon)
-              console.log("Affect upgrade: " + rollStatUpgrade)
-              if (rollAffectedWeapon == 0) {
-                if (rollStatUpgrade == 0) { this.shoot.interval -= 25 }
-                else if (rollStatUpgrade == 1) { this.shoot.damage += 5 }
-                this.shoot.upgradeAmount++
+              this.boomerang.upgradeAmount++
+            }
+            else if (rollAffectedWeapon == 4) {
+              if (this.bounce.upgradeAmount == 0) { this.bounce.interval = 2250 }
+              else {
+                if (rollStatUpgrade == 0) { this.bounce.interval -= 40 }
+                else if (rollStatUpgrade == 1) { this.bounce.damage += 8 }
               }
-              else if (rollAffectedWeapon == 1) {
-                if (this.slash.upgradeAmount == 0) { this.slash.interval = 3500 }
-                else {
-                  if (rollStatUpgrade == 0) { this.slash.interval -= 75 }
-                  else if (rollStatUpgrade == 1) { this.slash.damage += 10 }
-                }
-                this.slash.upgradeAmount++
+              this.bounce.upgradeAmount++
+            }
+            else if (rollAffectedWeapon == 5) {
+              if (this.plus.upgradeAmount == 0) { this.plus.interval = 2500 }
+              else {
+                if (rollStatUpgrade == 0) { this.plus.interval -= 30 }
+                else if (rollStatUpgrade == 1) { this.plus.damage += 8 }
               }
-              else if (rollAffectedWeapon == 2) {
-                if (this.radius.upgradeAmount == 0) { this.radius.interval = 2500 }
-                else {
-                  if (rollStatUpgrade == 0) { this.radius.interval -= 50 }
-                  else if (rollStatUpgrade == 1) { this.radius.damage += 1 }
-                }
-                this.radius.upgradeAmount++
+              this.plus.upgradeAmount++
+            }
+            else if (rollAffectedWeapon == 6) {
+              if (this.rain.upgradeAmount == 0) { this.rain.interval = 70 }
+              else {
+                if (rollStatUpgrade == 0) { this.rain.interval -= 1 }
+                else if (rollStatUpgrade == 1) { this.rain.damage += 1 }
               }
-              else if (rollAffectedWeapon == 3) {
-                if (this.boomerang.upgradeAmount == 0) { this.boomerang.interval = 2000 }
-                else {
-                  if (rollStatUpgrade == 0) { this.boomerang.interval -= 30 }
-                  else if (rollStatUpgrade == 1) { this.boomerang.damage += 8 }
-                }
-                this.boomerang.upgradeAmount++
-              }
-              else if (rollAffectedWeapon == 4) {
-                if (this.bounce.upgradeAmount == 0) { this.bounce.interval = 2250 }
-                else {
-                  if (rollStatUpgrade == 0) { this.bounce.interval -= 40 }
-                  else if (rollStatUpgrade == 1) { this.bounce.damage += 8 }
-                }
-                this.bounce.upgradeAmount++
-              }
-              else if (rollAffectedWeapon == 5) {
-                if (this.plus.upgradeAmount == 0) { this.plus.interval = 2500 }
-                else {
-                  if (rollStatUpgrade == 0) { this.plus.interval -= 30 }
-                  else if (rollStatUpgrade == 1) { this.plus.damage += 8 }
-                }
-                this.plus.upgradeAmount++
-              }
-              else if (rollAffectedWeapon == 6) {
-                if (this.rain.upgradeAmount == 0) { this.rain.interval = 70 }
-                else {
-                  if (rollStatUpgrade == 0) { this.rain.interval -= 1 }
-                  else if (rollStatUpgrade == 1) { this.rain.damage += 1 }
-                }
-                this.rain.upgradeAmount++
-              }
-              // else if (rollAffectedWeapon == 7) {
-              //   if (this.homing.upgradeAmount == 0) { this.homing.interval = 2000 }
-              //   else {
-              //     if (rollStatUpgrade == 0) { this.homing.interval -= 1 }
-              //     else if (rollStatUpgrade == 1) { this.homing.damage += 1 }
-              //   }
-              //   this.homing.upgradeAmount++
-              // }
-              this.pause = false
-              this.choices = false
-            }, 5000)
-          }
+              this.rain.upgradeAmount++
+            }
+            // else if (rollAffectedWeapon == 7) {
+            //   if (this.homing.upgradeAmount == 0) { this.homing.interval = 2000 }
+            //   else {
+            //     if (rollStatUpgrade == 0) { this.homing.interval -= 1 }
+            //     else if (rollStatUpgrade == 1) { this.homing.damage += 1 }
+            //   }
+            //   this.homing.upgradeAmount++
+            // }
+            this.pause = false
+            this.choices = false
+          }, 5000)
         }
       }
       this.player.projectiles.forEach((projectile) => {
@@ -316,7 +334,10 @@ export default class Game {
           if (enemy.type === 'drop') { }
           else {
             if (enemy.lives < 1) {
-              if (Math.random() < 0.1 || this.pity === 1) {
+              if (enemy.type === 'boss1' || enemy.type === 'boss2' || enemy.type === 'boss3') {
+                this.enemies.push(new Drop(this, enemy.x, enemy.y))
+              }
+              else if (Math.random() < 0.1 || this.pity < 2) {
                 this.enemies.push(new Drop(this, enemy.x, enemy.y))
               }
               enemy.markedForDeletion = true
@@ -336,6 +357,9 @@ export default class Game {
                 this.player.bounce(this.input.mouseX, this.input.mouseY, enemy.x, enemy.y)
                 enemy.lives -= this.bounce.damage
                 projectile.markedForDeletion = true
+                if (this.bounce.upgradeAmount >= 10) {
+                  this.player.bounce(this.input.mouseX, this.input.mouseY, enemy.x, enemy.y)
+                }
               }
               else if (projectile.type === 'plus') {
                 enemy.lives -= this.plus.damage
@@ -398,6 +422,9 @@ export default class Game {
 
     if (this.plus.timer > this.plus.interval) {
       this.player.plus(this.input.mouseX, this.input.mouseY)
+      if (this.plus.upgradeAmount >= 10) {
+        this.player.plus2(this.input.mouseX, this.input.mouseY)
+      }
       this.plus.timer = 0
     }
     else {

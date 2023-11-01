@@ -40,7 +40,12 @@ export default class Boomerang extends Projectile {
             this.speed *= (-1)
             velocity.x *= (-1)
             velocity.y *= (-1)
-            this.turnTimer = -Infinity
+            if (this.upgradeAmount >= 10) {
+                this.turnTimer = 0
+            }
+            else {
+                this.turnTimer = -Infinity
+            }
         }
         else {
             this.turnTimer += deltaTime

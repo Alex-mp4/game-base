@@ -29,9 +29,9 @@ When drop get popup and pick between three choices (pause here) (yup)
 Fix bounce from enemy (yup)
 Pity system for drops (make odds increase with deltaTime) (yup)
 When enough time has passed (after gremlin something) go hogwild with spawn rate (yup)
+Improve weapon greatly at certain levels (yup)
 
 Graphics
-Improve weapon greatly at certain levels
 Countdown on pickup
 Confirmation on choice
 If I can avoid all of the ifs then do so (have projectile have all of the statistics (this.interval, for example) and give them names to take data from)

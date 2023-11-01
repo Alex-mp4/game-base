@@ -225,7 +225,37 @@ export default class Player {
         this.y + this.height / 2,
         -1.575
       ))
+  }
 
+  plus2() {
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        0.7875
+      ))
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        2.3625
+      ))
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        -0.7875
+      ))
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        -2.3625
+      ))
   }
 
   rain() {
