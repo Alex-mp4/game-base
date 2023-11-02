@@ -107,13 +107,12 @@ export default class Game {
     // }
 
     this.dropChance = (Math.pow(0.000002 * this.gameTime, 2) * -1 + 0.2)
-    console.log(this.dropChance)
 
     this.pumpkinInterval = (Math.pow((0.00003 * this.gameTime) - 2, 2) + 3) * 180
-    this.vampireInterval = (Math.pow((0.00003 * this.gameTime) - 10, 2) + 3) * 80
-    this.warewolfInterval = (Math.pow((0.00003 * this.gameTime) - 16, 2) + 3) * 80
-    this.zombieInterval = (Math.pow((0.00003 * this.gameTime) - 20, 2) + 3) * 40
-    this.gremlinInterval = (Math.pow((0.00003 * this.gameTime) - 22, 2) + 3) * 60
+    this.vampireInterval = (Math.pow((0.00003 * this.gameTime) - 8, 2) + 3) * 80
+    this.warewolfInterval = (Math.pow((0.00003 * this.gameTime) - 12, 2) + 3) * 80
+    this.zombieInterval = (Math.pow((0.00003 * this.gameTime) - 14, 2) + 3) * 40
+    this.gremlinInterval = (Math.pow((0.00003 * this.gameTime) - 16, 2) + 3) * 60
 
     if (this.gameTime > 800000) {
       this.pumpkinInterval = 200 / (0.0000006 * this.gameTime)
@@ -344,7 +343,7 @@ export default class Game {
               if (enemy.type === 'boss1' || enemy.type === 'boss2' || enemy.type === 'boss3') {
                 this.enemies.push(new Drop(this, enemy.x, enemy.y))
               }
-              else if (Math.random() < 0.2 || this.pity < 2) {
+              else if (Math.random() < this.dropChance || this.pity < 2) {
                 this.enemies.push(new Drop(this, enemy.x, enemy.y))
               }
               enemy.markedForDeletion = true
@@ -458,8 +457,6 @@ export default class Game {
       this.player.rain()
       this.rain.timer = 0
       if (this.rain.upgradeAmount >= 10) {
-        this.player.rain2()
-        this.player.rain2()
         this.player.rain2()
       }
     }
