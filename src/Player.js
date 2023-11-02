@@ -133,7 +133,26 @@ export default class Player {
         this.game,
         this.x + this.width / 2,
         this.y + this.height / 2,
-        angle
+        angle,
+        600
+      ))
+
+  }
+
+  slash2(mouseX, mouseY) {
+    // get angle between player and mouse
+    const angle = Math.atan2(
+      mouseY - (this.y + this.height / 2),
+      mouseX - (this.x + this.width / 2)
+    )
+
+    this.projectiles.push(
+      new Slash(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        angle,
+        1600
       ))
 
   }
@@ -145,7 +164,15 @@ export default class Player {
         this.x + this.width / 2,
         this.y + this.height / 2
       ))
+  }
 
+  radius2() {
+    this.projectiles.push(
+      new Radius(
+        this.game,
+        this.x + this.width / 2 - (this.speedX * 20),
+        this.y + this.height / 2 - (this.speedY * 20)
+      ))
   }
 
   boomerang(mouseX, mouseY) {
@@ -263,6 +290,16 @@ export default class Player {
       new Rain(
         this.game,
         this.x + this.width / 2,
+        this.y + this.height / 2,
+      ))
+
+  }
+
+  rain2() {
+    this.projectiles.push(
+      new Rain(
+        this.game,
+        Math.floor(Math.random() * this.game.width),
         this.y + this.height / 2,
       ))
 

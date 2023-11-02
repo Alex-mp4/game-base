@@ -34,6 +34,11 @@ Improve weapon greatly at certain levels (yup)
 Check if 10+ upgrades work
 - Bounce yup
 - Plus yup
+- Boomerang yup
+- Radius yup
+- Sword yup
+- Rain yup
+- Shoot yup
 
 Graphics
 Countdown on pickup

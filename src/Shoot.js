@@ -4,14 +4,8 @@ export default class Shoot extends Projectile {
     constructor(game, x, y, angle) {
         super(game)
         this.upgradeAmount = 0
-        if (this.upgradeAmount >= 10) {
-            this.width = 50
-            this.height = 20
-        }
-        else {
-            this.width = 10
-            this.height = 4
-        }
+        this.width = 10
+        this.height = 4
         this.x = x
         this.y = y
         this.angle = angle

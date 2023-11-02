@@ -7,13 +7,7 @@ export default class Rain extends Projectile {
         this.height = 3
         this.upgradeAmount = 0
         this.interval = Infinity
-        if (this.upgradeAmount >= 10) {
-            this.x = x - Math.floor(Math.random() * this.game.width) + this.game.width / 2
-            this.interval = 1
-        }
-        else {
-            this.x = x - Math.floor(Math.random() * 250) + 125
-        }
+        this.x = x - Math.floor(Math.random() * 250) + 125
         this.y = 0
 
         this.speed = 400

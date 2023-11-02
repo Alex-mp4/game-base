@@ -1,7 +1,7 @@
 import Projectile from "./Projectile"
 
 export default class Slash extends Projectile {
-    constructor(game, x, y, angle) {
+    constructor(game, x, y, angle, disInterval) {
         super(game)
         this.width = 4
         this.height = 0
@@ -10,20 +10,14 @@ export default class Slash extends Projectile {
         this.angle = angle
 
         this.damage = 20
+        this.speed = 150
 
         this.upgradeAmount = 0
         this.timer = 0
         this.interval = Infinity
 
         this.disTimer = 0
-        this.disInterval = 400
-
-        if (this.upgradeAmount >= 10) {
-            this.speed = 800
-        }
-        else {
-            this.speed = 150
-        }
+        this.disInterval = disInterval
 
         this.color = 'white'
         this.type = 'slash'
@@ -42,17 +36,13 @@ export default class Slash extends Projectile {
             this.markedForDeletion = true
         }
 
-        if (this.height > 80) {
-            this.markedForDeletion = true
-        }
-
         if (this.disTimer > this.disInterval) {
             this.markedForDeletion = true
             this.disTimer = 0
         }
         else {
-            this.disTimer += deltaTime / 10
-            this.height = this.disTimer
+            this.disTimer += deltaTime
+            this.height = this.disTimer / 10
         }
     }
 }

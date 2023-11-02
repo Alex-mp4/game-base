@@ -283,6 +283,9 @@ export default class Game {
                 else if (rollStatUpgrade == 1) { this.radius.damage += 1 }
               }
               this.radius.upgradeAmount++
+              if (this.radius.upgradeAmount === 10) {
+                this.radius.disInterval += 50
+              }
             }
             else if (rollAffectedWeapon == 3) {
               if (this.boomerang.upgradeAmount == 0) { this.boomerang.interval = 2000 }
@@ -337,7 +340,7 @@ export default class Game {
               if (enemy.type === 'boss1' || enemy.type === 'boss2' || enemy.type === 'boss3') {
                 this.enemies.push(new Drop(this, enemy.x, enemy.y))
               }
-              else if (Math.random() < 0.1 || this.pity < 2) {
+              else if (Math.random() < 1 || this.pity < 2) {
                 this.enemies.push(new Drop(this, enemy.x, enemy.y))
               }
               enemy.markedForDeletion = true
@@ -351,7 +354,10 @@ export default class Game {
               else if (projectile.type === 'radius') { enemy.lives -= this.radius.damage }
               else if (projectile.type === 'boomerang') {
                 enemy.lives -= this.boomerang.damage
-                projectile.markedForDeletion = true
+                if (this.boomerang.upgradeAmount >= 10) { }
+                else {
+                  projectile.markedForDeletion = true
+                }
               }
               else if (projectile.type === 'bounce') {
                 this.player.bounce(this.input.mouseX, this.input.mouseY, enemy.x, enemy.y)
@@ -380,6 +386,11 @@ export default class Game {
     })
     this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
 
+    if (this.shoot.upgradeAmount >= 10) {
+      if (this.shoot.timer + 10 > this.shoot.interval) {
+        this.player.shoot(this.input.mouseX, this.input.mouseY)
+      }
+    }
     if (this.shoot.timer > this.shoot.interval) {
       this.player.shoot(this.input.mouseX, this.input.mouseY)
       this.shoot.timer = 0
@@ -389,7 +400,12 @@ export default class Game {
     }
 
     if (this.slash.timer > this.slash.interval) {
-      this.player.slash(this.input.mouseX, this.input.mouseY)
+      if (this.slash.upgradeAmount >= 10) {
+        this.player.slash2(this.input.mouseX, this.input.mouseY)
+      }
+      else {
+        this.player.slash(this.input.mouseX, this.input.mouseY)
+      }
       this.slash.timer = 0
     }
     else {
@@ -397,6 +413,9 @@ export default class Game {
     }
 
     if (this.radius.timer > this.radius.interval) {
+      if (this.radius.upgradeAmount >= 10) {
+        this.player.radius2(this.input.mouseX, this.input.mouseY)
+      }
       this.player.radius(this.input.mouseX, this.input.mouseY)
       this.radius.timer = 0
     }
@@ -434,6 +453,11 @@ export default class Game {
     if (this.rain.timer > this.rain.interval) {
       this.player.rain()
       this.rain.timer = 0
+      if (this.rain.upgradeAmount >= 10) {
+        this.player.rain2()
+        this.player.rain2()
+        this.player.rain2()
+      }
     }
     else {
       this.rain.timer += deltaTime

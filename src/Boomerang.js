@@ -18,6 +18,8 @@ export default class Boomerang extends Projectile {
 
         this.turnTimer = 0
         this.turnInterval = 300
+        this.disTimer = 0
+        this.disInterval = 1000
 
         this.color = '#0f0'
         this.type = 'boomerang'
@@ -28,7 +30,6 @@ export default class Boomerang extends Projectile {
             x: this.speed * Math.cos(this.angle),
             y: this.speed * Math.sin(this.angle),
         }
-
         this.x += velocity.x * (deltaTime / 1000)
         this.y += velocity.y * (deltaTime / 1000)
 
@@ -37,18 +38,30 @@ export default class Boomerang extends Projectile {
         }
 
         if (this.turnTimer > this.turnInterval) {
+            console.log("Turn")
             this.speed *= (-1)
             velocity.x *= (-1)
             velocity.y *= (-1)
-            if (this.upgradeAmount >= 10) {
-                this.turnTimer = 0
-            }
-            else {
-                this.turnTimer = -Infinity
-            }
+            // if (this.upgradeAmount >= 1) {
+            //     this.turnTimer = 0
+            // }
+            // else {
+            this.turnTimer = -Infinity
+            //}
         }
         else {
             this.turnTimer += deltaTime
         }
+
+        // if (this.upgradeAmount >= 1) {
+        //     if (this.disTimer > this.disInterval) {
+        //         console.log("Deleted")
+        //         this.markedForDeletion = true
+        //         this.disTimer = 0
+        //     }
+        //     else {
+        //         this.disTimer += deltaTime
+        //     }
+        // }
     }
 }
