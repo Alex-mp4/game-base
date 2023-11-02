@@ -264,8 +264,8 @@ export default class Game {
               rollStatUpgrade = this.choiceU3
             }
 
-            console.log("Affect weapon: " + rollAffectedWeapon)
-            console.log("Affect upgrade: " + rollStatUpgrade)
+            //console.log("Affect weapon: " + rollAffectedWeapon)
+            //console.log("Affect upgrade: " + rollStatUpgrade)
             if (rollAffectedWeapon == 0) {
               if (rollStatUpgrade == 0) { this.shoot.interval -= 25 }
               else if (rollStatUpgrade == 1) { this.shoot.damage += 5 }

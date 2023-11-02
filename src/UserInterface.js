@@ -52,6 +52,16 @@ export default class UserInterface {
       context.fillText(`keys: ${this.game.keys}`, this.game.width - 20, 150)
     }
 
+    if (this.game.pause) {
+      context.fillText(`Pistol: ${this.game.shoot.upgradeAmount}`, 20, 140)
+      context.fillText(`Sword: ${this.game.slash.upgradeAmount}`, 20, 170)
+      context.fillText(`Bounce: ${this.game.bounce.upgradeAmount}`, 20, 200)
+      context.fillText(`Turret: ${this.game.plus.upgradeAmount}`, 20, 230)
+      context.fillText(`Bomb: ${this.game.radius.upgradeAmount}`, 20, 260)
+      context.fillText(`Rain: ${this.game.rain.upgradeAmount}`, 20, 290)
+      context.fillText(`Boomerang: ${this.game.boomerang.upgradeAmount}`, 20, 320)
+    }
+
     if (this.game.choices) {
       let weapon1Text
       let weapon2Text
@@ -147,12 +157,19 @@ export default class UserInterface {
         upgrade3Text = "Damage"
       }
 
-      context.fillText(`${weapon1Text}`, 100, 300)
-      context.fillText(`${upgrade1Text}`, 100, 400)
-      context.fillText(`${weapon2Text}`, 350, 300)
-      context.fillText(`${upgrade2Text}`, 350, 400)
-      context.fillText(`${weapon3Text}`, 600, 300)
-      context.fillText(`${upgrade3Text}`, 600, 400)
+      setTimeout(() => {
+        context.fillText(`3...`, 500, 200)
+      }, 0)
+      setTimeout(() => {
+        context.fillText(`2...`, 540, 200)
+      }, 1000)
+      setTimeout(() => {
+        context.fillText(`1...`, 580, 200)
+      }, 2000)
+
+      context.fillText(`Press 1: ${weapon1Text}, +${upgrade1Text}`, 500, 300)
+      context.fillText(`Press 2: ${weapon2Text}, +${upgrade2Text}`, 500, 400)
+      context.fillText(`Press 3: ${weapon3Text}, +${upgrade3Text}`, 500, 500)
     }
 
     context.restore()

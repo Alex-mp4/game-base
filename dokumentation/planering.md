@@ -38,8 +38,8 @@ Check if 10+ upgrades work
 - Sword yup
 - Rain yup
 - Shoot yup
-
 Graphics
+
 Countdown on pickup
 Confirmation on choice
 If I can avoid all of the ifs then do so (have projectile have all of the statistics (this.interval, for example) and give them names to take data from)

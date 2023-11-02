@@ -38,7 +38,6 @@ export default class Boomerang extends Projectile {
         }
 
         if (this.turnTimer > this.turnInterval) {
-            console.log("Turn")
             this.speed *= (-1)
             velocity.x *= (-1)
             velocity.y *= (-1)
