@@ -6,12 +6,14 @@ import Bounce from './Bounce.js'
 import Plus from './Plus.js'
 import Rain from './Rain.js'
 import Homing from './Homing.js'
+import PlayerSprite from '../src/assets/css/sprites/Sprite-Arca.webp'
+import movePlayerSprite from '../src/assets/css/sprites/Animated-Arca.webp'
 
 export default class Player {
   constructor(game) {
     this.game = game
-    this.width = 32
-    this.height = 32
+    this.width = 48
+    this.height = 48
     this.x = this.game.width / 2 - this.width / 2
     this.y = this.game.height / 2 - this.height / 2
 
@@ -22,6 +24,21 @@ export default class Player {
     this.maxSpeed = 5
 
     this.lives = 10
+
+    const sprite = new Image()
+    sprite.src = PlayerSprite
+    this.sprite = sprite
+
+    const sprite2 = new Image()
+    sprite2.src = movePlayerSprite
+    this.sprite2 = sprite2
+
+    this.frameX = 0
+    this.frameY = 1
+    this.maxFrame = 8
+    this.fps = 20
+    this.timer = 0
+    this.interval = 1000 / this.fps
   }
 
   update(deltaTime) {
@@ -81,8 +98,6 @@ export default class Player {
   }
 
   draw(context) {
-    context.fillStyle = '#f00'
-    context.fillRect(this.x, this.y, this.width, this.height)
     if (this.game.debug) {
       context.strokeStyle = '#000'
       context.strokeRect(this.x, this.y, this.width, this.height)
@@ -99,9 +114,28 @@ export default class Player {
       context.stroke()
     }
 
+    if (this.flip) {
+      context.save()
+      context.scale(-1, 1)
+    }
+
+    context.drawImage(
+      this.sprite,
+      this.frameX * this.width,
+      this.frameY * this.height - 48,
+      this.width,
+      this.height,
+      this.flip ? this.x * -1 - this.width : this.x,
+      this.y,
+      this.width,
+      this.height
+    )
+
     this.projectiles.forEach((projectile) => {
       projectile.draw(context)
     })
+
+    context.restore()
   }
 
   shoot(mouseX, mouseY) {
