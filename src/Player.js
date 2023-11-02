@@ -7,7 +7,6 @@ import Plus from './Plus.js'
 import Rain from './Rain.js'
 import Homing from './Homing.js'
 import PlayerSprite from '../src/assets/css/sprites/Sprite-Arca.webp'
-import movePlayerSprite from '../src/assets/css/sprites/Animated-Arca.webp'
 
 export default class Player {
   constructor(game) {
@@ -21,17 +20,13 @@ export default class Player {
 
     this.speedX = 0
     this.speedY = 0
-    this.maxSpeed = 5
+    this.maxSpeed = 3
 
-    this.lives = 10
+    this.lives = 20
 
     const sprite = new Image()
     sprite.src = PlayerSprite
     this.sprite = sprite
-
-    const sprite2 = new Image()
-    sprite2.src = movePlayerSprite
-    this.sprite2 = sprite2
 
     this.frameX = 0
     this.frameY = 1
@@ -95,6 +90,12 @@ export default class Player {
     this.projectiles = this.projectiles.filter(
       (projectile) => !projectile.markedForDeletion
     )
+
+    if (this.speedX > 0) {
+      this.flip = false
+    } else if (this.speedX < 0) {
+      this.flip = true
+    }
   }
 
   draw(context) {
@@ -114,6 +115,10 @@ export default class Player {
       context.stroke()
     }
 
+    this.projectiles.forEach((projectile) => {
+      projectile.draw(context)
+    })
+
     if (this.flip) {
       context.save()
       context.scale(-1, 1)
@@ -131,9 +136,6 @@ export default class Player {
       this.height
     )
 
-    this.projectiles.forEach((projectile) => {
-      projectile.draw(context)
-    })
 
     context.restore()
   }

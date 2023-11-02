@@ -33,6 +33,7 @@ export default class Game {
     this.gameTime = 0
     this.timeout
     this.pity = 0
+    this.dropChance
 
     this.choices = false
     this.choice
@@ -105,7 +106,10 @@ export default class Game {
     //   this.boss1Timer += deltaTime
     // }
 
-    this.pumpkinInterval = (Math.pow((0.00003 * this.gameTime) - 2, 2) + 3) * 140
+    this.dropChance = (Math.pow(0.000002 * this.gameTime, 2) * -1 + 0.2)
+    console.log(this.dropChance)
+
+    this.pumpkinInterval = (Math.pow((0.00003 * this.gameTime) - 2, 2) + 3) * 180
     this.vampireInterval = (Math.pow((0.00003 * this.gameTime) - 10, 2) + 3) * 80
     this.warewolfInterval = (Math.pow((0.00003 * this.gameTime) - 16, 2) + 3) * 80
     this.zombieInterval = (Math.pow((0.00003 * this.gameTime) - 20, 2) + 3) * 40
@@ -241,7 +245,7 @@ export default class Game {
           this.choiceU2 = Math.floor(Math.random() * 2)
           this.choiceU3 = Math.floor(Math.random() * 2)
 
-          this.timeout = setTimeout(tooSlow, 4999)
+          this.timeout = setTimeout(tooSlow, 2999)
           function tooSlow() {
             return Math.floor(Math.random() * 3)
           }
@@ -329,7 +333,7 @@ export default class Game {
             // }
             this.pause = false
             this.choices = false
-          }, 5000)
+          }, 3000)
         }
       }
       this.player.projectiles.forEach((projectile) => {
@@ -340,7 +344,7 @@ export default class Game {
               if (enemy.type === 'boss1' || enemy.type === 'boss2' || enemy.type === 'boss3') {
                 this.enemies.push(new Drop(this, enemy.x, enemy.y))
               }
-              else if (Math.random() < 1 || this.pity < 2) {
+              else if (Math.random() < 0.2 || this.pity < 2) {
                 this.enemies.push(new Drop(this, enemy.x, enemy.y))
               }
               enemy.markedForDeletion = true

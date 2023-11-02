@@ -1,4 +1,5 @@
 import Enemy from './Enemy.js'
+import ZombieSprite from '../src/assets/css/sprites/Sprite-MUDMAN1.webp'
 
 export default class Zombie extends Enemy {
     constructor(game, x, y) {
@@ -7,10 +8,21 @@ export default class Zombie extends Enemy {
         this.height = 32
         this.x = x
         this.y = y
-        this.speed = 1.5
+        this.speed = 1
         this.lives = Math.floor(Math.random() * 200) + 100
         this.color = 'green'
         this.type = 'zombie'
+
+        const sprite = new Image()
+        sprite.src = ZombieSprite
+        this.sprite = sprite
+
+        this.frameX = 0
+        this.frameY = 1
+        this.maxFrame = 8
+        this.fps = 20
+        this.timer = 0
+        this.interval = 1000 / this.fps
     }
 
     update(player) {
@@ -28,5 +40,32 @@ export default class Zombie extends Enemy {
             this.x += (speedX + Math.floor(Math.random() * 4) - 2) // move the enemy towards the player on the x axis
             this.y += (speedY + Math.floor(Math.random() * 4) - 2) // move the enemy towards the player on the y axis
         }
+
+        if (speedX < 0) {
+            this.flip = false
+        } else if (speedX > 0) {
+            this.flip = true
+        }
+    }
+
+    draw(context) {
+        if (this.flip) {
+            context.save()
+            context.scale(-1, 1)
+        }
+
+        context.drawImage(
+            this.sprite,
+            this.frameX * this.width,
+            this.frameY * this.height - 32,
+            this.width,
+            this.height,
+            this.flip ? this.x * -1 - this.width : this.x,
+            this.y,
+            this.width,
+            this.height
+        )
+
+        context.restore()
     }
 }
