@@ -39,12 +39,13 @@ Check if 10+ upgrades work
 - Rain yup
 - Shoot yup
 Graphics
+Show upgrades on pause
+Better UI
 
+Fix background
 Countdown on pickup
 Confirmation on choice
 If I can avoid all of the ifs then do so (have projectile have all of the statistics (this.interval, for example) and give them names to take data from)
-Better UI
-Enemies die when below 0 (not after being shot at below 0)
 Balancing (weapon damage on first pickup)
 Boss with unique patterns (for example, shows it going back and then it boosts forward or having a distinct path/covering part of the screen)
 
