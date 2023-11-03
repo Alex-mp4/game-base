@@ -9,7 +9,7 @@ export default class Slash extends Projectile {
         this.y = y
         this.angle = angle
 
-        this.damage = 20
+        this.damage = 16
         this.speed = 150
 
         this.upgradeAmount = 0

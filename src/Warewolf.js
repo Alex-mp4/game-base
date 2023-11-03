@@ -9,7 +9,7 @@ export default class Warewolf extends Enemy {
         this.x = x
         this.y = y
         this.speed = 2.5
-        this.lives = Math.floor(Math.random() * 90) + 60
+        this.lives = Math.floor(Math.random() * 75) + 30
         this.color = 'brown'
         this.type = 'warewolf'
 

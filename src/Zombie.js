@@ -9,7 +9,7 @@ export default class Zombie extends Enemy {
         this.x = x
         this.y = y
         this.speed = 1
-        this.lives = Math.floor(Math.random() * 200) + 100
+        this.lives = Math.floor(Math.random() * 180) + 50
         this.color = 'green'
         this.type = 'zombie'
 

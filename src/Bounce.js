@@ -10,7 +10,7 @@ export default class Bounce extends Projectile {
         this.angle = angle
 
         this.speed = 500
-        this.damage = 5
+        this.damage = 6
 
         this.upgradeAmount = 0
         this.timer = 0

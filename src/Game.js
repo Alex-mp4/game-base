@@ -109,13 +109,13 @@ export default class Game {
     //   this.boss1Timer += deltaTime
     // }
 
-    this.dropChance = (Math.pow(0.000002 * this.gameTime, 2) * -1 + 0.2)
+    this.dropChance = (Math.pow(0.0000016 * this.gameTime, 2) * -1 + 0.3)
 
-    this.pumpkinInterval = (Math.pow((0.00003 * this.gameTime) - 2, 2) + 3) * 180
-    this.vampireInterval = (Math.pow((0.00003 * this.gameTime) - 8, 2) + 3) * 80
-    this.warewolfInterval = (Math.pow((0.00003 * this.gameTime) - 12, 2) + 3) * 80
-    this.zombieInterval = (Math.pow((0.00003 * this.gameTime) - 14, 2) + 3) * 40
-    this.gremlinInterval = (Math.pow((0.00003 * this.gameTime) - 16, 2) + 3) * 60
+    this.pumpkinInterval = (Math.pow((0.00003 * this.gameTime) - 2, 2) + 12) * 180
+    this.vampireInterval = (Math.pow((0.00004 * this.gameTime) - 8, 2) + 30) * 80
+    this.warewolfInterval = (Math.pow((0.00005 * this.gameTime) - 12, 2) + 25) * 80
+    this.zombieInterval = (Math.pow((0.00006 * this.gameTime) - 14, 2) + 25) * 40
+    this.gremlinInterval = (Math.pow((0.00007 * this.gameTime) - 16, 2) + 8) * 60
 
     if (this.gameTime > 800000) {
       this.pumpkinInterval = 200 / (0.0000006 * this.gameTime)
@@ -270,14 +270,14 @@ export default class Game {
             //console.log("Affect weapon: " + rollAffectedWeapon)
             //console.log("Affect upgrade: " + rollStatUpgrade)
             if (rollAffectedWeapon == 0) {
-              if (rollStatUpgrade == 0) { this.shoot.interval -= 25 }
+              if (rollStatUpgrade == 0) { this.shoot.interval -= 50 }
               else if (rollStatUpgrade == 1) { this.shoot.damage += 5 }
               this.shoot.upgradeAmount++
             }
             else if (rollAffectedWeapon == 1) {
               if (this.slash.upgradeAmount == 0) { this.slash.interval = 3500 }
               else {
-                if (rollStatUpgrade == 0) { this.slash.interval -= 75 }
+                if (rollStatUpgrade == 0) { this.slash.interval -= 125 }
                 else if (rollStatUpgrade == 1) { this.slash.damage += 10 }
               }
               this.slash.upgradeAmount++
@@ -285,8 +285,8 @@ export default class Game {
             else if (rollAffectedWeapon == 2) {
               if (this.radius.upgradeAmount == 0) { this.radius.interval = 2500 }
               else {
-                if (rollStatUpgrade == 0) { this.radius.interval -= 50 }
-                else if (rollStatUpgrade == 1) { this.radius.damage += 1 }
+                if (rollStatUpgrade == 0) { this.radius.interval -= 100 }
+                else if (rollStatUpgrade == 1) { this.radius.damage += 2 }
               }
               this.radius.upgradeAmount++
               if (this.radius.upgradeAmount === 10) {
@@ -296,7 +296,7 @@ export default class Game {
             else if (rollAffectedWeapon == 3) {
               if (this.boomerang.upgradeAmount == 0) { this.boomerang.interval = 2000 }
               else {
-                if (rollStatUpgrade == 0) { this.boomerang.interval -= 30 }
+                if (rollStatUpgrade == 0) { this.boomerang.interval -= 80 }
                 else if (rollStatUpgrade == 1) { this.boomerang.damage += 8 }
               }
               this.boomerang.upgradeAmount++
@@ -304,15 +304,15 @@ export default class Game {
             else if (rollAffectedWeapon == 4) {
               if (this.bounce.upgradeAmount == 0) { this.bounce.interval = 2250 }
               else {
-                if (rollStatUpgrade == 0) { this.bounce.interval -= 40 }
-                else if (rollStatUpgrade == 1) { this.bounce.damage += 8 }
+                if (rollStatUpgrade == 0) { this.bounce.interval -= 65 }
+                else if (rollStatUpgrade == 1) { this.bounce.damage += 6 }
               }
               this.bounce.upgradeAmount++
             }
             else if (rollAffectedWeapon == 5) {
               if (this.plus.upgradeAmount == 0) { this.plus.interval = 2500 }
               else {
-                if (rollStatUpgrade == 0) { this.plus.interval -= 30 }
+                if (rollStatUpgrade == 0) { this.plus.interval -= 100 }
                 else if (rollStatUpgrade == 1) { this.plus.damage += 8 }
               }
               this.plus.upgradeAmount++
@@ -320,7 +320,7 @@ export default class Game {
             else if (rollAffectedWeapon == 6) {
               if (this.rain.upgradeAmount == 0) { this.rain.interval = 70 }
               else {
-                if (rollStatUpgrade == 0) { this.rain.interval -= 1 }
+                if (rollStatUpgrade == 0) { this.rain.interval -= 3 }
                 else if (rollStatUpgrade == 1) { this.rain.damage += 1 }
               }
               this.rain.upgradeAmount++

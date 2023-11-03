@@ -9,7 +9,7 @@ export default class Vampire extends Enemy {
         this.x = x
         this.y = y
         this.speed = 1.5
-        this.lives = Math.floor(Math.random() * 60) + 40
+        this.lives = Math.floor(Math.random() * 40) + 30
         this.color = 'red'
         this.type = 'vampire'
 
