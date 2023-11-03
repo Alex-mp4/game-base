@@ -17,12 +17,14 @@ import Bounce from './Bounce.js'
 import Plus from './Plus.js'
 import Rain from './Rain.js'
 import Homing from './Homing.js'
+import Background from './Background.js'
 
 export default class Game {
   constructor(width, height, canvasPosition) {
     this.width = width
     this.height = height
     this.canvasPosition = canvasPosition
+    this.background = new Background(this)
     this.input = new InputHandler(this)
     this.ui = new UserInterface(this)
     this.keys = []
@@ -85,6 +87,7 @@ export default class Game {
       this.gameTime -= deltaTime
       return
     }
+
 
     // let boss1x = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
     // let boss1y = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
@@ -474,6 +477,7 @@ export default class Game {
   }
 
   draw(context) {
+    this.background.draw(context)
     this.ui.draw(context)
     this.player.draw(context)
     this.enemies.forEach((enemy) => {

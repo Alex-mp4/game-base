@@ -21,7 +21,7 @@ export default class Boomerang extends Projectile {
         this.disTimer = 0
         this.disInterval = 1000
 
-        this.color = '#0f0'
+        this.color = 'brown'
         this.type = 'boomerang'
     }
 

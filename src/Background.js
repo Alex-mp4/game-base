@@ -1,4 +1,4 @@
-import backgroundImage from '../src/assets/css/sprites/background.jpg'
+import backgroundImage from '../src/assets/css/sprites/background.png'
 import Layer from './Layer'
 
 export default class Background {
@@ -6,7 +6,7 @@ export default class Background {
         this.game = game
         const background = new Image()
         background.src = backgroundImage
-        this.backgroundLayer = new Layer(this.game, background, 1480, 760, 0.1)
+        this.backgroundLayer = new Layer(this.game, background, 1480, 760)
         this.layers = [
             this.backgroundLayer
         ]

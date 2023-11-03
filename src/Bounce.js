@@ -16,7 +16,7 @@ export default class Bounce extends Projectile {
         this.timer = 0
         this.interval = Infinity
 
-        this.color = 'black'
+        this.color = 'lime'
         this.type = 'bounce'
     }
 

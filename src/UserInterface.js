@@ -28,34 +28,10 @@ export default class UserInterface {
       )
     }
 
-    // debug
-    if (this.game.debug) {
-      context.font = `15px Arial`
-      context.textAlign = 'right'
-      context.fillText(`x: ${this.game.player.x}`, this.game.width - 20, 25)
-      context.fillText(`y: ${this.game.player.y}`, this.game.width - 20, 50)
-      context.fillText(
-        `mouseX: ${this.game.input.mouseX}`,
-        this.game.width - 20,
-        75
-      )
-      context.fillText(
-        `mouseY: ${this.game.input.mouseY}`,
-        this.game.width - 20,
-        100
-      )
-      context.fillText(
-        `maxSpeed: ${this.game.player.maxSpeed}`,
-        this.game.width - 20,
-        125
-      )
-      context.fillText(`keys: ${this.game.keys}`, this.game.width - 20, 150)
-    }
-
     if (this.game.pause) {
       context.fillText(`Pistol: ${this.game.shoot.upgradeAmount}`, 20, 140)
       context.fillText(`Sword: ${this.game.slash.upgradeAmount}`, 20, 170)
-      context.fillText(`Bounce: ${this.game.bounce.upgradeAmount}`, 20, 200)
+      context.fillText(`Bouncer: ${this.game.bounce.upgradeAmount}`, 20, 200)
       context.fillText(`Turret: ${this.game.plus.upgradeAmount}`, 20, 230)
       context.fillText(`Bomb: ${this.game.radius.upgradeAmount}`, 20, 260)
       context.fillText(`Rain: ${this.game.rain.upgradeAmount}`, 20, 290)
@@ -170,6 +146,30 @@ export default class UserInterface {
       context.fillText(`Press 1: ${weapon1Text}, +${upgrade1Text}`, 500, 300)
       context.fillText(`Press 2: ${weapon2Text}, +${upgrade2Text}`, 500, 400)
       context.fillText(`Press 3: ${weapon3Text}, +${upgrade3Text}`, 500, 500)
+    }
+
+    // debug
+    if (this.game.debug) {
+      context.font = `15px Arial`
+      context.textAlign = 'right'
+      context.fillText(`x: ${this.game.player.x}`, this.game.width - 20, 25)
+      context.fillText(`y: ${this.game.player.y}`, this.game.width - 20, 50)
+      context.fillText(
+        `mouseX: ${this.game.input.mouseX}`,
+        this.game.width - 20,
+        75
+      )
+      context.fillText(
+        `mouseY: ${this.game.input.mouseY}`,
+        this.game.width - 20,
+        100
+      )
+      context.fillText(
+        `maxSpeed: ${this.game.player.maxSpeed}`,
+        this.game.width - 20,
+        125
+      )
+      context.fillText(`keys: ${this.game.keys}`, this.game.width - 20, 150)
     }
 
     context.restore()

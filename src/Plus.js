@@ -16,7 +16,7 @@ export default class Plus extends Projectile {
         this.timer = 0
         this.interval = Infinity
 
-        this.color = 'yellow'
+        this.color = 'cyan'
         this.type = 'plus'
     }
 
