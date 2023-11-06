@@ -6,11 +6,7 @@ export default class InputHandler {
 
     window.addEventListener('keydown', (event) => {
       if (
-        (event.key === 'ArrowUp' ||
-          event.key === 'ArrowDown' ||
-          event.key === 'ArrowLeft' ||
-          event.key === 'ArrowRight' ||
-          event.key === 'w' ||
+        (event.key === 'w' ||
           event.key === 'a' ||
           event.key === 's' ||
           event.key === 'd') &&
@@ -25,25 +21,6 @@ export default class InputHandler {
       if (event.key === 'p') {
         this.game.pause = !this.game.pause
       }
-
-      if (this.game.choices) {
-        if (event.key === '1') {
-          this.game.choice = 0
-          this.choices = false
-          clearTimeout(this.game.timeout)
-        }
-        if (event.key === '2') {
-          this.game.choice = 1
-          this.choices = false
-          clearTimeout(this.game.timeout)
-        }
-        if (event.key === '3') {
-          this.game.choice = 2
-          this.choices = false
-          clearTimeout(this.game.timeout)
-        }
-      }
-
     })
 
     window.addEventListener('keyup', (event) => {

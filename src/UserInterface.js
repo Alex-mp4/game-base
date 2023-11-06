@@ -10,12 +10,42 @@ export default class UserInterface {
 
     this.startButton
     this.tutorial
+    this.choiceButton1
+    this.choiceButton2
+    this.choiceButton3
 
     window.addEventListener('mousedown', (event => {
       if (this.game.start === false) {
         if (this.onButtonCheck(this.startButton.x, this.startButton.y, this.startButton.width, this.startButton.height)) {
           this.game.start = true
         }
+      }
+    }))
+    window.addEventListener('mousedown', (event => {
+      if (this.onButtonCheck(this.choiceButton1.x, this.choiceButton1.y, this.choiceButton1.width, this.choiceButton1.height)) {
+        let rollAffectedWeapon = this.game.choiceW1
+        let rollStatUpgrade = this.game.choiceU1
+        this.upgrade(rollAffectedWeapon, rollStatUpgrade)
+        this.game.choices = false
+        this.game.pause = false
+      }
+    }))
+    window.addEventListener('mousedown', (event => {
+      if (this.onButtonCheck(this.choiceButton2.x, this.choiceButton2.y, this.choiceButton2.width, this.choiceButton2.height)) {
+        let rollAffectedWeapon = this.game.choiceW2
+        let rollStatUpgrade = this.game.choiceU2
+        this.upgrade(rollAffectedWeapon, rollStatUpgrade)
+        this.game.choices = false
+        this.game.pause = false
+      }
+    }))
+    window.addEventListener('mousedown', (event => {
+      if (this.onButtonCheck(this.choiceButton3.x, this.choiceButton3.y, this.choiceButton3.width, this.choiceButton3.height)) {
+        let rollAffectedWeapon = this.game.choiceW3
+        let rollStatUpgrade = this.game.choiceU3
+        this.upgrade(rollAffectedWeapon, rollStatUpgrade)
+        this.game.choices = false
+        this.game.pause = false
       }
     }))
   }
@@ -176,19 +206,45 @@ export default class UserInterface {
         upgrade3Text = "Damage"
       }
 
-      setTimeout(() => {
-        context.fillText(`3...`, 500, 200)
-      }, 0)
-      setTimeout(() => {
-        context.fillText(`2...`, 540, 200)
-      }, 1000)
-      setTimeout(() => {
-        context.fillText(`1...`, 580, 200)
-      }, 2000)
-
-      context.fillText(`Press 1: ${weapon1Text}, +${upgrade1Text}`, 500, 300)
-      context.fillText(`Press 2: ${weapon2Text}, +${upgrade2Text}`, 500, 400)
-      context.fillText(`Press 3: ${weapon3Text}, +${upgrade3Text}`, 500, 500)
+      this.choiceButton1 = new Button(
+        this.game,
+        context,
+        this.game.width / 2 - 550,
+        this.game.height / 2,
+        300,
+        50,
+        `${weapon1Text}, +${upgrade1Text}`,
+        "black",
+        "red",
+        0,
+        30
+      )
+      this.choiceButton2 = new Button(
+        this.game,
+        context,
+        this.game.width / 2 - 150,
+        this.game.height / 2,
+        300,
+        50,
+        `${weapon2Text}, +${upgrade2Text}`,
+        "black",
+        "red",
+        0,
+        30
+      )
+      this.choiceButton3 = new Button(
+        this.game,
+        context,
+        this.game.width / 2 + 250,
+        this.game.height / 2,
+        300,
+        50,
+        `${weapon3Text}, +${upgrade3Text}`,
+        "black",
+        "red",
+        0,
+        30
+      )
     }
 
     // debug
@@ -221,6 +277,65 @@ export default class UserInterface {
   onButtonCheck(x, y, width, height) {
     if (this.game.input.mouseX > x && this.game.input.mouseX < x + width && this.game.input.mouseY > y && this.game.input.mouseY < y + height) {
       return (true)
+    }
+  }
+
+  upgrade(rollAffectedWeapon, rollStatUpgrade) {
+    if (rollAffectedWeapon == 0) {
+      if (rollStatUpgrade == 0) { this.game.shoot.interval -= 50 }
+      else if (rollStatUpgrade == 1) { this.game.shoot.damage += 5 }
+      this.game.shoot.upgradeAmount++
+    }
+    else if (rollAffectedWeapon == 1) {
+      if (this.game.slash.upgradeAmount == 0) { this.game.slash.interval = 3500 }
+      else {
+        if (rollStatUpgrade == 0) { this.game.slash.interval -= 125 }
+        else if (rollStatUpgrade == 1) { this.game.slash.damage += 10 }
+      }
+      this.game.slash.upgradeAmount++
+    }
+    else if (rollAffectedWeapon == 2) {
+      if (this.game.radius.upgradeAmount == 0) { this.game.radius.interval = 2500 }
+      else {
+        if (rollStatUpgrade == 0) { this.game.radius.interval -= 100 }
+        else if (rollStatUpgrade == 1) { this.game.radius.damage += 2 }
+      }
+      this.game.radius.upgradeAmount++
+      if (this.game.radius.upgradeAmount === 10) {
+        this.game.radius.disInterval += 50
+      }
+    }
+    else if (rollAffectedWeapon == 3) {
+      if (this.game.boomerang.upgradeAmount == 0) { this.game.boomerang.interval = 2000 }
+      else {
+        if (rollStatUpgrade == 0) { this.game.boomerang.interval -= 80 }
+        else if (rollStatUpgrade == 1) { this.game.boomerang.damage += 8 }
+      }
+      this.game.boomerang.upgradeAmount++
+    }
+    else if (rollAffectedWeapon == 4) {
+      if (this.game.bounce.upgradeAmount == 0) { this.game.bounce.interval = 2250 }
+      else {
+        if (rollStatUpgrade == 0) { this.game.bounce.interval -= 65 }
+        else if (rollStatUpgrade == 1) { this.game.bounce.damage += 6 }
+      }
+      this.game.bounce.upgradeAmount++
+    }
+    else if (rollAffectedWeapon == 5) {
+      if (this.game.plus.upgradeAmount == 0) { this.game.plus.interval = 2500 }
+      else {
+        if (rollStatUpgrade == 0) { this.game.plus.interval -= 100 }
+        else if (rollStatUpgrade == 1) { this.game.plus.damage += 8 }
+      }
+      this.game.plus.upgradeAmount++
+    }
+    else if (rollAffectedWeapon == 6) {
+      if (this.game.rain.upgradeAmount == 0) { this.game.rain.interval = 70 }
+      else {
+        if (rollStatUpgrade == 0) { this.game.rain.interval -= 3 }
+        else if (rollStatUpgrade == 1) { this.game.rain.damage += 1 }
+      }
+      this.game.rain.upgradeAmount++
     }
   }
 }
