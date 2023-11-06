@@ -84,7 +84,7 @@ export default class UserInterface {
       context.fillText(`Bomb: ${this.game.radius.upgradeAmount}`, 20, 260)
       context.fillText(`Weapon Damage: ${this.game.radiusDamage}`, 200, 260)
       context.fillText(`Rain: ${this.game.rain.upgradeAmount}`, 20, 290)
-      context.fillText(`Weapon Damage: ${this.game.boomerangDamage}`, 200, 290)
+      context.fillText(`Weapon Damage: ${this.game.rainDamage}`, 200, 290)
       context.fillText(`Boomerang: ${this.game.boomerang.upgradeAmount}`, 20, 320)
       context.fillText(`Weapon Damage: ${this.game.boomerangDamage}`, 200, 320)
     }
