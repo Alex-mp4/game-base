@@ -61,8 +61,8 @@ export default class UserInterface {
         1300,
         50,
         'WASD or arrow-keys for movement. Aim and then shoot automatically. Upon pickup; 3 seconds to choose otherwise it will pick for you',
-        this.black,
-        this.white,
+        "black",
+        "white",
         0,
         30
       )
@@ -74,8 +74,8 @@ export default class UserInterface {
         200,
         50,
         'Start Game',
-        this.black,
-        this.red,
+        "black",
+        "red",
         35,
         30
       )
