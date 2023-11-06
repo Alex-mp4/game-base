@@ -97,7 +97,7 @@ export default class UserInterface {
         this.game.height / 2 - 150,
         700,
         50,
-        'WASD or arrow-keys for movement. Aim and then shoot automatically.',
+        'WASD for movement. Aim and then shoot automatically.',
         "black",
         "white",
         0,
