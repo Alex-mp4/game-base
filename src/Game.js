@@ -78,6 +78,14 @@ export default class Game {
     this.plus = new Plus(this)
     this.rain = new Rain(this)
     this.homing = new Homing(this)
+
+    this.shootDamage = 0
+    this.slashDamage = 0
+    this.radiusDamage = 0
+    this.boomerangDamage = 0
+    this.bounceDamage = 0
+    this.plusDamage = 0
+    this.rainDamage = 0
   }
 
   update(deltaTime) {
@@ -113,8 +121,8 @@ export default class Game {
       // }
 
       this.dropChance = (Math.pow(0.0000016 * this.gameTime, 2) * -1 + 0.3)
-      if (this.dropChance < 0.03) {
-        this.drop = 0.03
+      if (this.dropChance < 0.06) {
+        this.drop = 0.06
       }
 
       this.pumpkinInterval = (Math.pow((0.00003 * this.gameTime) - 2, 2) + 12) * 180
@@ -268,12 +276,20 @@ export default class Game {
               } else {
                 if (projectile.type === 'shoot') {
                   enemy.lives -= this.shoot.damage
+                  this.shootDamage += this.shoot.damage
                   projectile.markedForDeletion = true
                 }
-                else if (projectile.type === 'slash') { enemy.lives -= this.slash.damage }
-                else if (projectile.type === 'radius') { enemy.lives -= this.radius.damage }
+                else if (projectile.type === 'slash') {
+                  enemy.lives -= this.slash.damage
+                  this.slashDamage += this.slash.damage
+                }
+                else if (projectile.type === 'radius') {
+                  enemy.lives -= this.radius.damage
+                  this.radiusDamage += this.radius.damage
+                }
                 else if (projectile.type === 'boomerang') {
                   enemy.lives -= this.boomerang.damage
+                  this.boomerangDamage += this.boomerang.damage
                   if (this.boomerang.upgradeAmount >= 10) { }
                   else {
                     projectile.markedForDeletion = true
@@ -282,6 +298,7 @@ export default class Game {
                 else if (projectile.type === 'bounce') {
                   this.player.bounce(this.input.mouseX, this.input.mouseY, enemy.x, enemy.y)
                   enemy.lives -= this.bounce.damage
+                  this.bounceDamage += this.bounce.damage
                   projectile.markedForDeletion = true
                   if (this.bounce.upgradeAmount >= 10) {
                     this.player.bounce(this.input.mouseX, this.input.mouseY, enemy.x, enemy.y)
@@ -289,10 +306,12 @@ export default class Game {
                 }
                 else if (projectile.type === 'plus') {
                   enemy.lives -= this.plus.damage
+                  this.plusDamage += this.plus.damage
                   projectile.markedForDeletion = true
                 }
                 else if (projectile.type === 'rain') {
                   enemy.lives -= this.rain.damage
+                  this.rainDamage += this.rain.damage
                   projectile.markedForDeletion = true
                 }
                 // else if (projectile.type === 'homing') {
@@ -396,11 +415,11 @@ export default class Game {
 
   draw(context) {
     this.background.draw(context)
-    this.ui.draw(context)
     this.player.draw(context)
     this.enemies.forEach((enemy) => {
       enemy.draw(context)
     })
+    this.ui.draw(context)
   }
 
   checkCollision(object1, object2) {

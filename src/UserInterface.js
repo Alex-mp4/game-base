@@ -74,23 +74,30 @@ export default class UserInterface {
 
     if (this.game.pause) {
       context.fillText(`Pistol: ${this.game.shoot.upgradeAmount}`, 20, 140)
+      context.fillText(`Weapon Damage: ${this.game.shootDamage}`, 200, 140)
       context.fillText(`Sword: ${this.game.slash.upgradeAmount}`, 20, 170)
+      context.fillText(`Weapon Damage: ${this.game.slashDamage}`, 200, 170)
       context.fillText(`Bouncer: ${this.game.bounce.upgradeAmount}`, 20, 200)
+      context.fillText(`Weapon Damage: ${this.game.bounceDamage}`, 200, 200)
       context.fillText(`Turret: ${this.game.plus.upgradeAmount}`, 20, 230)
+      context.fillText(`Weapon Damage: ${this.game.plusDamage}`, 200, 230)
       context.fillText(`Bomb: ${this.game.radius.upgradeAmount}`, 20, 260)
+      context.fillText(`Weapon Damage: ${this.game.radiusDamage}`, 200, 260)
       context.fillText(`Rain: ${this.game.rain.upgradeAmount}`, 20, 290)
+      context.fillText(`Weapon Damage: ${this.game.boomerangDamage}`, 200, 290)
       context.fillText(`Boomerang: ${this.game.boomerang.upgradeAmount}`, 20, 320)
+      context.fillText(`Weapon Damage: ${this.game.boomerangDamage}`, 200, 320)
     }
 
     if (this.game.start === false) {
       this.tutorial = new Button(
         this.game,
         context,
-        this.game.width / 2 - 650,
+        this.game.width / 2 - 350,
         this.game.height / 2 - 150,
-        1300,
+        700,
         50,
-        'WASD or arrow-keys for movement. Aim and then shoot automatically. Upon pickup; 3 seconds to choose otherwise it will pick for you',
+        'WASD or arrow-keys for movement. Aim and then shoot automatically.',
         "black",
         "white",
         0,
