@@ -117,7 +117,7 @@ export default class Game {
     this.zombieInterval = (Math.pow((0.00006 * this.gameTime) - 14, 2) + 25) * 40
     this.gremlinInterval = (Math.pow((0.00007 * this.gameTime) - 16, 2) + 8) * 60
 
-    if (this.gameTime > 800000) {
+    if (this.gameTime > 350000) {
       this.pumpkinInterval = 200 / (0.0000006 * this.gameTime)
       this.vampireInterval = 300 / (0.0000006 * this.gameTime)
       this.warewolfInterval = 400 / (0.0000006 * this.gameTime)
