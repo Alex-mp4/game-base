@@ -1,9 +1,23 @@
+import Button from "./Button"
+
 export default class UserInterface {
   constructor(game) {
     this.game = game
+    this.button
     this.fontSize = 25
     this.fontFamily = 'Arial'
     this.color = 'white'
+
+    this.startButton
+    this.tutorial
+
+    window.addEventListener('mousedown', (event => {
+      if (this.game.start === false) {
+        if (this.onButtonCheck(this.startButton.x, this.startButton.y, this.startButton.width, this.startButton.height)) {
+          this.game.start = true
+        }
+      }
+    }))
   }
 
   draw(context) {
@@ -36,6 +50,35 @@ export default class UserInterface {
       context.fillText(`Bomb: ${this.game.radius.upgradeAmount}`, 20, 260)
       context.fillText(`Rain: ${this.game.rain.upgradeAmount}`, 20, 290)
       context.fillText(`Boomerang: ${this.game.boomerang.upgradeAmount}`, 20, 320)
+    }
+
+    if (this.game.start === false) {
+      this.tutorial = new Button(
+        this.game,
+        context,
+        this.game.width / 2 - 650,
+        this.game.height / 2 - 150,
+        1300,
+        50,
+        'WASD or arrow-keys for movement. Aim and then shoot automatically. Upon pickup; 3 seconds to choose otherwise it will pick for you',
+        this.black,
+        this.white,
+        0,
+        30
+      )
+      this.startButton = new Button(
+        this.game,
+        context,
+        this.game.width / 2 - 100,
+        this.game.height / 2 + 30,
+        200,
+        50,
+        'Start Game',
+        this.black,
+        this.red,
+        35,
+        30
+      )
     }
 
     if (this.game.choices) {
@@ -173,5 +216,11 @@ export default class UserInterface {
     }
 
     context.restore()
+  }
+
+  onButtonCheck(x, y, width, height) {
+    if (this.game.input.mouseX > x && this.game.input.mouseX < x + width && this.game.input.mouseY > y && this.game.input.mouseY < y + height) {
+      return (true)
+    }
   }
 }
