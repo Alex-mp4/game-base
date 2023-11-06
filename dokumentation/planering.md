@@ -43,11 +43,9 @@ Show upgrades on pause
 Better UI
 Fix background
 Balancing (weapon damage on first pickup)
-
 Z-index on UI
-Countdown on pickup
-Confirmation on choice
-If I can avoid all of the ifs then do so (have projectile have all of the statistics (this.interval, for example) and give them names to take data from)
+Damage counter
+
 Boss with unique patterns (for example, shows it going back and then it boosts forward or having a distinct path/covering part of the screen)
 
 
