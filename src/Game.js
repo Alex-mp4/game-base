@@ -122,7 +122,7 @@ export default class Game {
 
       this.dropChance = (Math.pow(0.0000016 * this.gameTime, 2) * -1 + 0.3)
       if (this.dropChance < 0.06) {
-        this.drop = 0.06
+        this.dropChance = 0.06
       }
 
       this.pumpkinInterval = (Math.pow((0.00003 * this.gameTime) - 2, 2) + 12) * 180
