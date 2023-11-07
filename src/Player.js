@@ -7,6 +7,7 @@ import Plus from './Plus.js'
 import Rain from './Rain.js'
 import Homing from './Homing.js'
 import PlayerSprite from '../src/assets/css/sprites/Sprite-Arca.webp'
+import PlayerWalkSprite from '../src/assets/css/sprites/spritesheet.png'
 
 export default class Player {
   constructor(game) {
@@ -28,12 +29,26 @@ export default class Player {
     sprite.src = PlayerSprite
     this.sprite = sprite
 
+    const spriteWalk = new Image()
+    spriteWalk.src = PlayerWalkSprite
+    this.spriteWalk = spriteWalk
+
+    // sprite animation
     this.frameX = 0
-    this.frameY = 1
-    this.maxFrame = 8
-    this.fps = 20
-    this.timer = 0
-    this.interval = 1000 / this.fps
+    this.maxFrame = 0
+    this.animationFps = 7
+    this.animationTimer = 0
+    this.animationInterval = 1000 / this.animationFps
+    this.run = {
+      image: spriteWalk,
+      frames: 4
+    }
+    this.idle = {
+      image: sprite,
+      frames: 1
+    }
+
+    this.image = this.idle.image
   }
 
   update(deltaTime) {
@@ -80,6 +95,15 @@ export default class Player {
       this.speedY = 0
     }
 
+    if (this.speedX !== 0 || this.speedY !== 0) {
+      this.maxFrame = this.run.frames
+      this.image = this.run.image
+    }
+    else {
+      this.maxFrame = this.idle.frames
+      this.image = this.idle.image
+    }
+
     this.y += this.speedY
     this.x += this.speedX
 
@@ -95,6 +119,19 @@ export default class Player {
       this.flip = false
     } else if (this.speedX < 0) {
       this.flip = true
+    }
+
+    // sprite animation update
+    if (this.animationTimer > this.animationInterval) {
+      this.frameX++
+      this.animationTimer = 0
+    } else {
+      this.animationTimer += deltaTime
+    }
+
+    // reset frameX when it reaches maxFrame
+    if (this.frameX >= this.maxFrame) {
+      this.frameX = 0
     }
   }
 
@@ -125,9 +162,9 @@ export default class Player {
     }
 
     context.drawImage(
-      this.sprite,
+      this.image,
       this.frameX * this.width,
-      this.frameY * this.height - 48,
+      0,
       this.width,
       this.height,
       this.flip ? this.x * -1 - this.width : this.x,
