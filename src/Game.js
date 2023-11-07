@@ -40,7 +40,7 @@ export default class Game {
     this.pity = 0
     this.dropChance
 
-    this.choices = 0
+    this.choices = false
     this.choice
     this.choiceW1
     this.choiceW2
