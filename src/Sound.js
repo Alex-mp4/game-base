@@ -5,7 +5,7 @@ import bomburl from '../src/assets/audio/bomb.mp3'
 import bouncerurl from '../src/assets/audio/bouncer.wav'
 import turreturl from '../src/assets/audio/turret.wav'
 import rainurl from '../src/assets/audio/rain.wav'
-
+import bading from '../src/assets/audio/Drop.mp3'
 
 export default class Sound {
     constructor(game) {
@@ -41,6 +41,15 @@ export default class Sound {
         const rain = new Audio()
         rain.src = rainurl
         this.rainSound = rain
+
+        const drop = new Audio()
+        drop.src = bading
+        this.dropSound = drop
+    }
+
+    playDropSound() {
+        this.dropSound.currentTime = 0
+        this.dropSound.play()
     }
 
     playPistolSound() {

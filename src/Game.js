@@ -18,6 +18,7 @@ import Plus from './Plus.js'
 import Rain from './Rain.js'
 import Homing from './Homing.js'
 import Background from './Background.js'
+import Sound from './Sound.js'
 
 export default class Game {
   constructor(width, height, canvasPosition) {
@@ -30,6 +31,7 @@ export default class Game {
     this.keys = []
     this.gameOver = false
     this.gravity = 1
+    this.sound = new Sound(this.game)
 
     this.debug = false
     this.pause = false
@@ -251,6 +253,7 @@ export default class Game {
             }
           }
           if (enemy.type === 'drop') {
+            this.sound.playDropSound()
             enemy.markedForDeletion = true
             this.pause = true
             this.choices = true
