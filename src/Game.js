@@ -99,7 +99,7 @@ export default class Game {
       return
     }
 
-    if (this.start === true) {
+    if (this.start) {
       // let boss1x = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
       // let boss1y = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
 

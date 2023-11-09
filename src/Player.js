@@ -44,7 +44,7 @@ export default class Player {
       frames: 4
     }
     this.idle = {
-      image: sprite,
+      image: spriteWalk,
       frames: 1
     }
 
