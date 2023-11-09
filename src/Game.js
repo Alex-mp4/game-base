@@ -241,6 +241,8 @@ export default class Game {
         if (this.checkCollision(this.player, enemy)) {
           if (enemy.type !== 'drop') {
             if (this.damageTimer > this.damageInterval) {
+              enemy.x += this.player.speedX * -1 * 3
+              enemy.y += this.player.speedY * -1 * 3
               this.player.lives--
               this.damageTimer = 0
             }

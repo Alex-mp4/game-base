@@ -1,11 +1,11 @@
 import Enemy from './Enemy.js'
-import GremlinSprite from '../src/assets/sprites/Sprite-FS_GOBLIN.webp'
+import GremlinSprite from '../src/assets/sprites/Sprite-FS_GOBLIN.png'
 
-export default class Zombie extends Enemy {
+export default class Gremlin extends Enemy {
     constructor(game, x, y) {
         super(game)
-        this.width = 12
-        this.height = 12
+        this.width = 22
+        this.height = 22
         this.x = x
         this.y = y
         this.speed = 4
@@ -57,7 +57,7 @@ export default class Zombie extends Enemy {
         context.drawImage(
             this.sprite,
             this.frameX * this.width,
-            this.frameY * this.height - 12,
+            this.frameY * this.height - 22,
             this.width,
             this.height,
             this.flip ? this.x * -1 - this.width : this.x,
