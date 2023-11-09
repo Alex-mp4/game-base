@@ -25,5 +25,8 @@ export default class Rain extends Projectile {
         if (this.x > this.game.width) {
             this.markedForDeletion = true
         }
+        if (this.x < -200) {
+            this.markedForDeletion = true
+        }
     }
 }

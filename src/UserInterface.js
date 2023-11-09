@@ -87,6 +87,8 @@ export default class UserInterface {
       context.fillText(`Weapon Damage: ${this.game.rainDamage}`, 200, 290)
       context.fillText(`Boomerang: ${this.game.boomerang.upgradeAmount}`, 20, 320)
       context.fillText(`Weapon Damage: ${this.game.boomerangDamage}`, 200, 320)
+      context.fillText(`Cart: ${this.game.cart.upgradeAmount}`, 20, 350)
+      context.fillText(`Weapon Damage: ${this.game.cartDamage}`, 200, 350)
     }
 
     if (this.game.start === false) {
@@ -257,6 +259,14 @@ export default class UserInterface {
       }
       this.game.rain.upgradeAmount++
     }
+    else if (rollAffectedWeapon == 7) {
+      if (this.game.cart.upgradeAmount == 0) { this.game.cart.interval = 2500 }
+      else {
+        if (rollStatUpgrade == 0) { this.game.cart.interval -= 100 }
+        else if (rollStatUpgrade == 1) { this.game.cart.damage += 3 }
+      }
+      this.game.cart.upgradeAmount++
+    }
   }
 
   weaponToUI(choice) {
@@ -280,6 +290,9 @@ export default class UserInterface {
     }
     if (choice === 6) {
       return "Rain"
+    }
+    if (choice === 7) {
+      return "Cart"
     }
   }
 

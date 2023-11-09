@@ -1,26 +1,26 @@
 import Projectile from "./Projectile"
 
-export default class Slash extends Projectile {
-    constructor(game, x, y, angle, disInterval) {
+export default class Cart extends Projectile {
+    constructor(game, x, y, angle) {
         super(game)
-        this.width = 4
-        this.height = 0
+        this.width = 20
+        this.height = 20
         this.x = x
         this.y = y
         this.angle = angle
 
-        this.damage = 16
-        this.speed = 150
+        this.speed = 250
+        this.damage = 4
 
         this.upgradeAmount = 0
         this.timer = 0
         this.interval = Infinity
 
         this.disTimer = 0
-        this.disInterval = disInterval
+        this.disInterval = 10000
 
-        this.color = 'white'
-        this.type = 'slash'
+        this.color = 'brown'
+        this.type = 'cart'
     }
 
     update(deltaTime) {
@@ -29,8 +29,27 @@ export default class Slash extends Projectile {
             y: this.speed * Math.sin(this.angle),
         }
 
+        if (this.x < 15) {
+            this.speed *= -1
+            velocity.x *= -1
+        }
+        if (this.x > (this.game.width - 15)) {
+            this.speed *= -1
+            velocity.x *= -1
+        }
+
+        if (this.y < 15) {
+            this.speed *= -1
+            velocity.y *= -1
+        }
+        if (this.y > (this.game.height - 15)) {
+            this.speed *= -1
+            velocity.y *= -1
+        }
+
         this.x += velocity.x * (deltaTime / 1000)
         this.y += velocity.y * (deltaTime / 1000)
+
 
         if (this.x > this.game.width) {
             this.markedForDeletion = true
@@ -45,7 +64,6 @@ export default class Slash extends Projectile {
         }
         else {
             this.disTimer += deltaTime
-            this.height = this.disTimer / 10
         }
     }
 }

@@ -17,6 +17,7 @@ import Bounce from './Bounce.js'
 import Plus from './Plus.js'
 import Rain from './Rain.js'
 import Homing from './Homing.js'
+import Cart from './Cart.js'
 import Background from './Background.js'
 import Sound from './Sound.js'
 
@@ -80,6 +81,7 @@ export default class Game {
     this.plus = new Plus(this)
     this.rain = new Rain(this)
     this.homing = new Homing(this)
+    this.cart = new Cart(this)
 
     this.shootDamage = 0
     this.slashDamage = 0
@@ -88,6 +90,7 @@ export default class Game {
     this.bounceDamage = 0
     this.plusDamage = 0
     this.rainDamage = 0
+    this.cartDamage = 0
   }
 
   update(deltaTime) {
@@ -257,9 +260,9 @@ export default class Game {
             enemy.markedForDeletion = true
             this.pause = true
             this.choices = true
-            this.choiceW1 = Math.floor(Math.random() * 7)
-            this.choiceW2 = Math.floor(Math.random() * 7)
-            this.choiceW3 = Math.floor(Math.random() * 7)
+            this.choiceW1 = Math.floor(Math.random() * 8)
+            this.choiceW2 = Math.floor(Math.random() * 8)
+            this.choiceW3 = Math.floor(Math.random() * 8)
             this.choiceU1 = Math.floor(Math.random() * 2)
             this.choiceU2 = Math.floor(Math.random() * 2)
             this.choiceU3 = Math.floor(Math.random() * 2)
@@ -318,6 +321,10 @@ export default class Game {
                   enemy.lives -= this.rain.damage
                   this.rainDamage += this.rain.damage
                   projectile.markedForDeletion = true
+                }
+                else if (projectile.type === 'cart') {
+                  enemy.lives -= this.cart.damage
+                  this.cartDamage += this.cart.damage
                 }
                 // else if (projectile.type === 'homing') {
                 //   enemy.lives -= this.homing.damage
@@ -403,6 +410,17 @@ export default class Game {
       }
       else {
         this.rain.timer += deltaTime
+      }
+
+      if (this.cart.timer > this.cart.interval) {
+        this.player.cart()
+        this.cart.timer = 0
+        if (this.cart.upgradeAmount >= 10) {
+          this.player.cart2()
+        }
+      }
+      else {
+        this.cart.timer += deltaTime
       }
 
       // if (this.homing.timer > this.homing.interval) {

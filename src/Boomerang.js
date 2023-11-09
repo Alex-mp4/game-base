@@ -36,6 +36,9 @@ export default class Boomerang extends Projectile {
         if (this.x > this.game.width) {
             this.markedForDeletion = true
         }
+        if (this.x < -200) {
+            this.markedForDeletion = true
+        }
 
         if (this.turnTimer > this.turnInterval) {
             this.speed *= (-1)

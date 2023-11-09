@@ -6,6 +6,7 @@ import Bounce from './Bounce.js'
 import Plus from './Plus.js'
 import Rain from './Rain.js'
 import Homing from './Homing.js'
+import Cart from './Cart.js'
 import PlayerSprite from '../src/assets/sprites/Sprite-Arca.webp'
 import PlayerWalkSprite from '../src/assets/sprites/spritesheet.png'
 import Sound from './Sound.js'
@@ -413,4 +414,47 @@ export default class Player {
       ))
 
   }
+
+  cart() {
+    this.sound.playCartSound()
+
+    let angle
+
+    if (this.speedX > 0) {
+      angle = 0
+    }
+    else {
+      angle = 3.15
+    }
+
+    this.projectiles.push(
+      new Cart(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        angle
+      ))
+
+  }
+
+  cart2() {
+    let angle
+
+    if (this.speedY > 0) {
+      angle = 1.575
+    }
+    else {
+      angle = -1.575
+    }
+
+    this.projectiles.push(
+      new Cart(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        angle
+      ))
+
+  }
 }
+

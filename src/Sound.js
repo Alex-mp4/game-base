@@ -5,6 +5,7 @@ import bomburl from '../src/assets/audio/bomb.mp3'
 import bouncerurl from '../src/assets/audio/bouncer.wav'
 import turreturl from '../src/assets/audio/turret.wav'
 import rainurl from '../src/assets/audio/rain.wav'
+import carturl from '../src/assets/audio/cart.wav'
 import bading from '../src/assets/audio/Drop.mp3'
 
 export default class Sound {
@@ -41,6 +42,10 @@ export default class Sound {
         const rain = new Audio()
         rain.src = rainurl
         this.rainSound = rain
+
+        const cart = new Audio()
+        cart.src = carturl
+        this.cartSound = cart
 
         const drop = new Audio()
         drop.src = bading
@@ -85,5 +90,10 @@ export default class Sound {
     playRainSound() {
         this.rainSound.currentTime = 0
         this.rainSound.play()
+    }
+
+    playCartSound() {
+        this.cartSound.currentTime = 0
+        this.cartSound.play()
     }
 }
