@@ -1,5 +1,5 @@
 import Enemy from './Enemy.js'
-import SkullSprite from '../src/assets/css/sprites/Sprite-SKULLINO.webp'
+import SkullSprite from '../src/assets/sprites/Sprite-SKULLINO.webp'
 
 export default class Pumpkin extends Enemy {
   constructor(game, x, y) {

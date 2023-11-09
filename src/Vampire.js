@@ -1,5 +1,5 @@
 import Enemy from './Enemy.js'
-import VampireSprite from '../src/assets/css/sprites/Sprite-XLMAGIO.webp'
+import VampireSprite from '../src/assets/sprites/Sprite-XLMAGIO.webp'
 
 export default class Vampire extends Enemy {
     constructor(game, x, y) {

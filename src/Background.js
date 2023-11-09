@@ -1,4 +1,4 @@
-import backgroundImage from '../src/assets/css/sprites/background.png'
+import backgroundImage from '../src/assets/sprites/background.png'
 import Layer from './Layer'
 
 export default class Background {

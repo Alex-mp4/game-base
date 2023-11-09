@@ -1,5 +1,5 @@
 import Enemy from './Enemy.js'
-import GremlinSprite from '../src/assets/css/sprites/Sprite-FS_GOBLIN.webp'
+import GremlinSprite from '../src/assets/sprites/Sprite-FS_GOBLIN.webp'
 
 export default class Zombie extends Enemy {
     constructor(game, x, y) {

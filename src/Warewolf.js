@@ -1,5 +1,5 @@
 import Enemy from './Enemy.js'
-import WarewolfSprite from '../src/assets/css/sprites/Sprite-WEREWOLF.webp'
+import WarewolfSprite from '../src/assets/sprites/Sprite-WEREWOLF.webp'
 
 export default class Warewolf extends Enemy {
     constructor(game, x, y) {

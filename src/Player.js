@@ -6,8 +6,9 @@ import Bounce from './Bounce.js'
 import Plus from './Plus.js'
 import Rain from './Rain.js'
 import Homing from './Homing.js'
-import PlayerSprite from '../src/assets/css/sprites/Sprite-Arca.webp'
-import PlayerWalkSprite from '../src/assets/css/sprites/spritesheet.png'
+import PlayerSprite from '../src/assets/sprites/Sprite-Arca.webp'
+import PlayerWalkSprite from '../src/assets/sprites/spritesheet.png'
+import Sound from './Sound.js'
 
 export default class Player {
   constructor(game) {
@@ -49,6 +50,8 @@ export default class Player {
     }
 
     this.image = this.idle.image
+
+    this.sound = new Sound(this.game)
   }
 
   update(deltaTime) {
@@ -178,6 +181,8 @@ export default class Player {
   }
 
   shoot(mouseX, mouseY) {
+    this.sound.playPistolSound()
+
     // get angle between player and mouse
     const angle = Math.atan2(
       mouseY - (this.y + this.height / 2),
@@ -195,6 +200,8 @@ export default class Player {
   }
 
   slash(mouseX, mouseY) {
+    this.sound.playSlashSound()
+
     // get angle between player and mouse
     const angle = Math.atan2(
       mouseY - (this.y + this.height / 2),
@@ -213,6 +220,8 @@ export default class Player {
   }
 
   slash2(mouseX, mouseY) {
+    this.sound.playSlashSound()
+
     // get angle between player and mouse
     const angle = Math.atan2(
       mouseY - (this.y + this.height / 2),
@@ -231,6 +240,8 @@ export default class Player {
   }
 
   radius() {
+    this.sound.playBombSound()
+
     this.projectiles.push(
       new Radius(
         this.game,
@@ -249,6 +260,8 @@ export default class Player {
   }
 
   boomerang(mouseX, mouseY) {
+    this.sound.playBoomerangSound()
+
     // get angle between player and mouse
     const angle = Math.atan2(
       mouseY - (this.y + this.height / 2),
@@ -266,6 +279,8 @@ export default class Player {
   }
 
   bounce(mouseX, mouseY, x, y) {
+    this.sound.playBouncerSound()
+
     // get angle between player and mouse
     let angle = Math.atan2(
       mouseY - (this.y + this.height / 2),
@@ -297,6 +312,8 @@ export default class Player {
   }
 
   plus() {
+    this.sound.playTurretSound()
+
     this.projectiles.push(
       new Plus(
         this.game,
@@ -359,6 +376,8 @@ export default class Player {
   }
 
   rain() {
+    //this.sound.playRainSound()
+
     this.projectiles.push(
       new Rain(
         this.game,

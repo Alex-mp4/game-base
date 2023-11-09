@@ -1,5 +1,5 @@
 import Enemy from './Enemy'
-import BoxSprite from '../src/assets/css/sprites/Icon-Candybox.webp'
+import BoxSprite from '../src/assets/sprites/Icon-Candybox.webp'
 
 export default class Drop extends Enemy {
   constructor(game, x, y) {

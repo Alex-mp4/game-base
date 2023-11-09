@@ -1,5 +1,5 @@
 import Enemy from './Enemy.js'
-import ZombieSprite from '../src/assets/css/sprites/Sprite-MUDMAN1.webp'
+import ZombieSprite from '../src/assets/sprites/Sprite-MUDMAN1.webp'
 
 export default class Zombie extends Enemy {
     constructor(game, x, y) {
