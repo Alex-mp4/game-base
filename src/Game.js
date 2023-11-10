@@ -306,6 +306,12 @@ export default class Game {
                 else if (projectile.type === 'radiusSetup') {
                   this.player.radius(enemy.x, enemy.y)
                   this.sound.playBombSound()
+                  if (this.radius.upgradeAmount >= 10) {
+                    this.player.radius2(enemy.x, enemy.y)
+                  }
+                  if (this.radius.upgradeAmount >= 30) {
+                    this.player.radius3(enemy.x, enemy.y)
+                  }
                   projectile.markedForDeletion = true
                 }
                 else if (projectile.type === 'boomerang') {
@@ -388,12 +394,6 @@ export default class Game {
       }
 
       if (this.radiusSetup.timer > this.radiusSetup.interval) {
-        if (this.radius.upgradeAmount >= 10) {
-          this.player.radiusSetup2(this.input.mouseX, this.input.mouseY)
-        }
-        if (this.radius.upgradeAmount >= 30) {
-          this.player.radiusSetup3(this.input.mouseX, this.input.mouseY)
-        }
         this.player.radiusSetup(this.input.mouseX, this.input.mouseY)
         this.radiusSetup.timer = 0
       }
