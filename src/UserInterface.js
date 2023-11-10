@@ -48,6 +48,12 @@ export default class UserInterface {
         this.game.pause = false
       }
     }))
+    window.addEventListener('mousedown', (event => {
+      if (this.onButtonCheck(this.choiceButton4.x, this.choiceButton4.y, this.choiceButton4.width, this.choiceButton4.height)) {
+        this.game.choices = false
+        this.game.pause = false
+      }
+    }))
   }
 
   draw(context) {
@@ -162,6 +168,19 @@ export default class UserInterface {
         300,
         50,
         `${weapon3Text}, +${upgrade3Text}`,
+        "black",
+        "red",
+        0,
+        30
+      )
+      this.choiceButton3 = new Button(
+        this.game,
+        context,
+        this.game.width / 2 - 150,
+        this.game.height / 2 + 150,
+        300,
+        50,
+        `Skip reward`,
         "black",
         "red",
         0,

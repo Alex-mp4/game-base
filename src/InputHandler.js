@@ -20,6 +20,7 @@ export default class InputHandler {
       // }
       if (event.key === 'Escape') {
         this.game.pause = !this.game.pause
+        this.game.choices = !this.game.choices
       }
     })
 
