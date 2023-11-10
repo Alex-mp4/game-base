@@ -223,53 +223,55 @@ export default class UserInterface {
   }
 
   upgrade(rollAffectedWeapon, rollStatUpgrade) {
-    if (rollAffectedWeapon == 0) {
-      if (this.game.shoot.upgradeAmount == 0) { this.game.shoot.interval = 1000 }
-      if (rollStatUpgrade == 0) { this.game.shoot.interval -= 50 }
-      else if (rollStatUpgrade == 1) { this.game.shoot.damage += 5 }
-      this.game.shoot.upgradeAmount++
-    }
-    else if (rollAffectedWeapon == 1) {
-      if (this.game.slash.upgradeAmount == 0) { this.game.slash.interval = 3500 }
-      if (rollStatUpgrade == 0) { this.game.slash.interval -= 125 }
-      else if (rollStatUpgrade == 1) { this.game.slash.damage += 10 }
-      this.game.slash.upgradeAmount++
-    }
-    else if (rollAffectedWeapon == 2) {
-      if (this.game.radius.upgradeAmount == 0) { this.game.radiusSetup.interval = 2500 }
-      if (rollStatUpgrade == 0) { this.game.radiusSetup.interval -= 100 }
-      else if (rollStatUpgrade == 1) { this.game.radius.damage += 2 }
-      this.game.radius.upgradeAmount++
-    }
-    else if (rollAffectedWeapon == 3) {
-      if (this.game.boomerang.upgradeAmount == 0) { this.game.boomerang.interval = 2000 }
-      if (rollStatUpgrade == 0) { this.game.boomerang.interval -= 80 }
-      else if (rollStatUpgrade == 1) { this.game.boomerang.damage += 8 }
-      this.game.boomerang.upgradeAmount++
-    }
-    else if (rollAffectedWeapon == 4) {
-      if (this.game.bounce.upgradeAmount == 0) { this.game.bounce.interval = 2250 }
-      if (rollStatUpgrade == 0) { this.game.bounce.interval -= 65 }
-      else if (rollStatUpgrade == 1) { this.game.bounce.damage += 6 }
-      this.game.bounce.upgradeAmount++
-    }
-    else if (rollAffectedWeapon == 5) {
-      if (this.game.plus.upgradeAmount == 0) { this.game.plus.interval = 2500 }
-      if (rollStatUpgrade == 0) { this.game.plus.interval -= 100 }
-      else if (rollStatUpgrade == 1) { this.game.plus.damage += 8 }
-      this.game.plus.upgradeAmount++
-    }
-    else if (rollAffectedWeapon == 6) {
-      if (this.game.rain.upgradeAmount == 0) { this.game.rain.interval = 70 }
-      if (rollStatUpgrade == 0) { this.game.rain.interval -= 3 }
-      else if (rollStatUpgrade == 1) { this.game.rain.damage += 1 }
-      this.game.rain.upgradeAmount++
-    }
-    else if (rollAffectedWeapon == 7) {
-      if (this.game.cart.upgradeAmount == 0) { this.game.cart.interval = 2500 }
-      if (rollStatUpgrade == 0) { this.game.cart.interval -= 40 }
-      else if (rollStatUpgrade == 1) { this.game.cart.damage += 1 }
-      this.game.cart.upgradeAmount++
+    if (this.game.choices) {
+      if (rollAffectedWeapon == 0) {
+        if (this.game.shoot.upgradeAmount == 0) { this.game.shoot.interval = 1000 }
+        if (rollStatUpgrade == 0) { this.game.shoot.interval -= 50 }
+        else if (rollStatUpgrade == 1) { this.game.shoot.damage += 5 }
+        this.game.shoot.upgradeAmount++
+      }
+      else if (rollAffectedWeapon == 1) {
+        if (this.game.slash.upgradeAmount == 0) { this.game.slash.interval = 3500 }
+        if (rollStatUpgrade == 0) { this.game.slash.interval -= 125 }
+        else if (rollStatUpgrade == 1) { this.game.slash.damage += 10 }
+        this.game.slash.upgradeAmount++
+      }
+      else if (rollAffectedWeapon == 2) {
+        if (this.game.radius.upgradeAmount == 0) { this.game.radiusSetup.interval = 2500 }
+        if (rollStatUpgrade == 0) { this.game.radiusSetup.interval -= 100 }
+        else if (rollStatUpgrade == 1) { this.game.radius.damage += 2 }
+        this.game.radius.upgradeAmount++
+      }
+      else if (rollAffectedWeapon == 3) {
+        if (this.game.boomerang.upgradeAmount == 0) { this.game.boomerang.interval = 2000 }
+        if (rollStatUpgrade == 0) { this.game.boomerang.interval -= 80 }
+        else if (rollStatUpgrade == 1) { this.game.boomerang.damage += 8 }
+        this.game.boomerang.upgradeAmount++
+      }
+      else if (rollAffectedWeapon == 4) {
+        if (this.game.bounce.upgradeAmount == 0) { this.game.bounce.interval = 2250 }
+        if (rollStatUpgrade == 0) { this.game.bounce.interval -= 65 }
+        else if (rollStatUpgrade == 1) { this.game.bounce.damage += 6 }
+        this.game.bounce.upgradeAmount++
+      }
+      else if (rollAffectedWeapon == 5) {
+        if (this.game.plus.upgradeAmount == 0) { this.game.plus.interval = 2500 }
+        if (rollStatUpgrade == 0) { this.game.plus.interval -= 100 }
+        else if (rollStatUpgrade == 1) { this.game.plus.damage += 8 }
+        this.game.plus.upgradeAmount++
+      }
+      else if (rollAffectedWeapon == 6) {
+        if (this.game.rain.upgradeAmount == 0) { this.game.rain.interval = 70 }
+        if (rollStatUpgrade == 0) { this.game.rain.interval -= 3 }
+        else if (rollStatUpgrade == 1) { this.game.rain.damage += 1 }
+        this.game.rain.upgradeAmount++
+      }
+      else if (rollAffectedWeapon == 7) {
+        if (this.game.cart.upgradeAmount == 0) { this.game.cart.interval = 2500 }
+        if (rollStatUpgrade == 0) { this.game.cart.interval -= 40 }
+        else if (rollStatUpgrade == 1) { this.game.cart.damage += 1 }
+        this.game.cart.upgradeAmount++
+      }
     }
   }
 

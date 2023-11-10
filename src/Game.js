@@ -110,6 +110,7 @@ export default class Game {
 
     if (this.start) {
       if (this.startDrop === 0) {
+        this.choices === true
         this.enemies.push(new Drop(this, this.player.x, this.player.y))
         this.startDrop++
       }
