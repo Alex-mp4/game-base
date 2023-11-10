@@ -283,8 +283,8 @@ export default class Player {
     this.projectiles.push(
       new Radius(
         this.game,
-        x + this.width / 2 - (this.speedX * 20) - 5,
-        y + this.height / 2 - (this.speedY * 20) - 5
+        x + this.width / 2 + (this.speedX * 5) - 5,
+        y + this.height / 2 + (this.speedY * 5) - 5
       ))
   }
 
