@@ -15,41 +15,47 @@ export default class Sound {
         const pistol = new Audio()
         pistol.src = pistolurl
         this.pistolSound = pistol
+        pistol.volume = 0.5
 
         const slash = new Audio()
         slash.src = slashurl
         this.slashSound = slash
-        slash.volume = 0.2
+        slash.volume = 0.05
 
         const boomerang = new Audio()
         boomerang.src = boomerangurl
         this.boomerangSound = boomerang
+        boomerang.volume = 0.6
 
         const bomb = new Audio()
         bomb.src = bomburl
         this.bombSound = bomb
-        bomb.volume = 0.2
+        bomb.volume = 0.1
 
         const bouncer = new Audio()
         bouncer.src = bouncerurl
         this.bouncerSound = bouncer
-        bouncer.volume = 0.5
+        bouncer.volume = 0.4
 
         const turret = new Audio()
         turret.src = turreturl
         this.turretSound = turret
+        turret.volume = 0.5
 
         const rain = new Audio()
         rain.src = rainurl
         this.rainSound = rain
+        rain.volume = 0.1
 
         const cart = new Audio()
         cart.src = carturl
         this.cartSound = cart
+        cart.volume = 0.4
 
         const drop = new Audio()
         drop.src = bading
         this.dropSound = drop
+        drop.volume = 0.5
     }
 
     playDropSound() {
@@ -88,12 +94,12 @@ export default class Sound {
     }
 
     playRainSound() {
-        this.rainSound.currentTime = 0
+        this.rainSound.currentTime = 39
         this.rainSound.play()
     }
 
     playCartSound() {
-        this.cartSound.currentTime = 0
+        this.cartSound.currentTime = 4
         this.cartSound.play()
     }
 }

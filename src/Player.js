@@ -377,7 +377,7 @@ export default class Player {
   }
 
   rain() {
-    //this.sound.playRainSound()
+    //his.sound.playRainSound()
 
     this.projectiles.push(
       new Rain(

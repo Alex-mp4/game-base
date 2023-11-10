@@ -10,7 +10,7 @@ export default class Cart extends Projectile {
         this.angle = angle
 
         this.speed = 250
-        this.damage = 4
+        this.damage = 1
 
         this.upgradeAmount = 0
         this.timer = 0

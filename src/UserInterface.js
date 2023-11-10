@@ -262,8 +262,8 @@ export default class UserInterface {
     else if (rollAffectedWeapon == 7) {
       if (this.game.cart.upgradeAmount == 0) { this.game.cart.interval = 2500 }
       else {
-        if (rollStatUpgrade == 0) { this.game.cart.interval -= 100 }
-        else if (rollStatUpgrade == 1) { this.game.cart.damage += 3 }
+        if (rollStatUpgrade == 0) { this.game.cart.interval -= 40 }
+        else if (rollStatUpgrade == 1) { this.game.cart.damage += 1 }
       }
       this.game.cart.upgradeAmount++
     }
