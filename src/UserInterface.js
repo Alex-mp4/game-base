@@ -13,6 +13,7 @@ export default class UserInterface {
     this.choiceButton1
     this.choiceButton2
     this.choiceButton3
+    this.skipButton
 
     window.addEventListener('mousedown', (event => {
       if (this.game.start === false) {
@@ -49,7 +50,7 @@ export default class UserInterface {
       }
     }))
     window.addEventListener('mousedown', (event => {
-      if (this.onButtonCheck(this.choiceButton4.x, this.choiceButton4.y, this.choiceButton4.width, this.choiceButton4.height)) {
+      if (this.onButtonCheck(this.skipButton.x, this.skipButton.y, this.skipButton.width, this.skipButton.height)) {
         this.game.choices = false
         this.game.pause = false
       }
@@ -173,7 +174,7 @@ export default class UserInterface {
         0,
         30
       )
-      this.choiceButton3 = new Button(
+      this.skipButton = new Button(
         this.game,
         context,
         this.game.width / 2 - 150,
