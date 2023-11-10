@@ -274,8 +274,8 @@ export default class Player {
     this.projectiles.push(
       new Radius(
         this.game,
-        x + this.width / 2,
-        y + this.height / 2
+        x + this.width / 2 - 5,
+        y + this.height / 2 - 5
       ))
   }
 
@@ -283,8 +283,8 @@ export default class Player {
     this.projectiles.push(
       new Radius(
         this.game,
-        x + this.width / 2 - (this.speedX * 20),
-        y + this.height / 2 - (this.speedY * 20)
+        x + this.width / 2 - (this.speedX * 20) - 5,
+        y + this.height / 2 - (this.speedY * 20) - 5
       ))
   }
 
@@ -292,26 +292,26 @@ export default class Player {
     this.projectiles.push(
       new Radius(
         this.game,
-        x + (this.width / 2 + 40),
-        y - (this.height / 2)
+        x + (this.width / 2 + 40) - 5,
+        y - (this.height / 2) - 5
       ))
     this.projectiles.push(
       new Radius(
         this.game,
-        x - (this.width / 2),
-        y + (this.height / 2 + 40)
+        x - (this.width / 2) - 5,
+        y + (this.height / 2 + 40) - 5
       ))
     this.projectiles.push(
       new Radius(
         this.game,
-        x - (this.width / 2),
-        y - (this.height / 2)
+        x - (this.width / 2) - 5,
+        y - (this.height / 2) - 5
       ))
     this.projectiles.push(
       new Radius(
         this.game,
-        x + (this.width / 2 + 40),
-        y + (this.height / 2 + 40)
+        x + (this.width / 2 + 40) - 5,
+        y + (this.height / 2 + 40) - 5
       ))
   }
 

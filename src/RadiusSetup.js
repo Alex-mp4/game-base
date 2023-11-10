@@ -12,7 +12,7 @@ export default class RadiusSetup extends Projectile {
 
         this.upgradeAmount = 0
         this.timer = 0
-        this.interval = 1000
+        this.interval = Infinity
 
         this.color = 'red'
         this.type = 'radiusSetup'

@@ -218,9 +218,9 @@ export default class UserInterface {
       this.game.slash.upgradeAmount++
     }
     else if (rollAffectedWeapon == 2) {
-      if (this.game.radius.upgradeAmount == 0) { this.game.radius.interval = 2500 }
+      if (this.game.radius.upgradeAmount == 0) { this.game.radiusSetup.interval = 2500 }
       else {
-        if (rollStatUpgrade == 0) { this.game.radius.interval -= 100 }
+        if (rollStatUpgrade == 0) { this.game.radiusSetup.interval -= 100 }
         else if (rollStatUpgrade == 1) { this.game.radius.damage += 2 }
       }
       this.game.radius.upgradeAmount++
