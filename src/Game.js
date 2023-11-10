@@ -12,6 +12,7 @@ import Projectile from './Projectile.js'
 import Shoot from './Shoot.js'
 import Slash from './Slash.js'
 import Radius from './Radius.js'
+import RadiusSetup from './RadiusSetup.js'
 import Boomerang from './Boomerang.js'
 import Bounce from './Bounce.js'
 import Plus from './Plus.js'
@@ -76,6 +77,7 @@ export default class Game {
     this.shoot = new Shoot(this)
     this.slash = new Slash(this)
     this.radius = new Radius(this)
+    this.radiusSetup = new RadiusSetup(this)
     this.boomerang = new Boomerang(this)
     this.bounce = new Bounce(this)
     this.plus = new Plus(this)
@@ -91,6 +93,8 @@ export default class Game {
     this.plusDamage = 0
     this.rainDamage = 0
     this.cartDamage = 0
+
+    this.startDrop = 0
   }
 
   update(deltaTime) {
@@ -105,6 +109,10 @@ export default class Game {
     }
 
     if (this.start) {
+      if (this.startDrop === 0) {
+        this.enemies.push(new Drop(this, this.player.x, this.player.y))
+        this.startDrop++
+      }
       // let boss1x = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
       // let boss1y = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
 
@@ -295,6 +303,11 @@ export default class Game {
                   enemy.lives -= this.radius.damage
                   this.radiusDamage += this.radius.damage
                 }
+                else if (projectile.type === 'radiusSetup') {
+                  this.player.radius(enemy.x, enemy.y)
+                  this.sound.playBombSound()
+                  projectile.markedForDeletion = true
+                }
                 else if (projectile.type === 'boomerang') {
                   enemy.lives -= this.boomerang.damage
                   this.boomerangDamage += this.boomerang.damage
@@ -374,18 +387,18 @@ export default class Game {
         this.slash.timer += deltaTime
       }
 
-      if (this.radius.timer > this.radius.interval) {
+      if (this.radiusSetup.timer > this.radiusSetup.interval) {
         if (this.radius.upgradeAmount >= 10) {
-          this.player.radius2(this.input.mouseX, this.input.mouseY)
+          this.player.radiusSetup2(this.input.mouseX, this.input.mouseY)
         }
         if (this.radius.upgradeAmount >= 30) {
-          this.player.radius3(this.input.mouseX, this.input.mouseY)
+          this.player.radiusSetup3(this.input.mouseX, this.input.mouseY)
         }
-        this.player.radius(this.input.mouseX, this.input.mouseY)
-        this.radius.timer = 0
+        this.player.radiusSetup(this.input.mouseX, this.input.mouseY)
+        this.radiusSetup.timer = 0
       }
       else {
-        this.radius.timer += deltaTime
+        this.radiusSetup.timer += deltaTime
       }
 
       if (this.boomerang.timer > this.boomerang.interval) {

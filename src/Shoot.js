@@ -14,7 +14,7 @@ export default class Shoot extends Projectile {
         this.damage = 10
 
         this.timer = 0
-        this.interval = 1000
+        this.interval = Infinity
 
         this.color = 'yellow'
         this.type = 'shoot'

@@ -1,6 +1,7 @@
 import Shoot from './Shoot.js'
 import Slash from './Slash.js'
 import Radius from './Radius.js'
+import RadiusSetup from './RadiusSetup.js'
 import Boomerang from './Boomerang.js'
 import Bounce from './Bounce.js'
 import Plus from './Plus.js'
@@ -260,50 +261,57 @@ export default class Player {
 
   }
 
-  radius() {
-    this.sound.playBombSound()
-
+  radiusSetup() {
     this.projectiles.push(
-      new Radius(
+      new RadiusSetup(
         this.game,
         this.x + this.width / 2,
-        this.y + this.height / 2
+        this.y + this.height / 2,
       ))
   }
 
-  radius2() {
+  radius(x, y) {
     this.projectiles.push(
       new Radius(
         this.game,
-        this.x + this.width / 2 - (this.speedX * 20),
-        this.y + this.height / 2 - (this.speedY * 20)
+        x + this.width / 2,
+        y + this.height / 2
       ))
   }
 
-  radius3() {
+  radius2(x, y) {
     this.projectiles.push(
       new Radius(
         this.game,
-        this.x + (this.width / 2 + 40),
-        this.y - (this.height / 2)
+        x + this.width / 2 - (this.speedX * 20),
+        y + this.height / 2 - (this.speedY * 20)
+      ))
+  }
+
+  radius3(x, y) {
+    this.projectiles.push(
+      new Radius(
+        this.game,
+        x + (this.width / 2 + 40),
+        y - (this.height / 2)
       ))
     this.projectiles.push(
       new Radius(
         this.game,
-        this.x - (this.width / 2),
-        this.y + (this.height / 2 + 40)
+        x - (this.width / 2),
+        y + (this.height / 2 + 40)
       ))
     this.projectiles.push(
       new Radius(
         this.game,
-        this.x - (this.width / 2),
-        this.y - (this.height / 2)
+        x - (this.width / 2),
+        y - (this.height / 2)
       ))
     this.projectiles.push(
       new Radius(
         this.game,
-        this.x + (this.width / 2 + 40),
-        this.y + (this.height / 2 + 40)
+        x + (this.width / 2 + 40),
+        y + (this.height / 2 + 40)
       ))
   }
 

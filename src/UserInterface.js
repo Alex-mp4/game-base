@@ -204,6 +204,7 @@ export default class UserInterface {
 
   upgrade(rollAffectedWeapon, rollStatUpgrade) {
     if (rollAffectedWeapon == 0) {
+      if (this.game.shoot.upgradeAmount == 0) { this.game.shoot.interval = 1000 }
       if (rollStatUpgrade == 0) { this.game.shoot.interval -= 50 }
       else if (rollStatUpgrade == 1) { this.game.shoot.damage += 5 }
       this.game.shoot.upgradeAmount++
