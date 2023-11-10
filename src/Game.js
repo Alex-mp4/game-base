@@ -311,6 +311,9 @@ export default class Game {
                   if (this.bounce.upgradeAmount >= 10) {
                     this.player.bounce(this.input.mouseX, this.input.mouseY, enemy.x, enemy.y)
                   }
+                  if (this.bounce.upgradeAmount >= 30) {
+                    this.player.bounce(this.input.mouseX, this.input.mouseY, enemy.x, enemy.y)
+                  }
                 }
                 else if (projectile.type === 'plus') {
                   enemy.lives -= this.plus.damage
@@ -342,6 +345,11 @@ export default class Game {
           this.player.shoot(this.input.mouseX, this.input.mouseY)
         }
       }
+      if (this.shoot.upgradeAmount >= 30) {
+        if (this.shoot.timer + 60 > this.shoot.interval) {
+          this.player.shoot(this.input.mouseX, this.input.mouseY)
+        }
+      }
       if (this.shoot.timer > this.shoot.interval) {
         this.player.shoot(this.input.mouseX, this.input.mouseY)
         this.shoot.timer = 0
@@ -351,7 +359,10 @@ export default class Game {
       }
 
       if (this.slash.timer > this.slash.interval) {
-        if (this.slash.upgradeAmount >= 10) {
+        if (this.slash.upgradeAmount >= 30) {
+          this.player.slash3(this.input.mouseX, this.input.mouseY)
+        }
+        else if (this.slash.upgradeAmount >= 10) {
           this.player.slash2(this.input.mouseX, this.input.mouseY)
         }
         else {
@@ -367,6 +378,9 @@ export default class Game {
         if (this.radius.upgradeAmount >= 10) {
           this.player.radius2(this.input.mouseX, this.input.mouseY)
         }
+        if (this.radius.upgradeAmount >= 30) {
+          this.player.radius3(this.input.mouseX, this.input.mouseY)
+        }
         this.player.radius(this.input.mouseX, this.input.mouseY)
         this.radius.timer = 0
       }
@@ -376,6 +390,9 @@ export default class Game {
 
       if (this.boomerang.timer > this.boomerang.interval) {
         this.player.boomerang(this.input.mouseX, this.input.mouseY)
+        if (this.boomerang.upgradeAmount >= 30) {
+          this.player.boomerang3(this.input.mouseX, this.input.mouseY)
+        }
         this.boomerang.timer = 0
       }
       else {
@@ -395,6 +412,9 @@ export default class Game {
         if (this.plus.upgradeAmount >= 10) {
           this.player.plus2(this.input.mouseX, this.input.mouseY)
         }
+        if (this.plus.upgradeAmount >= 30) {
+          this.player.plus3(this.input.mouseX, this.input.mouseY)
+        }
         this.plus.timer = 0
       }
       else {
@@ -407,6 +427,11 @@ export default class Game {
         if (this.rain.upgradeAmount >= 10) {
           this.player.rain2()
         }
+        if (this.rain.upgradeAmount >= 30) {
+          this.player.rain2()
+          this.player.rain2()
+          this.player.rain2()
+        }
       }
       else {
         this.rain.timer += deltaTime
@@ -417,6 +442,9 @@ export default class Game {
         this.cart.timer = 0
         if (this.cart.upgradeAmount >= 10) {
           this.player.cart2()
+        }
+        if (this.cart.upgradeAmount >= 30) {
+          this.player.cart3()
         }
       }
       else {

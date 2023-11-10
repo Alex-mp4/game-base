@@ -240,6 +240,26 @@ export default class Player {
 
   }
 
+  slash3(mouseX, mouseY) {
+    this.sound.playSlashSound()
+
+    // get angle between player and mouse
+    const angle = Math.atan2(
+      mouseY - (this.y + this.height / 2),
+      mouseX - (this.x + this.width / 2)
+    )
+
+    this.projectiles.push(
+      new Slash(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        angle,
+        5000
+      ))
+
+  }
+
   radius() {
     this.sound.playBombSound()
 
@@ -260,6 +280,33 @@ export default class Player {
       ))
   }
 
+  radius3() {
+    this.projectiles.push(
+      new Radius(
+        this.game,
+        this.x + (this.width / 2 + 40),
+        this.y - (this.height / 2)
+      ))
+    this.projectiles.push(
+      new Radius(
+        this.game,
+        this.x - (this.width / 2),
+        this.y + (this.height / 2 + 40)
+      ))
+    this.projectiles.push(
+      new Radius(
+        this.game,
+        this.x - (this.width / 2),
+        this.y - (this.height / 2)
+      ))
+    this.projectiles.push(
+      new Radius(
+        this.game,
+        this.x + (this.width / 2 + 40),
+        this.y + (this.height / 2 + 40)
+      ))
+  }
+
   boomerang(mouseX, mouseY) {
     this.sound.playBoomerangSound()
 
@@ -276,7 +323,24 @@ export default class Player {
         this.y + this.height / 2,
         angle
       ))
+  }
 
+  boomerang3(mouseX, mouseY) {
+    this.sound.playBoomerangSound()
+
+    // get angle between player and mouse
+    const angle = Math.atan2(
+      mouseY - (this.y + this.height / 2),
+      mouseX - (this.x + this.width / 2)
+    )
+
+    this.projectiles.push(
+      new Boomerang(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        angle + 3.15
+      ))
   }
 
   bounce(mouseX, mouseY, x, y) {
@@ -376,6 +440,65 @@ export default class Player {
       ))
   }
 
+  plus3() {
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        0.39375
+      ))
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        -0.39375
+      ))
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        1.18125
+      ))
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        -1.18125
+      ))
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        1.96875
+      ))
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        -1.96875
+      ))
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        2.75625
+      ))
+    this.projectiles.push(
+      new Plus(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        -2.75625
+      ))
+  }
+
   rain() {
     //his.sound.playRainSound()
 
@@ -455,6 +578,40 @@ export default class Player {
         angle
       ))
 
+  }
+
+  cart3() {
+    let angleY
+    let angleX
+
+    if (this.speedY > 0) {
+      angleY = -1.575
+    }
+    else {
+      angleY = 1.575
+    }
+
+    if (this.speedX > 0) {
+      angleX = 3.15
+    }
+    else {
+      angleX = 0
+    }
+
+    this.projectiles.push(
+      new Cart(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        angleY
+      ))
+    this.projectiles.push(
+      new Cart(
+        this.game,
+        this.x + this.width / 2,
+        this.y + this.height / 2,
+        angleX
+      ))
   }
 }
 
