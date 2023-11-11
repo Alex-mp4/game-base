@@ -1,5 +1,5 @@
 import Enemy from './Enemy.js'
-import VampireSprite from '../src/assets/sprites/Sprite-XLMAGIO.webp'
+import Preload from './Preload.js'
 
 export default class Vampire extends Enemy {
     constructor(game, x, y) {
@@ -13,9 +13,7 @@ export default class Vampire extends Enemy {
         this.color = 'red'
         this.type = 'vampire'
 
-        const sprite = new Image()
-        sprite.src = VampireSprite
-        this.sprite = sprite
+        this.preload = new Preload(this.game)
 
         this.frameX = 0
         this.frameY = 1
@@ -48,7 +46,7 @@ export default class Vampire extends Enemy {
         }
 
         context.drawImage(
-            this.sprite,
+            this.preload.vampireSprite,
             this.frameX * this.width,
             this.frameY * this.height - 42,
             this.width,

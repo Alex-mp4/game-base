@@ -1,5 +1,5 @@
 import Enemy from './Enemy.js'
-import WarewolfSprite from '../src/assets/sprites/Sprite-WEREWOLF.webp'
+import Preload from './Preload.js'
 
 export default class Warewolf extends Enemy {
     constructor(game, x, y) {
@@ -13,9 +13,7 @@ export default class Warewolf extends Enemy {
         this.color = 'brown'
         this.type = 'warewolf'
 
-        const sprite = new Image()
-        sprite.src = WarewolfSprite
-        this.sprite = sprite
+        this.preload = new Preload(this.game)
 
         this.frameX = 0
         this.frameY = 1
@@ -48,7 +46,7 @@ export default class Warewolf extends Enemy {
         }
 
         context.drawImage(
-            this.sprite,
+            this.preload.warewolfSprite,
             this.frameX * this.width,
             this.frameY * this.height - 36,
             this.width,

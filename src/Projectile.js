@@ -20,6 +20,15 @@ export default class Projectile {
     if (this.x > this.game.width) {
       this.markedForDeletion = true
     }
+    if (this.x < -200) {
+      this.markedForDeletion = true
+    }
+    if (this.y > this.game.height) {
+      this.markedForDeletion = true
+    }
+    if (this.y < -200) {
+      this.markedForDeletion = true
+    }
   }
 
   draw(context) {

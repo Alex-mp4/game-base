@@ -39,7 +39,7 @@ export default class Game {
     this.pause = false
     this.start = false
 
-    this.gameTime = 0
+    this.gameTime = 500000
     this.timeout
     this.pity = 0
     this.dropChance
@@ -135,8 +135,8 @@ export default class Game {
       // }
 
       this.dropChance = (Math.pow(0.0000016 * this.gameTime, 2) * -1 + 0.3)
-      if (this.dropChance < 0.06) {
-        this.dropChance = 0.06
+      if (this.dropChance < 0.014) {
+        this.dropChance = 0.014
       }
 
       this.pumpkinInterval = (Math.pow((0.00003 * this.gameTime) - 2, 2) + 12) * 180

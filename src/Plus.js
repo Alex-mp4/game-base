@@ -10,11 +10,11 @@ export default class Plus extends Projectile {
         this.angle = angle
 
         this.speed = 450
-        this.damage = 6
+        this.damage = 20
 
-        this.upgradeAmount = 0
+        this.upgradeAmount = 30
         this.timer = 0
-        this.interval = Infinity
+        this.interval = 100
 
         this.color = 'cyan'
         this.type = 'plus'
@@ -33,6 +33,12 @@ export default class Plus extends Projectile {
             this.markedForDeletion = true
         }
         if (this.x < -200) {
+            this.markedForDeletion = true
+        }
+        if (this.y > this.game.height) {
+            this.markedForDeletion = true
+        }
+        if (this.y < -200) {
             this.markedForDeletion = true
         }
     }

@@ -1,5 +1,5 @@
 import Enemy from './Enemy'
-import BoxSprite from '../src/assets/sprites/Icon-Candybox.webp'
+import Preload from './Preload'
 
 export default class Drop extends Enemy {
   constructor(game, x, y) {
@@ -13,9 +13,7 @@ export default class Drop extends Enemy {
     this.color = '#0f0'
     this.type = 'drop'
 
-    const sprite = new Image()
-    sprite.src = BoxSprite
-    this.sprite = sprite
+    this.preload = new Preload(this.game)
 
     this.frameX = 0
     this.frameY = 1
@@ -32,7 +30,7 @@ export default class Drop extends Enemy {
     }
 
     context.drawImage(
-      this.sprite,
+      this.preload.dropSprite,
       this.frameX * this.width,
       this.frameY * this.height - 24,
       this.width,

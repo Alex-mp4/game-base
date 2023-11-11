@@ -35,5 +35,11 @@ export default class Shoot extends Projectile {
         if (this.x < -200) {
             this.markedForDeletion = true
         }
+        if (this.y > this.game.height) {
+            this.markedForDeletion = true
+        }
+        if (this.y < -200) {
+            this.markedForDeletion = true
+        }
     }
 }

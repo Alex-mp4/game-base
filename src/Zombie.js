@@ -1,5 +1,5 @@
 import Enemy from './Enemy.js'
-import ZombieSprite from '../src/assets/sprites/Sprite-MUDMAN1.webp'
+import Preload from './Preload.js'
 
 export default class Zombie extends Enemy {
     constructor(game, x, y) {
@@ -13,9 +13,7 @@ export default class Zombie extends Enemy {
         this.color = 'green'
         this.type = 'zombie'
 
-        const sprite = new Image()
-        sprite.src = ZombieSprite
-        this.sprite = sprite
+        this.preload = new Preload(this.game)
 
         this.frameX = 0
         this.frameY = 1
@@ -55,7 +53,7 @@ export default class Zombie extends Enemy {
         }
 
         context.drawImage(
-            this.sprite,
+            this.preload.zombieSprite,
             this.frameX * this.width,
             this.frameY * this.height - 32,
             this.width,

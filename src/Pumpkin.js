@@ -1,5 +1,5 @@
 import Enemy from './Enemy.js'
-import SkullSprite from '../src/assets/sprites/Sprite-SKULLINO.webp'
+import Preload from './Preload.js'
 
 export default class Pumpkin extends Enemy {
   constructor(game, x, y) {
@@ -13,9 +13,7 @@ export default class Pumpkin extends Enemy {
     this.color = 'orange'
     this.type = 'pumpkin'
 
-    const sprite = new Image()
-    sprite.src = SkullSprite
-    this.sprite = sprite
+    this.preload = new Preload(this.game)
 
     this.frameX = 0
     this.frameY = 1
@@ -48,7 +46,7 @@ export default class Pumpkin extends Enemy {
     }
 
     context.drawImage(
-      this.sprite,
+      this.preload.skullSprite,
       this.frameX * this.width,
       this.frameY * this.height - 32,
       this.width,

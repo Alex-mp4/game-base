@@ -1,5 +1,6 @@
 import Enemy from './Enemy.js'
 import GremlinSprite from '../src/assets/sprites/Sprite-FS_GOBLIN.png'
+import Preload from './Preload.js'
 
 export default class Gremlin extends Enemy {
     constructor(game, x, y) {
@@ -13,9 +14,7 @@ export default class Gremlin extends Enemy {
         this.color = 'green'
         this.type = 'gremlin'
 
-        const sprite = new Image()
-        sprite.src = GremlinSprite
-        this.sprite = sprite
+        this.preload = new Preload(this.game)
 
         this.frameX = 0
         this.frameY = 1
@@ -55,7 +54,7 @@ export default class Gremlin extends Enemy {
         }
 
         context.drawImage(
-            this.sprite,
+            this.preload.gremlinSprite,
             this.frameX * this.width,
             this.frameY * this.height - 22,
             this.width,
