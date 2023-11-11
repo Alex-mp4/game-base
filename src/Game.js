@@ -39,7 +39,7 @@ export default class Game {
     this.pause = false
     this.start = false
 
-    this.gameTime = 500000
+    this.gameTime = 0
     this.timeout
     this.pity = 0
     this.dropChance

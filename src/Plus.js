@@ -10,11 +10,11 @@ export default class Plus extends Projectile {
         this.angle = angle
 
         this.speed = 450
-        this.damage = 20
+        this.damage = 6
 
-        this.upgradeAmount = 30
+        this.upgradeAmount = 0
         this.timer = 0
-        this.interval = 100
+        this.interval = Infinity
 
         this.color = 'cyan'
         this.type = 'plus'
