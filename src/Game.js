@@ -146,11 +146,11 @@ export default class Game {
       this.gremlinInterval = (Math.pow((0.00007 * this.gameTime) - 16, 2) + 8) * 60
 
       if (this.gameTime > 300000) {
-        this.pumpkinInterval = 200 / (0.000001 * this.gameTime)
-        this.vampireInterval = 200 / (0.000001 * this.gameTime)
-        this.warewolfInterval = 200 / (0.000001 * this.gameTime)
-        this.zombieInterval = 200 / (0.000001 * this.gameTime)
-        this.gremlinInterval = 200 / (0.000001 * this.gameTime)
+        this.pumpkinInterval = 200 / (0.000003 * this.gameTime)
+        this.vampireInterval = 200 / (0.000003 * this.gameTime)
+        this.warewolfInterval = 200 / (0.000003 * this.gameTime)
+        this.zombieInterval = 200 / (0.000003 * this.gameTime)
+        this.gremlinInterval = 200 / (0.000003 * this.gameTime)
       }
 
       let pumpkinx = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
