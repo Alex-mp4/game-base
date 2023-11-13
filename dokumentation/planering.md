@@ -46,6 +46,9 @@ Balancing (weapon damage on first pickup)
 Z-index on UI
 Damage counter
 
+Sprites for projectiles
+Titlescreen and title
+More pleasant UI (buttons and menu)
 Boss with unique patterns (for example, shows it going back and then it boosts forward or having a distinct path/covering part of the screen)
 
 
