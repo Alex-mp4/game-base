@@ -24,7 +24,7 @@ export default class Player {
 
     this.speedX = 0
     this.speedY = 0
-    this.maxSpeed = 130
+    this.maxSpeed = 140
 
     this.lives = 20
 
