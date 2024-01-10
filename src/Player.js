@@ -24,7 +24,7 @@ export default class Player {
 
     this.speedX = 0
     this.speedY = 0
-    this.maxSpeed = 3
+    this.maxSpeed = 130
 
     this.lives = 20
 
@@ -66,15 +66,13 @@ export default class Player {
     // }
 
 
-    if (this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a')) {
+    if (this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a') || this.game.keys.includes('A')) {
       this.speedX = -this.maxSpeed
       if (this.x < 0) {
         this.speedX += this.maxSpeed
       }
     } else if (
-      this.game.keys.includes('ArrowRight') ||
-      this.game.keys.includes('d')
-    ) {
+      this.game.keys.includes('ArrowRight') || this.game.keys.includes('d') || this.game.keys.includes('D')) {
       this.speedX = this.maxSpeed
       if (this.x > (this.game.width - this.width)) {
         this.speedX -= this.maxSpeed
@@ -83,15 +81,13 @@ export default class Player {
       this.speedX = 0
     }
 
-    if (this.game.keys.includes('ArrowUp') || this.game.keys.includes('w')) {
+    if (this.game.keys.includes('ArrowUp') || this.game.keys.includes('w') || this.game.keys.includes('W')) {
       this.speedY = -this.maxSpeed
       if (this.y < 0) {
         this.speedY += this.maxSpeed
       }
     } else if (
-      this.game.keys.includes('ArrowDown') ||
-      this.game.keys.includes('s')
-    ) {
+      this.game.keys.includes('ArrowDown') || this.game.keys.includes('s') || this.game.keys.includes('S')) {
       this.speedY = this.maxSpeed
       if (this.y > (this.game.height - this.height)) {
         this.speedY -= this.maxSpeed
@@ -109,8 +105,8 @@ export default class Player {
       this.image = this.idle.image
     }
 
-    this.y += this.speedY
-    this.x += this.speedX
+    this.y += this.speedY * (deltaTime / 1000)
+    this.x += this.speedX * (deltaTime / 1000)
 
     // projectiles
     this.projectiles.forEach((projectile) => {
